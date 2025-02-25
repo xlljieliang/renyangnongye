@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>农业认养平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.news-scroll {
+animation: scroll 20s linear infinite;
+}
+@keyframes scroll {
+0% { transform: translateX(100%); }
+100% { transform: translateX(-100%); }
+}
+</style>
+</head>
+<body class="bg-gray-50 font-['SimSun']">
+<div class="relative w-[375px] min-h-[762px] mx-auto bg-white overflow-hidden">
+<div class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-sm">
+<div class="flex items-center justify-between px-4 h-12">
+<img src="https://static.readdy.ai/image/7322974857bc51e534b865276e72c961/664868ee4b960b8a17724aad3738b0ce.png" alt="logo" class="h-8">
+<div class="w-8 h-8 flex items-center justify-center cursor-pointer" onclick="window.location.href='cart.html'">
+<i class="ri-shopping-cart-line text-xl"></i>
+</div>
+</div>
+</div>
+<div class="mt-12 relative">
+<div class="w-full h-48 overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/dba45cdbaa86cd789591e76a04559f18.jpg" class="w-full h-full object-cover cursor-pointer" alt="农场游戏入口" onclick="window.location.href='#'">
+</div>
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 max-w-[80%]">
+<div class="text-sm font-medium">发展认养农业 让"一亩田"成新机遇</div>
+<div class="text-xs text-gray-500 mt-1">16:00 农业资讯</div>
+</div>
+</div>
+<div class="overflow-x-auto px-4 mt-6">
+<div class="grid grid-cols-5 gap-4" style="width: 800px">
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/ba289135f0b6bbd0bd24122e0e847ba9.jpg" class="w-full h-full object-cover" alt="蔬菜">
+</div>
+<div class="text-center text-sm font-['SimSun']">蔬菜认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/33284a716681bdb8bb11a5c269f814aa.jpg" class="w-full h-full object-cover" alt="果树">
+</div>
+<div class="text-center text-sm font-['SimSun']">果树认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/cb4cba26d1b468933f23d4c4d399c3bb.jpg" class="w-full h-full object-cover" alt="家禽">
+</div>
+<div class="text-center text-sm font-['SimSun']">家禽认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/33a250bfa8ad65cd4cd635de7a150341.jpg" class="w-full h-full object-cover" alt="牲畜">
+</div>
+<div class="text-center text-sm font-['SimSun']">牲畜认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/ffaf6dc0d243f3a48a30573d21d17dd0.jpg" class="w-full h-full object-cover" alt="花卉">
+</div>
+<div class="text-center text-sm font-['SimSun']">花卉认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/f19119067b17b1fb6fba09b898ba14fd.jpg" class="w-full h-full object-cover" alt="水产">
+</div>
+<div class="text-center text-sm font-['SimSun']">水产认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/e7da6354aa3f5f014005d38cb699a9d6.jpg" class="w-full h-full object-cover" alt="谷类">
+</div>
+<div class="text-center text-sm font-['SimSun']">谷类认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/8ae0695367e014b67f018ca8de44a2cd.jpg" class="w-full h-full object-cover" alt="茶园">
+</div>
+<div class="text-center text-sm font-['SimSun']">茶园认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/ae782a42b3ca7783d678571430c5f19b.jpg" class="w-full h-full object-cover" alt="蜜蜂">
+</div>
+<div class="text-center text-sm font-['SimSun']">蜜蜂认养</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm hover:bg-secondary transition-colors duration-300">
+<div class="w-full h-24 rounded-lg overflow-hidden mb-2">
+<img src="https://public.readdy.ai/ai/img_res/926cfef947866e31fdfe5c171af3f3ea.jpg" class="w-full h-full object-cover" alt="中药材">
+</div>
+<div class="text-center text-sm font-['SimSun']">中药材认养</div>
+</div>
+</div>
+</div>
+
+<div class="fixed bottom-0 w-full bg-white border-t">
+<div class="grid grid-cols-5 py-1">
+<div class="flex flex-col items-center justify-center text-primary">
+<a href="4.1首页.html" class="ri-home-5-fill text-xl"></a>
+<a href="4.1首页.html" class="text-xs mt-1">首页</a>
+</div>
+<div class="flex flex-col items-center justify-center text-gray-400">
+<a href="9-知识库.html" class="ri-book-2-line text-xl"></a>
+<a href="9-知识库.html" class="text-xs mt-1">知识库</a>
+</div>
+<div class="flex flex-col items-center justify-center text-gray-400">
+<a href="10-搜索1.html" class="ri-search-line text-xl"></a>
+<a href="10-搜索1.html" class="text-xs mt-1">搜索</a>
+</div>
+<div class="flex flex-col items-center justify-center text-gray-400">
+<a href="10.3-社区1.html" class="ri-team-line text-xl"></a>
+<a href="10.3-社区1.html" class="text-xs mt-1">社区</a>
+</div>
+<div class="flex flex-col items-center justify-center text-gray-400">
+<a href="12-我的.html" class="ri-user-line text-xl"></a>
+<a href="12-我的.html" class="text-xs mt-1">我的</a>
+</div>
+</div>
+</div>
+<div class="fixed bottom-16 left-0 w-full bg-secondary py-2 px-4">
+<div class="flex items-center text-primary cursor-pointer" onclick="showNotification()">
+<i class="ri-notification-2-line mr-2"></i>
+<div class="news-scroll whitespace-nowrap text-sm">
+好消息：蔬菜认养产品上新啦！！！
+</div>
+</div>
+</div>
+</div>
+<div id="notification-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+<div class="bg-white w-[320px] rounded-lg overflow-hidden">
+<div class="flex items-center justify-between px-4 py-3 border-b">
+<div class="text-lg font-medium">系统通知</div>
+<div class="w-8 h-8 flex items-center justify-center cursor-pointer" onclick="hideNotification()">
+<i class="ri-close-line text-xl"></i>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-start mb-4">
+<div class="w-10 h-10 flex items-center justify-center bg-secondary rounded-full mr-3">
+<i class="ri-notification-3-fill text-xl text-primary"></i>
+</div>
+<div>
+<div class="font-medium">蔬菜认养产品上新</div>
+<div class="text-gray-500 text-sm mt-1">2025-02-22 09:18</div>
+</div>
+</div>
+<div class="text-sm text-gray-600 leading-relaxed">
+亲爱的用户，我们的蔬菜认养产品已经上新啦！本次新增有机蔬菜认养地块10块，包括：有机西红柿、有机黄瓜、有机生菜等多个品类。认养后可以收到新鲜蔬菜直送，还可以随时查看种植进度，欢迎选购！
+</div>
+</div>
+<div class="flex border-t">
+<button class="flex-1 py-3 text-gray-500 border-r" onclick="hideNotification()">稍后查看</button>
+<button class="flex-1 py-3 text-primary" onclick="window.location.href='#'">立即查看</button>
+</div>
+</div>
+</div>
+<script>
+function showNotification() {
+document.getElementById('notification-modal').style.display = 'flex';
+}
+function hideNotification() {
+document.getElementById('notification-modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

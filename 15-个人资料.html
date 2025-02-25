@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>个人资料</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+background: linear-gradient(180deg, #E8F5E9 0%, #FFFFFF 100%);
+font-family: "PingFang SC", "Microsoft YaHei", SimSun, serif;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] min-h-screen mx-auto bg-gradient-to-b from-secondary to-white text-gray-800">
+<nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 px-4 py-3 flex items-center justify-between">
+<button class="w-8 h-8 flex items-center justify-center" onclick="history.back()">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</nav>
+<main class="pt-16 pb-6 px-4">
+<div class="flex flex-col items-center mb-6">
+<div class="relative w-24 h-24 mb-4">
+<img src="https://public.readdy.ai/ai/img_res/d9cd0ca8817f470b7e107fd7eae9c8ea.jpg"
+alt="头像"
+class="w-full h-full rounded-full object-cover border-4 border-white shadow-lg">
+<div class="absolute -bottom-1 -right-1 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-md cursor-pointer" onclick="uploadAvatar()">
+<i class="ri-camera-line text-white"></i>
+<input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="handleAvatarChange(event)">
+</div>
+<script>
+function uploadAvatar() {
+document.getElementById('avatarInput').click();
+}
+function handleAvatarChange(event) {
+const file = event.target.files[0];
+if (file) {
+const reader = new FileReader();
+reader.onload = function(e) {
+document.querySelector('img[alt="头像"]').src = e.target.result;
+}
+reader.readAsDataURL(file);
+}
+}
+</script>
+</div>
+<div class="flex gap-4 w-full justify-center mb-6">
+<button class="flex-1 py-2 px-3 bg-white rounded-lg shadow-sm flex items-center justify-center gap-2" onclick="uploadAvatar()">
+<i class="ri-image-edit-line text-primary"></i>
+<span class="text-sm">更换头像</span>
+</button>
+<button class="flex-1 py-2 px-3 bg-white rounded-lg shadow-sm flex items-center justify-center gap-2">
+<i class="ri-shield-check-line text-primary"></i>
+<span class="text-sm">头像认证</span>
+</button>
+</div>
+<div class="w-full bg-white rounded-xl p-4 shadow-sm mb-4">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="text-lg font-medium">小麦农场主</span>
+<i class="ri-verified-badge-fill text-primary"></i>
+</div>
+<span class="text-xs text-gray-500">Lv.5</span>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-1 bg-secondary text-primary text-xs rounded-full">认养达人</span>
+<span class="px-2 py-1 bg-secondary text-primary text-xs rounded-full">有机种植</span>
+</div>
+<button class="w-full py-2 bg-primary/10 text-primary rounded-lg text-sm !rounded-button">
+申请认证
+</button>
+</div>
+<div class="w-full bg-white rounded-xl shadow-sm divide-y divide-gray-100">
+<div class="p-4 flex items-center justify-between cursor-pointer" onclick="editBio()">
+<span class="text-gray-600">简介</span>
+<div class="flex items-center text-gray-400">
+<span id="bioText">热爱自然，专注有机种植</span>
+<i class="ri-arrow-right-s-line ml-1"></i>
+</div>
+</div>
+<div id="bioModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div class="bg-white w-[90%] rounded-xl p-4">
+<div class="text-lg font-medium mb-4">编辑简介</div>
+<textarea id="bioInput" class="w-full h-32 p-3 border rounded-lg resize-none mb-4" placeholder="请输入简介">热爱自然，专注有机种植</textarea>
+<div class="flex gap-3">
+<button onclick="closeBioModal()" class="flex-1 py-2 px-4 border border-gray-200 rounded-button">取消</button>
+<button onclick="saveBio()" class="flex-1 py-2 px-4 bg-primary text-white rounded-button">保存</button>
+</div>
+</div>
+</div>
+<script>
+function editBio() {
+const modal = document.getElementById('bioModal');
+const input = document.getElementById('bioInput');
+const currentBio = document.getElementById('bioText').textContent;
+input.value = currentBio;
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+}
+function closeBioModal() {
+const modal = document.getElementById('bioModal');
+modal.classList.remove('flex');
+modal.classList.add('hidden');
+}
+function saveBio() {
+const input = document.getElementById('bioInput');
+const bioText = document.getElementById('bioText');
+bioText.textContent = input.value;
+closeBioModal();
+}
+</script>
+<div class="p-4 flex items-center justify-between cursor-pointer" onclick="showGenderModal()">
+<span class="text-gray-600">性别</span>
+<div class="flex items-center text-gray-400">
+<span id="genderText">女</span>
+<i class="ri-arrow-right-s-line ml-1"></i>
+</div>
+</div>
+<div id="genderModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div class="bg-white w-[90%] rounded-xl p-4">
+<div class="text-lg font-medium mb-4">选择性别</div>
+<div class="flex flex-col gap-3">
+<button onclick="selectGender('男')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">男</button>
+<button onclick="selectGender('女')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">女</button>
+</div>
+<button onclick="closeGenderModal()" class="w-full mt-3 py-2 px-4 bg-primary text-white rounded-button">关闭</button>
+</div>
+</div>
+<script>
+function showGenderModal() {
+const modal = document.getElementById('genderModal');
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+}
+function closeGenderModal() {
+const modal = document.getElementById('genderModal');
+modal.classList.remove('flex');
+modal.classList.add('hidden');
+}
+function selectGender(gender) {
+const genderText = document.getElementById('genderText');
+genderText.textContent = gender;
+const avatar = document.querySelector('img[alt="头像"]');
+if(gender === '男') {
+avatar.src = "https://public.readdy.ai/ai/img_res/2f655ea71c39866738908e50bc642188.jpg";
+} else {
+avatar.src = "https://readdy.ai/api/search-image?query=cute20farm20girl20avatar20icon,20minimalist20illustration,20green20theme,20centered20composition&width=200&height=200&orientation=squarish";
+}
+closeGenderModal();
+}
+</script>
+<div class="p-4 flex items-center justify-between cursor-pointer" onclick="showBirthdayModal()">
+<span class="text-gray-600">生日</span>
+<div class="flex items-center text-gray-400">
+<span id="birthdayText">1995-06-15</span>
+<i class="ri-arrow-right-s-line ml-1"></i>
+</div>
+</div>
+<div id="birthdayModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div class="bg-white w-[90%] rounded-xl p-4">
+<div class="text-lg font-medium mb-4">选择生日</div>
+<input type="date" id="birthdayInput" class="w-full p-3 border rounded-lg mb-4" value="1995-06-15">
+<div class="flex gap-3">
+<button onclick="closeBirthdayModal()" class="flex-1 py-2 px-4 border border-gray-200 rounded-button">取消</button>
+<button onclick="saveBirthday()" class="flex-1 py-2 px-4 bg-primary text-white rounded-button">保存</button>
+</div>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between cursor-pointer" onclick="showLocationModal()">
+<span class="text-gray-600">所在地</span>
+<div class="flex items-center text-gray-400">
+<span id="locationText">浙江省杭州市</span>
+<i class="ri-arrow-right-s-line ml-1"></i>
+</div>
+</div>
+<div id="locationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div class="bg-white w-[90%] rounded-xl p-4">
+<div class="text-lg font-medium mb-4">选择所在地</div>
+<select id="provinceSelect" class="w-full p-3 border rounded-lg mb-3" onchange="updateCities()">
+<option value="浙江省">浙江省</option>
+<option value="江苏省">江苏省</option>
+<option value="广东省">广东省</option>
+</select>
+<select id="citySelect" class="w-full p-3 border rounded-lg mb-4">
+<option value="杭州市">杭州市</option>
+<option value="宁波市">宁波市</option>
+<option value="温州市">温州市</option>
+</select>
+<div class="flex gap-3">
+<button onclick="closeLocationModal()" class="flex-1 py-2 px-4 border border-gray-200 rounded-button">取消</button>
+<button onclick="saveLocation()" class="flex-1 py-2 px-4 bg-primary text-white rounded-button">保存</button>
+</div>
+</div>
+</div>
+<script>
+// 生日相关函数
+function showBirthdayModal() {
+const modal = document.getElementById('birthdayModal');
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+}
+function closeBirthdayModal() {
+const modal = document.getElementById('birthdayModal');
+modal.classList.remove('flex');
+modal.classList.add('hidden');
+}
+function saveBirthday() {
+const input = document.getElementById('birthdayInput');
+const birthdayText = document.getElementById('birthdayText');
+birthdayText.textContent = input.value;
+closeBirthdayModal();
+}
+// 所在地相关函数
+const cityData = {
+'浙江省': ['杭州市', '宁波市', '温州市', '嘉兴市', '湖州市'],
+'江苏省': ['南京市', '苏州市', '无锡市', '常州市', '南通市'],
+'广东省': ['广州市', '深圳市', '珠海市', '佛山市', '东莞市']
+};
+function showLocationModal() {
+const modal = document.getElementById('locationModal');
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+}
+function closeLocationModal() {
+const modal = document.getElementById('locationModal');
+modal.classList.remove('flex');
+modal.classList.add('hidden');
+}
+function updateCities() {
+const province = document.getElementById('provinceSelect').value;
+const citySelect = document.getElementById('citySelect');
+citySelect.innerHTML = '';
+cityData[province].forEach(city => {
+const option = document.createElement('option');
+option.value = city;
+option.textContent = city;
+citySelect.appendChild(option);
+});
+}
+function saveLocation() {
+const province = document.getElementById('provinceSelect').value;
+const city = document.getElementById('citySelect').value;
+const locationText = document.getElementById('locationText');
+locationText.textContent = province + city;
+closeLocationModal();
+}
+</script>
+<div class="p-4 flex items-center justify-between">
+<span class="text-gray-600">认养经验</span>
+<div class="flex items-center text-gray-400">
+<span id="experienceYears"></span>
+<i class="ri-arrow-right-s-line ml-1"></i>
+</div>
+</div>
+<script>
+function calculateExperience() {
+const registerDate = new Date('2023-02-22');
+const today = new Date();
+const diffTime = Math.abs(today - registerDate);
+const diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
+const diffMonths = Math.floor((diffTime % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+let experienceText = '';
+if (diffYears > 0) {
+experienceText += `${diffYears} 年`;
+if (diffMonths > 0) {
+experienceText += ` ${diffMonths} 个月`;
+}
+} else if (diffMonths > 0) {
+experienceText = `${diffMonths} 个月`;
+} else {
+experienceText = '刚刚加入';
+}
+document.getElementById('experienceYears').textContent = experienceText;
+}
+calculateExperience();
+</script>
+</div>
+<div class="w-full bg-white rounded-xl shadow-sm mt-4 p-4">
+<div class="grid grid-cols-3 gap-4">
+<div class="text-center">
+<div class="text-lg font-medium">238</div>
+<div class="text-sm text-gray-500">关注</div>
+</div>
+<div class="text-center">
+<div class="text-lg font-medium">1,664</div>
+<div class="text-sm text-gray-500">粉丝</div>
+</div>
+<div class="text-center">
+<div class="text-lg font-medium">8,459</div>
+<div class="text-sm text-gray-500">获赞</div>
+</div>
+</div>
+</div>
+<div class="w-full bg-white rounded-xl shadow-sm mt-4 divide-y divide-gray-100">
+<div class="p-4 flex items-center justify-between">
+<span class="text-gray-600">教育信息</span>
+<button class="text-primary" onclick="showEducationModal()">添加</button>
+</div>
+<div id="educationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div class="bg-white w-[90%] rounded-xl p-4">
+<div class="text-lg font-medium mb-4">添加教育信息</div>
+<div class="mb-4">
+<label class="block text-sm text-gray-600 mb-2">学校名称</label>
+<input type="text" id="schoolInput" class="w-full p-3 border rounded-lg" placeholder="请输入学校名称">
+</div>
+<div class="mb-4">
+<label class="block text-sm text-gray-600 mb-2">专业名称</label>
+<input type="text" id="majorInput" class="w-full p-3 border rounded-lg" placeholder="请输入专业名称">
+</div>
+<div class="mb-4">
+<label class="block text-sm text-gray-600 mb-2">学历</label>
+<select id="degreeSelect" class="w-full p-3 border rounded-lg">
+<option value="高中">高中</option>
+<option value="专科">专科</option>
+<option value="本科">本科</option>
+<option value="硕士">硕士</option>
+<option value="博士">博士</option>
+</select>
+</div>
+<div class="mb-4">
+<label class="block text-sm text-gray-600 mb-2">入学年份</label>
+<select id="startYearSelect" class="w-full p-3 border rounded-lg">
+</select>
+</div>
+<div class="mb-4">
+<label class="block text-sm text-gray-600 mb-2">毕业年份</label>
+<select id="endYearSelect" class="w-full p-3 border rounded-lg">
+</select>
+</div>
+<div class="flex gap-3">
+<button onclick="closeEducationModal()" class="flex-1 py-2 px-4 border border-gray-200 rounded-button">取消</button>
+<button onclick="saveEducation()" class="flex-1 py-2 px-4 bg-primary text-white rounded-button">保存</button>
+</div>
+</div>
+</div>
+<div id="educationList" class="hidden px-4 py-2 text-sm text-gray-600"></div>
+<script>
+function initYearSelects() {
+const startYear = 1980;
+const currentYear = new Date().getFullYear();
+const startYearSelect = document.getElementById('startYearSelect');
+const endYearSelect = document.getElementById('endYearSelect');
+
+startYearSelect.innerHTML = '';
+endYearSelect.innerHTML = '';
+
+for (let year = currentYear; year >= startYear; year--) {
+const startOption = document.createElement('option');
+startOption.value = year;
+startOption.textContent = year;
+startYearSelect.appendChild(startOption.cloneNode(true));
+
+const endOption = document.createElement('option');
+endOption.value = year;
+endOption.textContent = year;
+endYearSelect.appendChild(endOption.cloneNode(true));
+}
+}
+
+function showEducationModal() {
+initYearSelects();
+const modal = document.getElementById('educationModal');
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+}
+
+function closeEducationModal() {
+const modal = document.getElementById('educationModal');
+modal.classList.remove('flex');
+modal.classList.add('hidden');
+}
+
+function saveEducation() {
+const school = document.getElementById('schoolInput').value;
+const major = document.getElementById('majorInput').value;
+const degree = document.getElementById('degreeSelect').value;
+const startYear = document.getElementById('startYearSelect').value;
+const endYear = document.getElementById('endYearSelect').value;
+
+if (!school || !major) {
+const errorDiv = document.createElement('div');
+errorDiv.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded';
+errorDiv.textContent = '请填写完整信息';
+document.body.appendChild(errorDiv);
+setTimeout(() => errorDiv.remove(), 2000);
+return;
+}
+
+const educationList = document.getElementById('educationList');
+educationList.classList.remove('hidden');
+educationList.innerHTML = `
+<div class="mb-2">
+<div class="font-medium">${school}</div>
+<div class="text-gray-500">${degree} · ${major}</div>
+<div class="text-gray-400">${startYear} - ${endYear}</div>
+</div>
+`;
+
+closeEducationModal();
+
+document.getElementById('schoolInput').value = '';
+document.getElementById('majorInput').value = '';
+}
+</script>
+<div class="p-4 flex items-center justify-between cursor-pointer" onclick="showJobModal()">
+<span class="text-gray-600">工作信息</span>
+<div class="flex items-center text-gray-400">
+<span id="jobText">未设置</span>
+<i class="ri-arrow-right-s-line ml-1"></i>
+</div>
+</div>
+<div id="jobModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div class="bg-white w-[90%] rounded-xl p-4">
+<div class="text-lg font-medium mb-4">选择职业类型</div>
+<div class="flex flex-col gap-3">
+<button onclick="selectJob('企业员工')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">企业员工</button>
+<button onclick="selectJob('公务员/事业单位人员')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">公务员/事业单位人员</button>
+<button onclick="selectJob('个体经营者')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">个体经营者</button>
+<button onclick="selectJob('自由职业者')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">自由职业者</button>
+<button onclick="selectJob('退休人员')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">退休人员</button>
+<button onclick="selectJob('学生')" class="w-full py-3 text-center border rounded-lg hover:bg-gray-50">学生</button>
+</div>
+<button onclick="closeJobModal()" class="w-full mt-3 py-2 px-4 bg-primary text-white rounded-button">关闭</button>
+</div>
+</div>
+<script>
+function showJobModal() {
+const modal = document.getElementById('jobModal');
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+}
+function closeJobModal() {
+const modal = document.getElementById('jobModal');
+modal.classList.remove('flex');
+modal.classList.add('hidden');
+}
+function selectJob(job) {
+const jobText = document.getElementById('jobText');
+jobText.textContent = job;
+closeJobModal();
+}
+</script>
+<div class="p-4 flex items-center justify-between">
+<span class="text-gray-600">注册时间</span>
+<span class="text-gray-400">2023-02-22</span>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

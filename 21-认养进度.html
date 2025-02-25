@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>认养进度</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.progress-line {
+position: absolute;
+left: 24px;
+top: 30px;
+bottom: 0;
+width: 2px;
+background-color: #E8F5E9;
+}
+.progress-line-active {
+position: absolute;
+left: 24px;
+top: 30px;
+width: 2px;
+background-color: #2E5E3F;
+transition: height 0.3s ease;
+}
+@keyframes rotate {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+.rotating {
+animation: rotate 2s linear infinite;
+}
+</style>
+</head>
+<body class="bg-white" style="width: 375px; margin: 0 auto; min-height: 100vh;">
+<nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-100" style="width: 375px; margin: 0 auto;">
+<div class="flex items-center justify-between px-4 h-14">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</div>
+<div class="text-base font-medium">认养进度</div>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-share-line text-xl"></i>
+</div>
+</div>
+</nav>
+<main class="pt-14 pb-20 px-4">
+<div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+<div class="flex items-center">
+<div class="w-20 h-20 rounded-full overflow-hidden bg-secondary flex-shrink-0">
+<img src="https://public.readdy.ai/ai/img_res/c2502b3b2b8540bfea0f80fa1c47252e.jpg" class="w-full h-full object-cover" alt="西红柿">
+</div>
+<div class="ml-4 flex-1">
+<h3 class="text-lg font-medium mb-1">有机西红柿</h3>
+<p class="text-sm text-gray-500 mb-1">认养编号：TM2025022201</p>
+<p class="text-sm text-gray-500">认养时间：2025-02-22</p>
+</div>
+</div>
+<div class="mt-4">
+<div class="flex justify-between text-sm mb-2">
+<span>生长进度</span>
+<span class="text-primary">65%</span>
+</div>
+<div class="h-2 bg-secondary rounded-full">
+<div class="h-full bg-primary rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4 mb-6">
+<div class="bg-white rounded-lg p-3 text-center shadow-sm">
+<div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+<i class="ri-temp-hot-line text-primary text-xl"></i>
+</div>
+<p class="text-xs text-gray-500">温度</p>
+<p class="text-sm font-medium">26°C</p>
+</div>
+<div class="bg-white rounded-lg p-3 text-center shadow-sm">
+<div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+<i class="ri-drop-line text-primary text-xl"></i>
+</div>
+<p class="text-xs text-gray-500">湿度</p>
+<p class="text-sm font-medium">65%</p>
+</div>
+<div class="bg-white rounded-lg p-3 text-center shadow-sm">
+<div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+<i class="ri-sun-line text-primary text-xl"></i>
+</div>
+<p class="text-xs text-gray-500">光照</p>
+<p class="text-sm font-medium">充足</p>
+</div>
+<div class="bg-white rounded-lg p-3 text-center shadow-sm cursor-pointer" id="monitorBtn">
+<div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+<i class="ri-camera-line text-primary text-xl"></i>
+</div>
+<p class="text-xs text-gray-500">实时监控</p>
+<p class="text-sm font-medium">在线</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+<h3 class="text-base font-medium mb-4">生长阶段</h3>
+<div class="relative">
+<div class="progress-line"></div>
+<div class="progress-line-active" style="height: 65%"></div>
+<div class="relative pl-12 mb-8">
+<div class="absolute left-0 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<i class="ri-check-line text-white"></i>
+</div>
+<div class="bg-secondary rounded-lg p-3">
+<div class="flex justify-between items-center mb-2">
+<h4 class="text-sm font-medium">播种阶段</h4>
+<span class="text-xs text-gray-500">2025-02-22</span>
+</div>
+<p class="text-xs text-gray-500">种子已完成播种，正在等待发芽</p>
+</div>
+</div>
+<div class="relative pl-12 mb-8">
+<div class="absolute left-0 w-6 h-6 rounded-full border-2 border-primary flex items-center justify-center rotating">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+</div>
+<div class="bg-secondary rounded-lg p-3">
+<div class="flex justify-between items-center mb-2">
+<h4 class="text-sm font-medium">生长阶段</h4>
+<span class="text-xs text-gray-500">进行中</span>
+</div>
+<p class="text-xs text-gray-500">植株正在茁壮成长中</p>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-0 w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center">
+<div class="w-3 h-3 rounded-full bg-gray-200"></div>
+</div>
+<div class="bg-gray-50 rounded-lg p-3">
+<div class="flex justify-between items-center mb-2">
+<h4 class="text-sm font-medium">成熟阶段</h4>
+<span class="text-xs text-gray-500">未开始</span>
+</div>
+<p class="text-xs text-gray-500">预计4月底成熟</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+<h3 class="text-base font-medium mb-4">农场动态</h3>
+<div class="space-y-4">
+<div class="flex items-start">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+<i class="ri-plant-line text-primary"></i>
+</div>
+<div class="ml-3">
+<p class="text-sm">农场管家王师傅完成了本周的植株养护工作</p>
+<p class="text-xs text-gray-500 mt-1">今天 09:00</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+<i class="ri-drop-line text-primary"></i>
+</div>
+<div class="ml-3">
+<p class="text-sm">智能灌溉系统完成今日第一次浇水</p>
+<p class="text-xs text-gray-500 mt-1">今天 07:30</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-6 right-6 z-50">
+<button class="w-12 h-12 bg-primary rounded-full shadow-lg flex items-center justify-center">
+<i class="ri-customer-service-2-line text-white text-xl"></i>
+</button>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const shareBtn = document.querySelector('.ri-share-line').parentElement;
+const backBtn = document.querySelector('.ri-arrow-left-s-line').parentElement;
+const serviceBtn = document.querySelector('.ri-customer-service-2-line').parentElement;
+const monitorBtn = document.getElementById('monitorBtn');
+shareBtn.addEventListener('click', function() {
+const dialog = document.createElement('div');
+dialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+dialog.innerHTML = `
+<div class="bg-white rounded-lg w-4/5 p-4">
+<h3 class="text-lg font-medium mb-4">分享</h3>
+<div class="grid grid-cols-4 gap-4 mb-4">
+<div class="text-center">
+<div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-2">
+<i class="ri-wechat-line text-green-600 text-2xl"></i>
+</div>
+<p class="text-xs">微信</p>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-2">
+<i class="ri-moments-line text-blue-600 text-2xl"></i>
+</div>
+<p class="text-xs">朋友圈</p>
+</div>
+</div>
+<button class="w-full py-2 text-center text-gray-500 text-sm">取消</button>
+</div>
+`;
+document.body.appendChild(dialog);
+dialog.querySelector('button').onclick = () => dialog.remove();
+});
+backBtn.addEventListener('click', function() {
+history.back();
+});
+serviceBtn.addEventListener('click', function() {
+const dialog = document.createElement('div');
+dialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+dialog.innerHTML = `
+<div class="bg-white rounded-lg w-4/5 p-4">
+<h3 class="text-lg font-medium mb-4">联系农场管家</h3>
+<p class="text-sm text-gray-500 mb-4">农场管家王师傅将为您提供专业的种植指导</p>
+<div class="flex justify-between mb-4">
+<button class="flex-1 mr-2 py-2 bg-primary text-white rounded-button">拨打电话</button>
+<button class="flex-1 ml-2 py-2 bg-secondary text-primary rounded-button">发送消息</button>
+</div>
+<button class="w-full py-2 text-center text-gray-500 text-sm">取消</button>
+</div>
+`;
+document.body.appendChild(dialog);
+dialog.querySelector('button:last-child').onclick = () => dialog.remove();
+});
+monitorBtn.addEventListener('click', function() {
+const dialog = document.createElement('div');
+dialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+dialog.innerHTML = `
+<div class="bg-white rounded-lg w-11/12 p-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-medium">实时监控</h3>
+<button class="text-gray-500" id="closeMonitor">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="relative w-full" style="padding-top: 56.25%">
+<img src="https://public.readdy.ai/ai/img_res/83b17bb834d6e344f822f187029ab488.jpg"
+class="absolute inset-0 w-full h-full object-cover rounded-lg" alt="实时监控">
+</div>
+<div class="mt-4 flex justify-between items-center">
+<div class="text-sm text-gray-500">更新时间：2025-02-22 09:02</div>
+<div class="flex space-x-2">
+<button class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
+<i class="ri-camera-line text-primary"></i>
+</button>
+<button class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
+<i class="ri-fullscreen-line text-primary"></i>
+</button>
+</div>
+</div>
+</div>
+`;
+document.body.appendChild(dialog);
+dialog.querySelector('#closeMonitor').onclick = () => dialog.remove();
+});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>注册</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+body {
+font-family: "SimSun", serif;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-white min-h-screen w-[375px] mx-auto">
+<div class="px-6 py-12">
+<div class="flex items-center justify-center mb-8">
+<img src="https://static.readdy.ai/image/7322974857bc51e534b865276e72c961/a121cd63c6673be4422ac5ba10622e00.jpeg" alt="Logo" class="w-16 h-16 object-contain">
+</div>
+<h1 class="text-2xl font-bold text-center mb-2">欢迎来到"田缘"</h1>
+<p class="text-sm font-light text-gray-500 text-center mb-12">田缘逸趣，缘起绿野</p>
+<div class="space-y-4">
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<i class="ri-smartphone-line text-gray-400"></i>
+</div>
+<input type="tel" placeholder="请输入手机号码" class="w-full h-12 pl-10 pr-3 border border-gray-200 rounded-button focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm">
+</div>
+<div class="flex space-x-3">
+<div class="relative flex-1">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<i class="ri-shield-keyhole-line text-gray-400"></i>
+</div>
+<input type="text" name="code" placeholder="请输入验证码" class="w-full h-12 pl-10 pr-3 border border-gray-200 rounded-button focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm">
+</div>
+<button class="w-32 h-12 bg-primary/10 text-primary text-sm font-normal rounded-button !rounded-button" onclick="getCode()">获取验证码</button>
+</div>
+<button class="w-full h-12 bg-primary text-white font-normal rounded-button !rounded-button transition hover:bg-primary/90" onclick="register()">注册</button>
+</div>
+<div class="mt-6">
+<label class="flex items-center justify-center text-sm text-gray-500">
+<input type="checkbox" class="w-4 h-4 rounded text-primary focus:ring-primary" checked>
+<span class="ml-2">我已阅读并同意</span>
+<button class="text-primary ml-1" onclick="showTerms()">《用户协议》</button>
+<span class="mx-1">和</span>
+<button class="text-primary" onclick="showPrivacy()">《隐私政策》</button>
+</label>
+</div>
+<div class="mt-12">
+<div class="flex items-center justify-center text-gray-400 text-sm">
+<span class="w-16 h-px bg-gray-200"></span>
+<span class="mx-4">其他登录方式</span>
+<span class="w-16 h-px bg-gray-200"></span>
+</div>
+<div class="flex justify-center space-x-8 mt-6">
+<button class="w-12 h-12 rounded-full bg-[#07C160] flex items-center justify-center" onclick="wechatLogin()">
+<i class="ri-wechat-fill text-white text-2xl"></i>
+</button>
+<button class="w-12 h-12 rounded-full bg-[#12B7F5] flex items-center justify-center" onclick="qqLogin()">
+<i class="ri-qq-fill text-white text-2xl"></i>
+</button>
+<button class="w-12 h-12 rounded-full bg-[#00A9FF] flex items-center justify-center" onclick="alipayLogin()">
+<i class="ri-alipay-fill text-white text-2xl"></i>
+</button>
+</div>
+</div>
+</div>
+<div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 bg-black/75 text-white px-4 py-2 rounded-full text-sm transform scale-0 transition-transform"></div>
+<script>
+let timer = null;
+const toast = document.getElementById('toast');
+function showToast(message, duration = 2000) {
+toast.textContent = message;
+toast.style.transform = 'translate(-50%, 0) scale(1)';
+if (timer) clearTimeout(timer);
+timer = setTimeout(() => {
+toast.style.transform = 'translate(-50%, 0) scale(0)';
+}, duration);
+}
+function getCode() {
+showToast('验证码已发送');
+}
+function register() {
+    const phoneInput = document.querySelector('input[type="tel"]');
+    const codeInput = document.querySelector('input[type="text"][name="code"]');
+    if (!phoneInput.value){
+        showToast('请输入手机号');
+    return;}
+    if (!codeInput.value){
+        showToast('请输入验证码');
+    return;}
+    showToast('注册成功');
+    window.location.href = '4-我的认养兴趣1.html';
+}
+function showTerms() {
+showToast('用户协议');
+}
+function showPrivacy() {
+showToast('隐私政策');
+}
+function wechatLogin() {
+showToast('微信登录');
+}
+function qqLogin() {
+showToast('QQ登录');
+}
+function alipayLogin() {
+showToast('支付宝登录');
+}
+function showToast(message) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = message;
+document.body.appendChild(toast);
+setTimeout(() => {
+toast.remove();
+}, 2000);
+}
+
+</script>
+</body>
+</html>

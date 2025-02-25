@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.progress-bar {
+width: 100%;
+height: 4px;
+background-color: #E8E8E8;
+border-radius: 2px;
+overflow: hidden;
+}
+.progress-bar-fill {
+height: 100%;
+background-color: #2E5E3F;
+transition: width 0.3s ease;
+}
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<div class="flex flex-col min-h-screen pb-16">
+<div class="flex flex-col items-center pt-12 pb-6 px-4 bg-white">
+<div class="relative w-16 h-16 mb-2">
+    <input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="updateAvatar(event)">
+    <img id="avatar" src="https://public.readdy.ai/ai/img_res/b3e78e4cfc58a0042ee9391ecb1e42ed.jpg"
+     alt="头像"
+     class="w-full h-full rounded-full object-cover cursor-pointer"
+     onclick="document.getElementById('avatarInput').click()">
+
+    <div class="absolute -right-1 -bottom-1 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center">
+        <i class="ri-vip-crown-fill text-white text-sm"></i>
+    </div>
+</div>
+<h2 class="text-lg font-medium mb-1 cursor-pointer" onclick="editNickname()">云农001</h2>
+<script>
+function updateAvatar(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // 直接通过id选择图片
+            const avatarImage = document.getElementById('avatar');
+            avatarImage.src = e.target.result;  // 更新头像图片
+        };
+        reader.readAsDataURL(file);
+    }
+}
+function editNickname() {
+const nicknameDialog = document.createElement('div');
+nicknameDialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+nicknameDialog.innerHTML = `
+<div class="bg-white rounded-lg p-6 w-[300px]">
+<h3 class="text-lg font-medium mb-4">修改昵称</h3>
+<input type="text" id="newNickname" class="w-full px-3 py-2 border border-gray-200 rounded-lg mb-4" placeholder="请输入新昵称" maxlength="12">
+<div class="flex gap-3">
+<button onclick="this.parentElement.parentElement.parentElement.remove()" class="flex-1 py-2 bg-gray-100 rounded-lg text-gray-600">取消</button>
+<button onclick="saveNickname()" class="flex-1 py-2 bg-primary text-white rounded-lg">确定</button>
+</div>
+</div>
+`;
+document.body.appendChild(nicknameDialog);
+}
+function saveNickname() {
+const newNickname = document.getElementById('newNickname').value.trim();
+if (newNickname) {
+document.querySelector('h2').textContent = newNickname;
+document.querySelector('.fixed.inset-0').remove();
+}
+}
+</script>
+<div class="flex items-center gap-4 mt-2">
+<div class="w-6 h-6 flex items-center justify-center cursor-pointer" onclick="shareProfile()">
+<i class="ri-share-line text-gray-500"></i>
+</div>
+<div class="w-48 progress-bar">
+<div class="progress-bar-fill" style="width: 60%"></div>
+</div>
+<div class="w-6 h-6 flex items-center justify-center cursor-pointer" onclick="contactService()">
+<i class="ri-customer-service-2-line text-gray-500"></i>
+</div>
+</div>
+<script>
+function shareProfile() {
+const shareDialog = document.createElement('div');
+shareDialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+shareDialog.innerHTML = `
+<div class="bg-white rounded-lg p-6 w-[300px]">
+<h3 class="text-lg font-medium mb-4">分享</h3>
+<div class="grid grid-cols-4 gap-4 mb-6">
+<div class="flex flex-col items-center cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<i class="ri-wechat-fill text-green-500 text-2xl"></i>
+</div>
+<span class="text-xs">微信</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-2">
+<i class="ri-qq-fill text-blue-500 text-2xl"></i>
+</div>
+<span class="text-xs">QQ</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mb-2">
+<i class="ri-weibo-fill text-red-500 text-2xl"></i>
+</div>
+<span class="text-xs">微博</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-2">
+<i class="ri-link text-gray-500 text-2xl"></i>
+</div>
+<span class="text-xs">复制链接</span>
+</div>
+</div>
+<button onclick="this.parentElement.parentElement.remove()" class="w-full py-2 bg-gray-100 rounded-lg text-gray-600">取消</button>
+</div>
+`;
+document.body.appendChild(shareDialog);
+}
+function contactService() {
+const serviceDialog = document.createElement('div');
+serviceDialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+serviceDialog.innerHTML = `
+<div class="bg-white rounded-lg p-6 w-[300px]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-medium">联系客服</h3>
+<i onclick="this.parentElement.parentElement.parentElement.remove()" class="ri-close-line text-gray-400 cursor-pointer"></i>
+</div>
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer">
+<i class="ri-customer-service-2-line text-primary text-xl"></i>
+<div>
+<div class="text-sm font-medium">在线客服</div>
+<div class="text-xs text-gray-500">工作时间: 9:00-18:00</div>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer">
+<i class="ri-phone-line text-primary text-xl"></i>
+<div>
+<div class="text-sm font-medium">电话客服</div>
+<div class="text-xs text-gray-500">400-888-8888</div>
+</div>
+</div>
+</div>
+</div>
+`;
+document.body.appendChild(serviceDialog);
+}
+</script>
+</div>
+<div class="grid grid-cols-4 gap-4 px-4 py-6">
+
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href='13会员权益.html' class="ri-checkbox-circle-line text-primary text-xl"></a>
+        </div>
+            <a href='13会员权益.html' class="text-sm">会员权益</a>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href="16设置.html" class="ri-settings-3-line text-primary text-xl"></a>
+        </div>
+            <a href="16设置.html" class="text-sm">设置</a>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href="15-个人资料.html" class="ri-file-user-line text-primary text-xl"></a>
+        </div>
+            <a href="15-个人资料.html" class="text-sm">个人资料</a>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href="17-账号安全.html" class="ri-shield-check-line text-primary text-xl"></a>
+        </div>
+            <a href="17-账号安全.html" class="text-sm">账号安全</a>
+    </div>
+</div>
+
+<div class="grid grid-cols-4 gap-4 px-4 py-6">
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href="18-账户余额.html" class="ri-wallet-3-line text-primary text-xl"></a>
+        </div>
+            <a href="18-账户余额.html" class="text-sm">账户余额</a>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href="19-我的收藏.html" class="ri-bookmark-line text-primary text-xl"></a>
+        </div>
+            <a href="19-我的收藏.html" class="text-sm">我的收藏</a>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href="22-收货地址.html" class="ri-map-pin-line text-primary text-xl"></a>
+        </div>
+            <a href="22-收货地址.html" class="text-sm">收货地址</a>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-2">
+            <a href="20-浏览记录.html" class="ri-time-line text-primary text-xl"></a>
+        </div>
+            <a href="20-浏览记录.html" class="text-sm">浏览记录</a>
+    </div>
+</div>
+
+<div class="px-4 py-6">
+    <div class="text-center mb-6">
+        <p class="px-8 py-2 bg-primary text-white rounded-full text-sm">我的认养</p>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col items-center">
+            <div class="w-20 h-20 rounded-xl bg-secondary flex items-center justify-center mb-2">
+                <a href="21-认养进度.html" class="ri-calendar-line text-primary text-3xl"></a>
+            </div>
+            <a href="21-认养进度.html" class="text-sm">认养进度</a>
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="w-20 h-20 rounded-xl bg-secondary flex items-center justify-center mb-2">
+                <a href="23-我的快递.html" class="ri-truck-line text-primary text-3xl"></a>
+            </div>
+                <a href="23-我的快递.html" class="text-sm">我的快递</a>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+    <div class="grid grid-cols-5 gap-0 py-2">
+        <a href="4.1首页.html" class="flex flex-col items-center">
+            <i class="ri-home-5-line text-gray-400 text-xl mb-1"></i>
+            <span class="text-xs text-gray-400">首页</span>
+        </a>
+        <a href="9-知识库.html" class="flex flex-col items-center">
+            <i class="ri-book-open-line text-gray-400 text-xl mb-1"></i>
+            <span class="text-xs text-gray-400">知识库</span>
+        </a>
+        <a href="10-搜索1.html" class="flex flex-col items-center">
+            <i class="ri-search-line text-gray-400 text-xl mb-1"></i>
+            <span class="text-xs text-gray-400">搜索</span>
+        </a>
+        <a href="10.3-社区1.html" class="flex flex-col items-center">
+            <i class="ri-team-line text-gray-400 text-xl mb-1"></i>
+            <span class="text-xs text-gray-400">社区</span>
+        </a>
+        <a href="#" class="flex flex-col items-center">
+            <i class="ri-user-3-fill text-primary text-xl mb-1"></i>
+            <span class="text-xs text-primary">我的</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

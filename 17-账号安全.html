@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>账号安全</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<nav class="fixed top-0 left-0 right-0 h-12 bg-white shadow-sm flex items-center justify-between px-4 z-50">
+<div class="flex items-center">
+<button class="w-8 h-8 flex items-center justify-center" onclick="history.back()">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+<span class="ml-4 text-base font-medium">账号安全</span>
+</div>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-more-line text-xl"></i>
+</button>
+</nav>
+<main class="pt-16 pb-20 px-4">
+<div class="bg-white rounded-lg shadow-sm mb-4">
+<div class="flex items-center justify-between p-4 border-b">
+<div>
+<div class="text-base font-medium">绿色农场主</div>
+<div class="text-xs text-gray-500 mt-1">认养达人 Lv.3</div>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
+<i class="ri-plant-line text-xl text-primary"></i>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm mb-4">
+<div class="p-4 flex items-center justify-between border-b" onclick="showPhoneDialog()">
+<div>
+<div class="text-base">手机号码</div>
+<div class="text-sm text-gray-500 mt-1">185****7439</div>
+</div>
+<i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+</div>
+<div class="p-4 flex items-center justify-between border-b" onclick="showVerifyDialog()">
+<div>
+<div class="text-base">实名认证</div>
+<div class="text-sm text-gray-500 mt-1">已认证</div>
+</div>
+<i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+</div>
+<div class="p-4 flex items-center justify-between" onclick="showEmailDialog()">
+<div>
+<div class="text-base">邮箱验证</div>
+<div class="text-sm text-gray-500 mt-1">未验证</div>
+</div>
+<i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm mb-4">
+<div class="p-4 flex items-center justify-between border-b" onclick="showPasswordDialog()">
+<div class="text-base">修改密码</div>
+<i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+</div>
+<div class="p-4 flex items-center justify-between border-b">
+<div class="text-base">双重认证</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer" onchange="toggleTwoFactor(this)">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="p-4 flex items-center justify-between">
+<div class="text-base">指纹解锁</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer" onchange="toggleFingerprint(this)">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm mb-4">
+<div class="p-4 flex items-center justify-between border-b" onclick="showLoginHistory()">
+<div class="text-base">登录记录</div>
+<div class="flex items-center">
+<span class="text-sm text-gray-500 mr-2">最近 2 条记录</span>
+<i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between">
+<div class="text-base">异地登录提醒</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer" checked onchange="toggleLoginAlert(this)">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<button class="w-full p-4 text-red-500 bg-white rounded-lg shadow-sm" onclick="showDeleteDialog()">
+注销账号
+</button>
+</main>
+<div id="dialog" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+<div class="bg-white rounded-lg w-[320px] p-6">
+<h3 class="text-lg font-medium mb-4" id="dialogTitle"></h3>
+<p class="text-gray-600 mb-6" id="dialogContent"></p>
+<div class="flex justify-end space-x-4">
+<button class="px-4 py-2 text-gray-600" onclick="closeDialog()">取消</button>
+<button class="px-4 py-2 text-primary" onclick="confirmDialog()">确定</button>
+</div>
+</div>
+</div>
+<script>
+const dialog = document.getElementById('dialog');
+const dialogTitle = document.getElementById('dialogTitle');
+const dialogContent = document.getElementById('dialogContent');
+let currentAction = '';
+function showDialog(title, content, action) {
+dialogTitle.textContent = title;
+dialogContent.textContent = content;
+currentAction = action;
+dialog.style.display = 'flex';
+}
+function closeDialog() {
+dialog.style.display = 'none';
+}
+function confirmDialog() {
+switch(currentAction) {
+case 'phone':
+// Handle phone change
+break;
+case 'verify':
+// Handle verification
+break;
+case 'email':
+// Handle email verification
+break;
+case 'password':
+// Handle password change
+break;
+case 'delete':
+// Handle account deletion
+break;
+}
+closeDialog();
+}
+function showPhoneDialog() {
+showDialog('修改手机号', '是否修改当前绑定的手机号？', 'phone');
+}
+function showVerifyDialog() {
+showDialog('实名认证', '您已完成实名认证', 'verify');
+}
+function showEmailDialog() {
+showDialog('邮箱验证', '请验证您的邮箱地址以提升账号安全性', 'email');
+}
+function showPasswordDialog() {
+showDialog('修改密码', '请输入新的登录密码', 'password');
+}
+function showDeleteDialog() {
+showDialog('注销账号', '注销后账号将无法恢复，是否继续？', 'delete');
+}
+function toggleTwoFactor(checkbox) {
+if(checkbox.checked) {
+showDialog('开启双重认证', '开启后将使用短信验证码进行二次验证', 'two-factor');
+}
+}
+function toggleFingerprint(checkbox) {
+if(checkbox.checked) {
+showDialog('开启指纹解锁', '开启后可使用指纹快速登录', 'fingerprint');
+}
+}
+function toggleLoginAlert(checkbox) {
+if(!checkbox.checked) {
+showDialog('关闭登录提醒', '关闭后将不再接收异地登录提醒', 'login-alert');
+}
+}
+function showLoginHistory() {
+showDialog('登录记录', '最近登录时间：2025-02-22 08:33\n登录地点：上海市', 'history');
+}
+</script>
+</body>
+</html>

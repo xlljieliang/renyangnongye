@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>欢迎使用</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+input:focus {
+outline: none;
+border-color: #2E5E3F;
+}
+.checkbox-wrapper {
+position: relative;
+display: inline-block;
+}
+.checkbox-wrapper input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.checkbox-wrapper .checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #2E5E3F;
+border-radius: 4px;
+}
+.checkbox-wrapper input:checked ~ .checkmark:after {
+content: "";
+position: absolute;
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid #2E5E3F;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+@keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-white min-h-screen">
+<div class="w-[375px] mx-auto px-6 pt-20">
+<div class="mb-12">
+<img src="https://static.readdy.ai/image/7322974857bc51e534b865276e72c961/a121cd63c6673be4422ac5ba10622e00.jpeg"
+alt="Logo"
+class="w-24 h-24 mx-auto mb-4 object-contain">
+<h1 class="text-2xl font-bold text-center text-gray-800 font-['SimSun']">欢迎来到"田缘"</h1>
+<p class="text-center text-gray-500 mt-2 font-['SimSun']">田缘逸趣，缘起绿野</p>
+</div>
+<div class="space-y-4">
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<i class="ri-user-line text-gray-400"></i>
+</div>
+<input type="text"
+placeholder="请输入手机号/账号"
+class="w-full h-12 pl-10 pr-4 border border-gray-200 rounded-lg text-gray-700 focus:border-primary transition-colors">
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password"
+placeholder="请输入密码"
+class="w-full h-12 pl-10 pr-4 border border-gray-200 rounded-lg text-gray-700 focus:border-primary transition-colors">
+</div>
+<button onclick="handleLogin()" class="w-full h-12 bg-primary text-white font-medium rounded-button hover:opacity-90 transition-colors">
+登录
+</button>
+<div class="flex justify-between text-sm">
+<a href="3.1忘记密码页.html" class="text-gray-500 hover:text-primary">忘记密码</a>
+<a href="3-注册页.html" class="text-primary">注册账号</a>
+</div>
+</div>
+<div class="fixed bottom-8 left-0 right-0 px-6">
+<label class="flex items-center checkbox-wrapper">
+<input type="checkbox" class="hidden" id="agreementCheckbox">
+<span class="checkmark"></span>
+<span class="ml-8 text-sm text-gray-500">
+已阅读并同意
+<a href="#" class="text-primary" onclick="showAgreement('userAgreement', event)">《用户协议》</a>
+和
+<a href="#" class="text-primary" onclick="showAgreement('privacyPolicy', event)">《隐私政策》</a>
+</span>
+</label>
+</div>
+<div id="agreementModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+<div class="bg-white w-[340px] rounded-lg max-h-[80vh] flex flex-col">
+<div class="p-4 border-b border-gray-200 flex justify-between items-center">
+<h3 class="text-lg font-medium" id="modalTitle"></h3>
+<button onclick="closeAgreement()" class="text-gray-400 hover:text-gray-600">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="p-4 overflow-y-auto flex-1" id="modalContent">
+</div>
+<div class="p-4 border-t border-gray-200 flex justify-end">
+<button onclick="agreeAndClose()" class="px-4 py-2 bg-primary text-white rounded-button hover:bg-secondary">
+同意并关闭
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+const agreements = {
+userAgreement: {
+title: '用户协议',
+content: `
+<div class="space-y-4">
+<h4 class="font-medium">1. 服务条款</h4>
+<p class="text-gray-600">欢迎使用田缘平台服务。本协议是您与田缘平台之间关于使用田缘服务所订立的协议。</p>
+<h4 class="font-medium">2. 账号注册</h4>
+<p class="text-gray-600">您承诺在注册时提供真实、准确、完整的个人资料，并在资料发生变更时及时更新。</p>
+<h4 class="font-medium">3. 用户行为规范</h4>
+<p class="text-gray-600">用户在使用田缘服务时必须遵守中华人民共和国相关法律法规，不得利用田缘服务从事违法违规行为。</p>
+<h4 class="font-medium">4. 知识产权</h4>
+<p class="text-gray-600">田缘平台的所有内容，包括但不限于文字、图片、音频、视频等均受著作权法保护。</p>
+<h4 class="font-medium">5. 服务变更、中断或终止</h4>
+<p class="text-gray-600">田缘平台保留随时修改或中断服务而不需通知用户的权利。</p>
+</div>
+`
+},
+privacyPolicy: {
+title: '隐私政策',
+content: `
+<div class="space-y-4">
+<h4 class="font-medium">1. 信息收集</h4>
+<p class="text-gray-600">我们收集的信息包括但不限于：您的个人身份信息、联系方式、位置信息等。</p>
+<h4 class="font-medium">2. 信息使用</h4>
+<p class="text-gray-600">我们使用收集的信息用于提供、维护、改进我们的服务，开发新的服务。</p>
+<h4 class="font-medium">3. 信息共享</h4>
+<p class="text-gray-600">我们不会将您的个人信息出售、出租或以其他方式提供给任何第三方。</p>
+<h4 class="font-medium">4. 信息安全</h4>
+<p class="text-gray-600">我们采取适当的技术手段和管理措施来保护您的个人信息安全。</p>
+<h4 class="font-medium">5. Cookie的使用</h4>
+<p class="text-gray-600">我们使用Cookie和类似技术来提供更好的服务和用户体验。</p>
+</div>
+`
+}
+};
+function showAgreement(type, event) {
+event.preventDefault();
+const modal = document.getElementById('agreementModal');
+const title = document.getElementById('modalTitle');
+const content = document.getElementById('modalContent');
+title.textContent = agreements[type].title;
+content.innerHTML = agreements[type].content;
+modal.classList.remove('hidden');
+}
+function closeAgreement() {
+document.getElementById('agreementModal').classList.add('hidden');
+}
+function agreeAndClose() {
+document.getElementById('agreementCheckbox').checked = true;
+closeAgreement();
+}
+function handleLogin() {
+const phoneInput = document.querySelector('input[type="text"]');
+const passwordInput = document.querySelector('input[type="password"]');
+const checkbox = document.querySelector('input[type="checkbox"]');
+if (!phoneInput.value) {
+showToast('请输入手机号/账号');
+return;
+}
+if (!passwordInput.value) {
+showToast('请输入密码');
+return;
+}
+if (!checkbox.checked) {
+showToast('请阅读并同意用户协议和隐私政策');
+return;
+}
+window.location.href = '4.1首页.html';
+}
+function showToast(message) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = message;
+document.body.appendChild(toast);
+setTimeout(() => {
+toast.remove();
+}, 2000);
+}
+</script>
+</body>
+</html>

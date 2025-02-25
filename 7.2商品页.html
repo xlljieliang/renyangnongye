@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>有机农场</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@font-face {
+font-family: 'SimSun';
+src: local('SimSun');
+}
+body {
+font-family: 'SimSun', serif;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.swiper-pagination-bullet-active {background: #22c55e;}
+.star-rating input { display: none; }
+.star-rating label { cursor: pointer; width: 1.5rem; }
+.star-rating label:before { content: '★'; position: absolute; color: #ddd; }
+.star-rating input:checked ~ label:before { color: #22c55e; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50">
+<div class="max-w-[375px] mx-auto min-h-screen relative pb-[60px]">
+<nav class="fixed top-0 left-0 right-0 bg-white z-50 h-12 flex items-center justify-between px-4 shadow-sm">
+<button class="w-8 h-8 flex items-center justify-center" onclick="history.back()">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+<div class="h-8"></div>
+<button class="w-8 h-8 flex items-center justify-center" onclick="showShareModal()">
+<i class="ri-share-line text-xl"></i>
+</button>
+</nav>
+<div class="pt-12">
+<div class="relative w-full h-[280px] bg-gray-100">
+<img src="https://public.readdy.ai/ai/img_res/ecbc1755b224fbf5810da04c6b1c1271.jpg"
+class="w-full h-full object-cover" alt="有机葡萄">
+<button class="absolute top-4 right-4 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center">
+<i class="ri-heart-line text-xl text-primary"></i>
+</button>
+</div>
+<div class="px-4 py-4 bg-white">
+<div class="flex items-start justify-between">
+<h1 class="text-xl font-medium">有机葡萄</h1>
+<div class="text-xl font-semibold text-primary">¥ 1512</div>
+</div>
+<div class="flex items-center mt-2 space-x-2">
+<div class="flex">
+<i class="ri-star-fill text-primary"></i>
+<i class="ri-star-fill text-primary"></i>
+<i class="ri-star-fill text-primary"></i>
+<i class="ri-star-fill text-primary"></i>
+<i class="ri-star-line text-gray-300"></i>
+</div>
+<span class="text-sm text-gray-500">4.5</span>
+<span class="text-sm text-gray-400">(128条评价)</span>
+</div>
+<p class="mt-2 text-sm text-gray-600">南京溧水区千福之苑有机葡萄种植基地</p>
+<div class="flex justify-between items-center mt-4">
+<div class="flex items-center space-x-2">
+<span class="px-2 py-1 text-xs bg-green-50 text-primary rounded">有机认证</span>
+<span class="px-2 py-1 text-xs bg-green-50 text-primary rounded">无农药</span>
+</div>
+<button class="text-primary text-sm flex items-center !rounded-button" onclick="showCertificate()">
+认定证书
+<i class="ri-arrow-right-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<div class="mt-2 bg-white p-4">
+<h2 class="text-lg font-medium mb-4">商品详情</h2>
+<div class="space-y-4">
+<div class="flex items-start">
+<div class="w-20 text-sm text-gray-500">种植环境</div>
+<div class="flex-1 text-sm">海拔800米以上的山地，昼夜温差大，光照充足</div>
+</div>
+<div class="flex items-start">
+<div class="w-20 text-sm text-gray-500">生长周期</div>
+<div class="flex-1 text-sm">180天自然生长，不使用催熟剂</div>
+</div>
+<div class="flex items-start">
+<div class="w-20 text-sm text-gray-500">灌溉用水</div>
+<div class="flex-1 text-sm">使用山泉水灌溉，水质纯净</div>
+</div>
+</div>
+</div>
+<div class="mt-2 bg-white p-4">
+<h2 class="text-lg font-medium mb-4">农场信息</h2>
+<div class="rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/aee22953da90fd5cb1f228d72b77a56b.jpg"
+class="w-full h-[200px] object-cover" alt="农场环境">
+</div>
+<div class="mt-4 space-y-2">
+<p class="text-sm text-gray-600">· 20年有机种植经验</p>
+<p class="text-sm text-gray-600">· 全程采用有机肥料</p>
+<p class="text-sm text-gray-600">· 严格把控生长环境</p>
+</div>
+</div>
+<div class="mt-2 bg-white p-4">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-medium">用户评价</h2>
+<div class="text-sm text-gray-500">共 128 条评价</div>
+</div>
+<div class="space-y-4">
+<div class="border-b pb-4">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/43b8c2a8ca6f52d3023cc31a4fb3df52.jpg" class="w-8 h-8 rounded-full" alt="用户头像">
+<div class="ml-2">
+<div class="text-sm font-medium">王梦琪</div>
+<div class="flex items-center mt-1">
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-fill text-primary text-sm"></i>
+</div>
+</div>
+<div class="ml-auto text-xs text-gray-400">2025-02-21</div>
+</div>
+<p class="text-sm mt-2 text-gray-600">葡萄非常新鲜，一点农药味都没有，孩子们都很喜欢吃。包装也很好，物流速度快。</p>
+<div class="flex mt-2 space-x-2">
+<img src="https://public.readdy.ai/ai/img_res/736d2b8071db2b6ac525f3ab90b85667.jpg" class="w-20 h-20 rounded object-cover" alt="评价图片">
+<img src="https://public.readdy.ai/ai/img_res/7889e3cc0a31c2a0cba553ad557241e6.jpg" class="w-20 h-20 rounded object-cover" alt="评价图片">
+</div>
+</div>
+<div class="border-b pb-4">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/165d967d135ff88b922353d2aa4f1d12.jpg" class="w-8 h-8 rounded-full" alt="用户头像">
+<div class="ml-2">
+<div class="text-sm font-medium">陈建国</div>
+<div class="flex items-center mt-1">
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-fill text-primary text-sm"></i>
+<i class="ri-star-line text-gray-300 text-sm"></i>
+</div>
+</div>
+<div class="ml-auto text-xs text-gray-400">2025-02-20</div>
+</div>
+<p class="text-sm mt-2 text-gray-600">品质不错，就是价格稍微贵了点。希望能多一些优惠活动。</p>
+</div>
+</div>
+<button class="w-full mt-4 h-10 border border-primary text-primary !rounded-button" onclick="showAllReviews()">查看全部评价</button>
+</div>
+<div class="mt-2 bg-white p-4">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-medium">常见问题</h2>
+<button class="text-primary text-sm flex items-center" id="askQuestion">
+提问
+<i class="ri-question-line ml-1"></i>
+</button>
+</div>
+<div class="space-y-4">
+<div class="border-b pb-4">
+<div class="flex items-center justify-between">
+<h3 class="text-base font-medium">葡萄是否需要清洗？</h3>
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</div>
+<p class="text-sm mt-2 text-gray-600">建议食用前用清水冲洗，虽然是有机种植，但运输过程中难免会有灰尘。</p>
+</div>
+<div class="border-b pb-4">
+<div class="flex items-center justify-between">
+<h3 class="text-base font-medium">保质期是多久？</h3>
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</div>
+<p class="text-sm mt-2 text-gray-600">常温可保存3-5天，建议放入冰箱保存，可延长至7-10天。</p>
+</div>
+<div class="border-b pb-4">
+<div class="flex items-center justify-between">
+<h3 class="text-base font-medium">是否支持无理由退换？</h3>
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</div>
+<p class="text-sm mt-2 text-gray-600">收到商品后24小时内，如果发现品质问题支持退换。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 h-[60px] bg-white border-t flex items-center px-4 space-x-4">
+<button class="w-12 flex flex-col items-center justify-center" onclick="showCustomerService()">
+<i class="ri-customer-service-2-line text-xl text-gray-600"></i>
+<span class="text-xs text-gray-600 mt-1">客服</span>
+</button>
+<button class="flex-1 h-10 bg-[#4CAF50] text-white !rounded-button">加入购物车</button>
+<button class="flex-1 h-10 bg-primary text-white !rounded-button">立即购买</button>
+</div>
+</div>
+<script>
+const reviews = [
+{ rating: 5, count: 68 },
+{ rating: 4, count: 42 },
+{ rating: 3, count: 12 },
+{ rating: 2, count: 4 },
+{ rating: 1, count: 2 }
+];
+function calculateAverageRating() {
+const totalReviews = reviews.reduce((acc, curr) => acc + curr.count, 0);
+const weightedSum = reviews.reduce((acc, curr) => acc + (curr.rating * curr.count), 0);
+return (weightedSum / totalReviews).toFixed(1);
+}
+function showAllReviews() {
+const modal = document.createElement('div');
+modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+modal.innerHTML = `
+<div class="bg-white w-[340px] rounded-lg p-4 max-h-[80vh] flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-medium">全部评价</h3>
+<button class="text-gray-400" onclick="this.closest('.fixed').remove()">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<div class="space-y-4">
+${generateReviewItems()}
+</div>
+</div>
+</div>
+`;
+document.body.appendChild(modal);
+}
+function generateReviewItems() {
+const reviewData = [
+{
+avatar: "https://readdy.ai/api/search-image?query=young asian woman portrait, natural lighting, simple background, professional headshot&width=32&height=32&orientation=squarish",
+name: "王梦琪",
+rating: 5,
+date: "2025-02-21",
+content: "葡萄非常新鲜，一点农药味都没有，孩子们都很喜欢吃。包装也很好，物流速度快。",
+images: [
+"https://readdy.ai/api/search-image?query=fresh organic purple grapes in package, product photography&width=80&height=80&orientation=squarish",
+"https://readdy.ai/api/search-image?query=organic grapes being washed in kitchen, lifestyle photography&width=80&height=80&orientation=squarish"
+]
+},
+{
+avatar: "https://readdy.ai/api/search-image?query=middle aged asian man portrait, natural lighting, simple background, professional headshot&width=32&height=32&orientation=squarish",
+name: "陈建国",
+rating: 4,
+date: "2025-02-20",
+content: "品质不错，就是价格稍微贵了点。希望能多一些优惠活动。"
+},
+{
+avatar: "https://public.readdy.ai/ai/img_res/21562b1da64e1b5527835ec2a5a774b6.jpg",
+name: "林雨晴",
+rating: 5,
+date: "2025-02-19",
+content: "第二次购买了，品质依然很好，葡萄很甜，颗粒饱满。"
+},
+{
+avatar: "https://public.readdy.ai/ai/img_res/6458146c6c99374ec6605296a56b8cfc.jpg",
+name: "张美玲",
+rating: 5,
+date: "2025-02-18",
+content: "送货速度很快，包装很好，葡萄新鲜度很高。"
+},
+{
+avatar: "https://public.readdy.ai/ai/img_res/6f48e8d86acf97f99b26f73d93be65cb.jpg",
+name: "李志强",
+rating: 4,
+date: "2025-02-17",
+content: "整体不错，就是价格稍贵。葡萄很新鲜，味道很好。"
+}
+];
+return reviewData.map(review => `
+<div class="border-b pb-4">
+<div class="flex items-center">
+<img src="${review.avatar}" class="w-8 h-8 rounded-full" alt="用户头像">
+<div class="ml-2">
+<div class="text-sm font-medium">${review.name}</div>
+<div class="flex items-center mt-1">
+${Array(5).fill(0).map((_, i) => `
+<i class="ri-star-${i < review.rating ? 'fill' : 'line'} ${i < review.rating ? 'text-primary' : 'text-gray-300'} text-sm"></i>
+`).join('')}
+</div>
+</div>
+<div class="ml-auto text-xs text-gray-400">${review.date}</div>
+</div>
+<p class="text-sm mt-2 text-gray-600">${review.content}</p>
+${review.images ? `
+<div class="flex mt-2 space-x-2">
+${review.images.map(img => `
+<img src="${img}" class="w-20 h-20 rounded object-cover" alt="评价图片">
+`).join('')}
+</div>
+` : ''}
+</div>
+`).join('');
+}
+function showShareModal() {
+const modal = document.createElement('div');
+modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+modal.innerHTML = `
+<div class="bg-white w-[340px] rounded-lg p-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-medium">分享</h3>
+<button class="text-gray-400" onclick="this.closest('.fixed').remove()">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-4 mb-6">
+<button class="flex flex-col items-center" onclick="shareToApp('wechat')">
+<div class="w-12 h-12 rounded-full bg-[#07C160] flex items-center justify-center mb-1">
+<i class="ri-wechat-fill text-white text-2xl"></i>
+</div>
+<span class="text-xs text-gray-600">微信</span>
+</button>
+<button class="flex flex-col items-center" onclick="shareToApp('qq')">
+<div class="w-12 h-12 rounded-full bg-[#12B7F5] flex items-center justify-center mb-1">
+<i class="ri-qq-fill text-white text-2xl"></i>
+</div>
+<span class="text-xs text-gray-600">QQ</span>
+</button>
+<button class="flex flex-col items-center" onclick="generateShareImage()">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-1">
+<i class="ri-image-fill text-white text-2xl"></i>
+</div>
+<span class="text-xs text-gray-600">生成图片</span>
+</button>
+<button class="flex flex-col items-center" onclick="copyShareLink()">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-1">
+<i class="ri-links-fill text-white text-2xl"></i>
+</div>
+<span class="text-xs text-gray-600">复制链接</span>
+</button>
+</div>
+<div id="shareResult" class="text-sm text-center text-gray-600 hidden"></div>
+</div>
+`;
+document.body.appendChild(modal);
+}
+function shareToApp(app) {
+const shareResult = document.querySelector('#shareResult');
+shareResult.textContent = `已打开${app === 'wechat' ? '微信' : 'QQ'}分享`;
+shareResult.classList.remove('hidden');
+setTimeout(() => {
+shareResult.classList.add('hidden');
+}, 2000);
+}
+function generateShareImage() {
+const shareResult = document.querySelector('#shareResult');
+shareResult.textContent = '分享图片已保存到相册';
+shareResult.classList.remove('hidden');
+setTimeout(() => {
+shareResult.classList.add('hidden');
+}, 2000);
+}
+function copyShareLink() {
+navigator.clipboard.writeText(window.location.href).then(() => {
+const shareResult = document.querySelector('#shareResult');
+shareResult.textContent = '分享链接已复制';
+shareResult.classList.remove('hidden');
+setTimeout(() => {
+shareResult.classList.add('hidden');
+}, 2000);
+});
+}
+function showCertificate() {
+const modal = document.createElement('div');
+modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+modal.innerHTML = `
+<div class="bg-white w-[340px] rounded-lg p-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-medium">有机认证证书</h3>
+<button class="text-gray-400" onclick="this.closest('.fixed').remove()">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="border-2 border-primary rounded-lg p-6 bg-green-50">
+<div class="text-center">
+<i class="ri-verified-badge-fill text-primary text-4xl"></i>
+<h4 class="text-lg font-medium mt-4">有机产品认证证书</h4>
+<p class="text-sm text-gray-600 mt-2">证书编号：ORGANIC-2025-0086</p>
+</div>
+<div class="mt-6 space-y-3 text-sm">
+<div class="flex">
+<span class="text-gray-500 w-20">认证主体：</span>
+<span>千福之苑有机农场</span>
+</div>
+<div class="flex">
+<span class="text-gray-500 w-20">认证产品：</span>
+<span>有机葡萄</span>
+</div>
+<div class="flex">
+<span class="text-gray-500 w-20">认证机构：</span>
+<span>国家有机产品认证中心</span>
+</div>
+<div class="flex">
+<span class="text-gray-500 w-20">有效期至：</span>
+<span>2026年02月21日</span>
+</div>
+</div>
+<div class="mt-6 text-center">
+<img src="https://public.readdy.ai/ai/img_res/e389149ca7e85de5b32ab731f6e0b3c1.jpg" class="w-20 h-20 mx-auto" alt="认证章">
+</div>
+</div>
+</div>
+`;
+document.body.appendChild(modal);
+}
+document.querySelector('.ri-heart-line').addEventListener('click', function(e) {
+e.target.classList.toggle('ri-heart-line');
+e.target.classList.toggle('ri-heart-fill');
+});
+document.getElementById('askQuestion').addEventListener('click', function() {
+const modal = document.createElement('div');
+modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+modal.innerHTML = `
+<div class="bg-white w-[340px] rounded-lg p-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-medium">提出问题</h3>
+<button class="text-gray-400" onclick="this.closest('.fixed').remove()">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<textarea class="w-full h-32 border rounded p-2 text-sm" placeholder="请描述您的问题..."></textarea>
+<button class="w-full h-10 bg-primary text-white mt-4 !rounded-button" onclick="this.closest('.fixed').remove()">提交问题</button>
+</div>
+`;
+document.body.appendChild(modal);
+});
+function showCustomerService() {
+const modal = document.createElement('div');
+modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+modal.innerHTML = `
+<div class="bg-white w-[340px] rounded-lg p-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-medium">联系客服</h3>
+<button class="text-gray-400" onclick="this.closest('.fixed').remove()">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="space-y-4">
+<button class="w-full h-12 border rounded-lg flex items-center px-4 hover:bg-gray-50" onclick="window.location.href='tel:400-888-8888'">
+<i class="ri-phone-line text-xl text-primary"></i>
+<div class="ml-3">
+<div class="text-sm font-medium">电话客服</div>
+<div class="text-xs text-gray-500">工作时间: 09:00-21:00</div>
+</div>
+<i class="ri-arrow-right-s-line ml-auto text-gray-400"></i>
+</button>
+<button class="w-full h-12 border rounded-lg flex items-center px-4 hover:bg-gray-50" onclick="window.open('https://example.com/chat')">
+<i class="ri-message-3-line text-xl text-primary"></i>
+<div class="ml-3">
+<div class="text-sm font-medium">在线客服</div>
+<div class="text-xs text-gray-500">在线时间: 24小时</div>
+</div>
+<i class="ri-arrow-right-s-line ml-auto text-gray-400"></i>
+</button>
+</div>
+</div>
+`;
+document.body.appendChild(modal);
+}
+document.querySelectorAll('.border-b').forEach(item => {
+item.addEventListener('click', function() {
+const content = this.querySelector('p');
+const arrow = this.querySelector('.ri-arrow-down-s-line');
+if(content.style.display === 'none') {
+content.style.display = 'block';
+arrow.style.transform = 'rotate(180deg)';
+} else {
+content.style.display = 'none';
+arrow.style.transform = 'rotate(0deg)';
+}
+});
+});
+</script>
+</body>
+</html>

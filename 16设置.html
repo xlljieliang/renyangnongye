@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>设置</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+background: #fafafa;
+font-family: SimSun, serif;
+}
+</style>
+<script>
+const translations = {
+'zh-CN': {
+settings: '设置',
+theme: '主题皮肤',
+more: '更多',
+springFarm: '春日农场',
+techFarm: '科技农业',
+quickFeatures: '快捷功能',
+notifications: '消息通知',
+farmRecords: '农场档案',
+dataSync: '数据同步',
+quickActions: '快捷操作',
+accessibility: '无障碍模式',
+language: '语言设置',
+privacy: '隐私设置',
+assistant: '智能助手',
+voiceBroadcast: '语音播报',
+storage: '存储管理',
+customerService: '客户服务',
+aboutUs: '关于我们'
+},
+'zh-TW': {
+settings: '設置',
+theme: '主題皮膚',
+more: '更多',
+springFarm: '春日農場',
+techFarm: '科技農業',
+quickFeatures: '快捷功能',
+notifications: '消息通知',
+farmRecords: '農場檔案',
+dataSync: '數據同步',
+quickActions: '快捷操作',
+accessibility: '無障礙模式',
+language: '語言設置',
+privacy: '隱私設置',
+assistant: '智能助手',
+voiceBroadcast: '語音播報',
+storage: '存儲管理',
+customerService: '客戶服務',
+aboutUs: '關於我們'
+},
+'en': {
+settings: 'Settings',
+theme: 'Theme',
+more: 'More',
+springFarm: 'Spring Farm',
+techFarm: 'Tech Farm',
+quickFeatures: 'Quick Features',
+notifications: 'Notifications',
+farmRecords: 'Farm Records',
+dataSync: 'Data Sync',
+quickActions: 'Quick Actions',
+accessibility: 'Accessibility',
+language: 'Language',
+privacy: 'Privacy',
+assistant: 'Assistant',
+voiceBroadcast: 'Voice Broadcast',
+storage: 'Storage',
+customerService: 'Customer Service',
+aboutUs: 'About Us'
+}
+};
+let currentLang = 'zh-CN';
+function updateLanguage(lang) {
+currentLang = lang;
+const texts = translations[lang];
+document.querySelectorAll('[data-i18n]').forEach(el => {
+const key = el.getAttribute('data-i18n');
+if (texts[key]) {
+el.textContent = texts[key];
+}
+});
+document.querySelector('#currentLang').textContent = {
+'zh-CN': '简体中文',
+'zh-TW': '繁體中文',
+'en': 'English'
+}[lang];
+}
+</script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] min-h-screen mx-auto bg-gray-50">
+<nav class="fixed top-0 left-0 right-0 h-12 bg-white shadow-sm z-50 flex items-center justify-between px-4">
+<button class="w-8 h-8 flex items-center justify-center" onclick="history.back()">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+<span class="text-base font-medium" data-i18n="settings">设置</span>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-more-line text-xl"></i>
+</div>
+</nav>
+<main class="pt-14 pb-16 px-4">
+<section class="mb-6">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-base font-medium" data-i18n="theme">主题皮肤</h2>
+<button class="text-sm text-primary" data-i18n="more" onclick="document.getElementById('themeModal').classList.remove('hidden')">更多</button>
+</div>
+<div id="themeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-t-2xl fixed bottom-0 left-0 right-0 max-h-[80vh] overflow-y-auto">
+    <div class="p-4 border-b sticky top-0 bg-white z-10 flex items-center justify-between">
+      <h3 class="text-lg font-medium">主题皮肤</h3>
+      <button onclick="document.getElementById('themeModal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center">
+        <i class="ri-close-line text-xl"></i>
+      </button>
+    </div>
+    <div class="p-4 grid grid-cols-2 gap-3">
+      <div class="relative rounded-lg overflow-hidden h-32">
+        <img src="https://public.readdy.ai/ai/img_res/16171fd9547f4f8c8d2f284825ca61e9.jpg" class="w-full h-full object-cover" alt="主题预览">
+        <div class="absolute bottom-2 left-2 text-white text-sm">田园农场</div>
+      </div>
+      <div class="relative rounded-lg overflow-hidden h-32">
+        <img src="https://public.readdy.ai/ai/img_res/ef1bc1f96997d0fcc0c48c405823ddf3.jpg" class="w-full h-full object-cover" alt="主题预览">
+        <div class="absolute bottom-2 left-2 text-white text-sm">未来农场</div>
+      </div>
+      <div class="relative rounded-lg overflow-hidden h-32">
+        <img src="https://public.readdy.ai/ai/img_res/6ea5a971c5164f501cff749f5330d6cf.jpg" class="w-full h-full object-cover" alt="主题预览">
+        <div class="absolute bottom-2 left-2 text-white text-sm">有机农场</div>
+      </div>
+      <div class="relative rounded-lg overflow-hidden h-32">
+        <img src="https://public.readdy.ai/ai/img_res/145ee6334b4c05b165e8853fa9c87c7f.jpg" class="w-full h-full object-cover" alt="主题预览">
+        <div class="absolute bottom-2 left-2 text-white text-sm">智慧温室</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="relative rounded-lg overflow-hidden h-32">
+<img src="https://public.readdy.ai/ai/img_res/dd6a283d32a2ff32f5dc7c799b2b3708.jpg" class="w-full h-full object-cover" alt="主题预览">
+<div class="absolute bottom-2 left-2 text-white text-sm" data-i18n="springFarm">春日农场</div>
+</div>
+<div class="relative rounded-lg overflow-hidden h-32">
+<img src="https://public.readdy.ai/ai/img_res/52e9d4bd9180f5e2b2baaa9a602a8f14.jpg" class="w-full h-full object-cover" alt="主题预览">
+<div class="absolute bottom-2 left-2 text-white text-sm" data-i18n="techFarm">科技农业</div>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-lg p-4 mb-6">
+<h2 class="text-base font-medium mb-4" data-i18n="quickFeatures">快捷功能</h2>
+<div class="grid grid-cols-4 gap-4">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center mb-2">
+<i class="ri-notification-4-line text-xl text-primary"></i>
+</div>
+<span class="text-xs" data-i18n="notifications">消息通知</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center mb-2">
+<i class="ri-file-list-3-line text-xl text-primary"></i>
+</div>
+<span class="text-xs" data-i18n="farmRecords">农场档案</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center mb-2">
+<i class="ri-cloud-line text-xl text-primary"></i>
+</div>
+<span class="text-xs" data-i18n="dataSync">数据同步</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center mb-2">
+<i class="ri-settings-3-line text-xl text-primary"></i>
+</div>
+<span class="text-xs" data-i18n="quickActions">快捷操作</span>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-lg mb-6">
+<div class="flex items-center justify-between p-4 border-b">
+<span data-i18n="accessibility">无障碍模式</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 border-b relative" onclick="document.getElementById('langMenu').classList.toggle('hidden')">
+<span data-i18n="language">语言设置</span>
+<div class="flex items-center text-gray-400">
+<span class="mr-2" id="currentLang">简体中文</span>
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<div id="langMenu" class="hidden absolute right-4 top-14 bg-white shadow-lg rounded-lg z-10 w-32">
+<div class="py-2">
+<button class="w-full px-4 py-2 text-left hover:bg-gray-100" onclick="updateLanguage('zh-CN')">简体中文</button>
+<button class="w-full px-4 py-2 text-left hover:bg-gray-100" onclick="updateLanguage('zh-TW')">繁體中文</button>
+<button class="w-full px-4 py-2 text-left hover:bg-gray-100" onclick="updateLanguage('en')">English</button>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4">
+<span data-i18n="privacy">隐私设置</span>
+<i class="ri-arrow-right-s-line text-gray-400"></i>
+</div>
+</section>
+<section class="bg-white rounded-lg mb-6">
+<div class="flex items-center justify-between p-4 border-b">
+<span data-i18n="assistant">智能助手</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" checked class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 border-b">
+<span data-i18n="voiceBroadcast">语音播报</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4">
+<span data-i18n="storage">存储管理</span>
+<div class="flex items-center text-gray-400">
+<span class="mr-2">1.2GB</span>
+<i class="ri-arrow-right-s-line"></i>
+</div>
+</div>
+</section>
+<section class="flex items-center justify-center space-x-8 text-sm text-gray-500">
+<button data-i18n="customerService">客户服务</button>
+<button data-i18n="aboutUs">关于我们</button>
+</section>
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+updateLanguage('zh-CN');
+});
+</script>
+</body>
+</html>

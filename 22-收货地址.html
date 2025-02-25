@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0">
+<title>地址管理</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50" style="width: 375px; margin: 0 auto;">
+<nav class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50 px-4 h-12 flex items-center justify-between" style="width: 375px; margin: 0 auto;">
+<div class="flex items-center">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-s-line text-xl" onclick="history.back()"></i>
+</button>
+<span class="ml-2 text-base font-medium">收货地址</span>
+</div>
+<div class="flex items-center space-x-2">
+<button id="manageBtn" class="text-primary text-sm">管理</button>
+<button id="addAddressBtn" class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</nav>
+<main class="pt-16 pb-4 px-4">
+<div id="addressList" class="space-y-3">
+<div class="bg-white rounded-lg p-4 shadow-sm">
+<div class="text-gray-500 text-sm">江苏省 常州市 金坛区 西城街道</div>
+<div class="font-medium mt-1">河海大道1915号河海大学长荡湖校区</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex items-center">
+<span class="text-sm font-['SimSun']">赵梓涵</span>
+<span class="text-sm ml-4 font-['SimSun']">13912345678</span>
+<span class="ml-2 text-xs px-2 py-0.5 bg-secondary text-primary rounded">学校</span>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-edit-line"></i>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm">
+<div class="text-gray-500 text-sm">广西壮族自治区 桂林市 灵川县 灵川镇</div>
+<div class="font-medium mt-1">灵西路菜鸟驿站桂林江岸美城北苑店</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex items-center">
+<span class="text-sm font-['SimSun']">林思颖</span>
+<span class="text-sm ml-4 font-['SimSun']">15823456789</span>
+<span class="ml-2 text-xs px-2 py-0.5 bg-orange-50 text-orange-500 rounded">最近使用</span>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-edit-line"></i>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm">
+<div class="text-gray-500 text-sm">江苏省 南京市 江宁区 禄口街道</div>
+<div class="font-medium mt-1">佛城西路8号河海大学江宁校区</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex items-center">
+<span class="text-sm font-['SimSun']">陈雨晴</span>
+<span class="text-sm ml-4 font-['SimSun']">17634567890</span>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-edit-line"></i>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-lg p-4 shadow-sm">
+<div class="text-gray-500 text-sm">河南省 开封市 龙亭区 北郊乡</div>
+<div class="font-medium mt-1">河南大学明伦校区仁和学生公寓</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex items-center">
+<span class="text-sm font-['SimSun']">王子轩</span>
+<span class="text-sm ml-4 font-['SimSun']">13845678901</span>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-edit-line"></i>
+</button>
+</div>
+</div>
+</div>
+</main>
+<script>
+const addressList = document.getElementById('addressList');
+const addAddressBtn = document.getElementById('addAddressBtn');
+let touchStartX = 0;
+let touchEndX = 0;
+addAddressBtn.addEventListener('click', () => {
+const dialog = document.createElement('div');
+dialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+dialog.innerHTML = `
+<div class="bg-white rounded-lg p-4 w-80">
+<h3 class="text-lg font-medium mb-4">新增地址</h3>
+<div class="space-y-3">
+<input type="text" placeholder="收货人姓名" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<input type="tel" placeholder="手机号码" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<div class="flex items-center space-x-2">
+<input type="text" placeholder="省份" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<input type="text" placeholder="城市" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<input type="text" placeholder="区县" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+</div>
+<input type="text" placeholder="详细地址" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<div class="flex items-center space-x-2">
+<button class="flex-1 py-2 border border-primary text-primary rounded-button">取消</button>
+<button class="flex-1 py-2 bg-primary text-white rounded-button">保存</button>
+</div>
+</div>
+</div>
+`;
+document.body.appendChild(dialog);
+const cancelBtn = dialog.querySelector('.border-primary');
+const saveBtn = dialog.querySelector('.bg-primary');
+cancelBtn.addEventListener('click', () => {
+dialog.remove();
+});
+saveBtn.addEventListener('click', () => {
+const inputs = dialog.querySelectorAll('input');
+const [name, phone, province, city, district, detail] = Array.from(inputs).map(input => input.value.trim());
+if(!name || !phone || !province || !city || !district || !detail) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '请填写完整信息';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+return;
+}
+const newAddress = document.createElement('div');
+newAddress.className = 'bg-white rounded-lg p-4 shadow-sm';
+newAddress.innerHTML = `
+<div class="text-gray-500 text-sm">${province} ${city} ${district}</div>
+<div class="font-medium mt-1">${detail}</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex items-center">
+<span class="text-sm font-['SimSun']">${name}</span>
+<span class="text-sm ml-4 font-['SimSun']">${phone}</span>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-edit-line"></i>
+</button>
+</div>
+`;
+addressList.insertBefore(newAddress, addressList.firstChild);
+dialog.remove();
+const successToast = document.createElement('div');
+successToast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+successToast.textContent = '添加成功';
+document.body.appendChild(successToast);
+setTimeout(() => successToast.remove(), 2000);
+});
+const addressCard = btn.closest('.bg-white');
+const nameSpan = addressCard.querySelector('.text-sm.font-[\'SimSun\']');
+const phoneSpan = nameSpan.nextElementSibling;
+const addressDiv = addressCard.querySelector('.text-gray-500.text-sm');
+const detailDiv = addressCard.querySelector('.font-medium.mt-1');
+const [province, city, district] = addressDiv.textContent.split(' ');
+const inputs = dialog.querySelectorAll('input');
+inputs[0].value = nameSpan.textContent;
+inputs[1].value = phoneSpan.textContent;
+inputs[2].value = province;
+inputs[3].value = city;
+inputs[4].value = district;
+inputs[5].value = detailDiv.textContent;
+dialog.querySelector('.cancel-edit-btn').addEventListener('click', () => {
+dialog.remove();
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '已取消编辑';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+});
+dialog.querySelector('.confirm-edit-btn').addEventListener('click', () => {
+const [name, phone, province, city, district, detail] = Array.from(inputs).map(input => input.value.trim());
+if(!name || !phone || !province || !city || !district || !detail) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '请填写完整信息';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+return;
+}
+nameSpan.textContent = name;
+phoneSpan.textContent = phone;
+addressDiv.textContent = `${province} ${city} ${district}`;
+detailDiv.textContent = detail;
+dialog.remove();
+const successToast = document.createElement('div');
+successToast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+successToast.textContent = '修改成功';
+document.body.appendChild(successToast);
+setTimeout(() => successToast.remove(), 2000);
+});
+dialog.addEventListener('click', (e) => {
+if (e.target === dialog) {
+dialog.remove();
+}
+});
+});
+addressList.addEventListener('touchstart', (e) => {
+touchStartX = e.touches[0].clientX;
+});
+addressList.addEventListener('touchmove', (e) => {
+touchEndX = e.touches[0].clientX;
+});
+addressList.addEventListener('touchend', (e) => {
+const swipeDistance = touchStartX - touchEndX;
+if (swipeDistance > 100) {
+const target = e.target.closest('.bg-white');
+if (target) {
+target.style.transform = 'translateX(-80px)';
+target.style.transition = 'transform 0.3s';
+}
+} else if (swipeDistance < -100) {
+const target = e.target.closest('.bg-white');
+if (target) {
+target.style.transform = 'translateX(0)';
+target.style.transition = 'transform 0.3s';
+}
+}
+});
+let isManaging = false;
+document.getElementById('manageBtn').addEventListener('click', () => {
+isManaging = !isManaging;
+document.getElementById('manageBtn').textContent = isManaging ? '完成' : '管理';
+const addresses = document.querySelectorAll('#addressList > div');
+addresses.forEach(address => {
+if(isManaging) {
+const actions = document.createElement('div');
+actions.className = 'flex items-center space-x-2 mt-3 pt-3 border-t';
+actions.innerHTML = `
+<button class="flex-1 py-2 border border-red-500 text-red-500 rounded-button delete-btn">删除</button>
+<button class="flex-1 py-2 border border-primary text-primary rounded-button copy-btn">复制</button>
+`;
+address.appendChild(actions);
+actions.querySelector('.delete-btn').addEventListener('click', () => {
+const confirmDialog = document.createElement('div');
+confirmDialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+confirmDialog.innerHTML = `
+<div class="bg-white rounded-lg p-4 w-80">
+<h3 class="text-lg font-medium mb-4">确认删除该地址？</h3>
+<div class="flex space-x-2">
+<button class="flex-1 py-2 border border-gray-300 rounded-button cancel-btn">取消</button>
+<button class="flex-1 py-2 bg-red-500 text-white rounded-button confirm-btn">确认</button>
+</div>
+</div>
+`;
+document.body.appendChild(confirmDialog);
+confirmDialog.querySelector('.cancel-btn').addEventListener('click', () => confirmDialog.remove());
+confirmDialog.querySelector('.confirm-btn').addEventListener('click', () => {
+address.remove();
+confirmDialog.remove();
+const successToast = document.createElement('div');
+successToast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+successToast.textContent = '删除成功';
+document.body.appendChild(successToast);
+setTimeout(() => successToast.remove(), 2000);
+});
+});
+actions.querySelector('.copy-btn').addEventListener('click', () => {
+const newAddress = address.cloneNode(true);
+newAddress.querySelector('.flex.items-center.space-x-2').remove();
+addressList.insertBefore(newAddress, addressList.firstChild);
+const successToast = document.createElement('div');
+successToast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+successToast.textContent = '复制成功';
+document.body.appendChild(successToast);
+setTimeout(() => successToast.remove(), 2000);
+});
+} else {
+const actions = address.querySelector('.flex.items-center.space-x-2.mt-3');
+if(actions) {
+actions.remove();
+}
+}
+});
+});
+document.querySelectorAll('.ri-edit-line').forEach(btn => {
+btn.addEventListener('click', () => {
+if(isManaging) return;
+const dialog = document.createElement('div');
+dialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+dialog.innerHTML = `
+<div class="bg-white rounded-lg p-4 w-80">
+<h3 class="text-lg font-medium mb-4">编辑地址</h3>
+<div class="space-y-3">
+<input type="text" placeholder="收货人姓名" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<input type="tel" placeholder="手机号码" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<div class="flex items-center space-x-2">
+<input type="text" placeholder="省份" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<input type="text" placeholder="城市" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<input type="text" placeholder="区县" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+</div>
+<input type="text" placeholder="详细地址" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+<div class="flex items-center space-x-2">
+<button class="flex-1 py-2 border border-primary text-primary rounded-button cancel-edit-btn">取消</button>
+<button class="flex-1 py-2 bg-primary text-white rounded-button confirm-edit-btn">保存</button>
+</div>
+</div>
+</div>
+`;
+document.body.appendChild(dialog);
+const addressCard = btn.closest('.bg-white');
+const nameSpan = addressCard.querySelector('.text-sm.font-[\'SimSun\']');
+const phoneSpan = nameSpan.nextElementSibling;
+const addressDiv = addressCard.querySelector('.text-gray-500.text-sm');
+const detailDiv = addressCard.querySelector('.font-medium.mt-1');
+const [province, city, district] = addressDiv.textContent.split(' ');
+const inputs = dialog.querySelectorAll('input');
+inputs[0].value = nameSpan.textContent;
+inputs[1].value = phoneSpan.textContent;
+inputs[2].value = province;
+inputs[3].value = city;
+inputs[4].value = district;
+inputs[5].value = detailDiv.textContent;
+dialog.querySelector('.cancel-edit-btn').addEventListener('click', () => {
+dialog.remove();
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '已取消编辑';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+});
+dialog.querySelector('.confirm-edit-btn').addEventListener('click', () => {
+const [name, phone, province, city, district, detail] = Array.from(inputs).map(input => input.value.trim());
+if(!name || !phone || !province || !city || !district || !detail) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '请填写完整信息';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+return;
+}
+nameSpan.textContent = name;
+phoneSpan.textContent = phone;
+addressDiv.textContent = `${province} ${city} ${district}`;
+detailDiv.textContent = detail;
+dialog.remove();
+const successToast = document.createElement('div');
+successToast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+successToast.textContent = '修改成功';
+document.body.appendChild(successToast);
+setTimeout(() => successToast.remove(), 2000);
+});
+dialog.addEventListener('click', (e) => {
+if (e.target === dialog) {
+dialog.remove();
+}
+});
+});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0">
+<title>认养农场</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.grid-cell {
+transition: all 0.3s ease;
+}
+.grid-cell i {
+transition: all 0.3s ease;
+}
+[draggable="true"] {
+cursor: move;
+user-select: none;
+}
+[draggable="true"]:active {
+cursor: grabbing;
+}
+.game-container {
+background-image: url('https://public.readdy.ai/ai/img_res/58b119e11d369522e08372a4ca2092d5.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+}
+.grid-cell {
+background-image: url('https://public.readdy.ai/ai/img_res/480a8914513122c6ebc3b225a27f40b5.jpg');
+background-size: cover;
+}
+.water-area {
+background-image: url('https://public.readdy.ai/ai/img_res/5f64f99debdd6ab4f19a5d4eb86a760d.jpg');
+background-size: cover;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#4CAF50',
+secondary: '#2196F3'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] h-[762px] overflow-hidden bg-gray-100">
+<div class="game-container relative w-full h-full">
+<!-- 顶部信息栏 -->
+<div class="fixed top-0 w-full px-4 py-2 bg-white/80 backdrop-blur-sm flex items-center justify-between z-50">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-full overflow-hidden cursor-pointer" onclick="toggleAvatar()">
+<img id="userAvatar" src="https://public.readdy.ai/ai/img_res/4e980c87a9f744900f4d2922031b8718.jpg" class="w-full h-full object-cover">
+</div>
+<div>
+<div class="text-sm font-medium cursor-pointer" onclick="editNickname()">农场主 <span id="nickname">小麦</span></div>
+<div class="text-xs text-gray-600">等级 5</div>
+</div>
+</div>
+<!-- 修改昵称弹窗 -->
+<div id="nicknameModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+<div class="bg-white rounded-lg p-4 w-64">
+<h3 class="text-lg font-medium mb-4">修改昵称</h3>
+<input type="text" id="newNickname" class="w-full px-3 py-2 border rounded-lg mb-4" placeholder="请输入新昵称">
+<div class="flex gap-2">
+<button class="flex-1 py-2 bg-gray-200 text-gray-700 rounded-lg" onclick="closeNicknameModal()">取消</button>
+<button class="flex-1 py-2 bg-primary text-white rounded-lg" onclick="saveNickname()">保存</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center">
+<i class="ri-coin-line text-yellow-500"></i>
+<span class="ml-1 text-sm">1,234</span>
+</div>
+<div class="flex items-center">
+<i class="ri-drop-line text-blue-500"></i>
+<span id="waterDrops" class="ml-1 text-sm">48</span>
+</div>
+</div>
+</div>
+<!-- 农田网格 -->
+<div class="absolute top-20 left-1/2 -translate-x-1/2 grid grid-cols-4 gap-1">
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+<div class="grid-cell w-12 h-12 rounded cursor-pointer hover:opacity-80" onclick="plantCrop(this)"></div>
+</div>
+<!-- 动物区域 -->
+<div class="absolute bottom-60 left-4 flex flex-wrap gap-4">
+<!-- 鸡 -->
+<div class="relative w-16 h-16 cursor-move" draggable="true" ondragstart="dragStart(event, 'chicken')" ondragend="dragEnd(event)">
+<img src="https://public.readdy.ai/ai/img_res/b08303c79d011a605cf70e3e733a254c.jpg" class="w-full h-full object-contain animate-bounce">
+<div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</div>
+</div>
+<!-- 鸭 -->
+<div class="relative w-16 h-16 cursor-pointer" onclick="interactWithAnimal('duck')">
+<img src="https://public.readdy.ai/ai/img_res/4f3e1696eee7b4541980f4445fa18fe1.jpg" class="w-full h-full object-contain animate-bounce">
+<div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</div>
+</div>
+<!-- 羊 -->
+<div class="relative w-16 h-16 cursor-pointer" onclick="interactWithAnimal('sheep')">
+<img src="https://public.readdy.ai/ai/img_res/4fa39afd6487d94a21a9e57b88c9d887.jpg" class="w-full h-full object-contain animate-bounce">
+<div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</div>
+</div>
+<!-- 猪 -->
+<div class="relative w-16 h-16 cursor-pointer" onclick="interactWithAnimal('pig')">
+<img src="https://public.readdy.ai/ai/img_res/55bbc68f19c6799d6fc18c0a9402647f.jpg" class="w-full h-full object-contain animate-bounce">
+<div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">1</div>
+</div>
+<!-- 牛 -->
+<div class="relative w-16 h-16 cursor-pointer" onclick="interactWithAnimal('cow')">
+<img src="https://public.readdy.ai/ai/img_res/a635b7906064a2f1ab9e7f09ba9403f6.jpg" class="w-full h-full object-contain animate-bounce">
+<div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">1</div>
+</div>
+<!-- 马 -->
+<div class="relative w-16 h-16 cursor-pointer" onclick="interactWithAnimal('horse')">
+<img src="https://public.readdy.ai/ai/img_res/224361ff836ccbbf82eaa37afaf39ab1.jpg" class="w-full h-full object-contain animate-bounce">
+<div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">1</div>
+</div>
+<!-- 狗 -->
+<div class="relative w-16 h-16 cursor-pointer" onclick="interactWithAnimal('dog')">
+<img src="https://public.readdy.ai/ai/img_res/0a54f34f69495c9b35a25be7a371f720.jpg" class="w-full h-full object-contain animate-bounce">
+<div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">1</div>
+</div>
+</div>
+<!-- 水池 -->
+<div class="water-area absolute bottom-40 left-4 w-24 h-12 rounded-lg"></div>
+<!-- 右侧功能按钮 -->
+<div class="fixed right-4 top-20 flex flex-col gap-4">
+<button class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center" onclick="openShop()">
+<i class="ri-store-2-line text-primary text-xl"></i>
+</button>
+<button class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center" onclick="toggleOnline()">
+<i class="ri-team-line text-primary text-xl"></i>
+</button>
+<button class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center" onclick="openTasks()">
+<i class="ri-task-line text-primary text-xl"></i>
+</button>
+<button class="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center" onclick="openAdoption()">
+<i class="ri-home-heart-line text-primary text-xl"></i>
+</button>
+</div>
+<!-- 底部工具栏 -->
+<div class="fixed bottom-0 w-full bg-white/80 backdrop-blur-sm py-2 px-4 flex justify-around items-center">
+<button class="flex flex-col items-center">
+<i class="ri-seed-line text-xl text-primary"></i>
+<span class="text-xs mt-1">种子</span>
+</button>
+<button class="flex flex-col items-center" onclick="startWatering()">
+<i class="ri-drop-line text-xl text-primary"></i>
+<span class="text-xs mt-1">浇水</span>
+</button>
+<button class="flex flex-col items-center" onclick="harvestCrops()">
+<i class="ri-scissors-cut-line text-xl text-primary"></i>
+<span class="text-xs mt-1">收获</span>
+</button>
+<button class="flex flex-col items-center">
+<i class="ri-settings-3-line text-xl text-primary"></i>
+<span class="text-xs mt-1">设置</span>
+</button>
+</div>
+</div>
+<!-- 种植作物弹窗 -->
+<div id="plantModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center">
+<div class="bg-white rounded-lg p-4 w-64">
+<h3 class="text-lg font-medium mb-4">选择种子</h3>
+<div class="grid grid-cols-3 gap-2">
+<button class="p-2 border rounded-lg flex flex-col items-center" onclick="selectSeed('胡萝卜')">
+<i class="ri-plant-line text-2xl text-primary"></i>
+<span class="text-sm mt-1">胡萝卜</span>
+</button>
+<button class="p-2 border rounded-lg flex flex-col items-center" onclick="selectSeed('白菜')">
+<i class="ri-plant-line text-2xl text-primary"></i>
+<span class="text-sm mt-1">白菜</span>
+</button>
+<button class="p-2 border rounded-lg flex flex-col items-center" onclick="selectSeed('番茄')">
+<i class="ri-plant-line text-2xl text-primary"></i>
+<span class="text-sm mt-1">番茄</span>
+</button>
+</div>
+<button class="w-full mt-4 py-2 bg-primary text-white rounded-lg" onclick="closePlantModal()">关闭</button>
+</div>
+</div>
+<script>
+let isOnline = false;
+let isDragging = false;
+let draggedAnimal = null;
+let draggedElement = null;
+let originalPosition = null;
+function resetWaterDrops() {
+const waterDropsElement = document.getElementById('waterDrops');
+waterDropsElement.textContent = '48';
+}
+setInterval(() => {
+const now = new Date();
+if (now.getHours() === 0 && now.getMinutes() === 0) {
+resetWaterDrops();
+showToast('水滴已补充到48滴');
+}
+}, 60000);
+function dragStart(event, animalType) {
+isDragging = true;
+draggedAnimal = animalType;
+draggedElement = event.target;
+originalPosition = {
+x: event.clientX - draggedElement.offsetLeft,
+y: event.clientY - draggedElement.offsetTop
+};
+draggedElement.style.position = 'absolute';
+draggedElement.style.zIndex = '1000';
+document.addEventListener('mousemove', onDrag);
+document.addEventListener('mouseup', onDragEnd);
+}
+function onDrag(event) {
+if (!isDragging) return;
+const x = event.clientX - originalPosition.x;
+const y = event.clientY - originalPosition.y;
+draggedElement.style.left = `${x}px`;
+draggedElement.style.top = `${y}px`;
+}
+function onDragEnd() {
+if (!isDragging) return;
+isDragging = false;
+draggedElement.style.position = '';
+draggedElement.style.zIndex = '';
+draggedElement.style.left = '';
+draggedElement.style.top = '';
+showToast(`${draggedAnimal}正在快乐地吃草`);
+document.removeEventListener('mousemove', onDrag);
+document.removeEventListener('mouseup', onDragEnd);
+}
+function dragEnd(event) {
+event.preventDefault();
+}
+let isWatering = false;
+let wateringInterval = null;
+const defaultAvatar = "https://readdy.ai/api/search-image?query=Cute cartoon farmer avatar, friendly smile, wearing straw hat, pixel art style&width=40&height=40&orientation=squarish";
+const customAvatar = "https://public.readdy.ai/ai/img_res/784e42a52755547c5d2159f3ef7061fb.jpg";
+let currentAvatar = defaultAvatar;
+function toggleAvatar() {
+const avatarImg = document.getElementById('userAvatar');
+currentAvatar = currentAvatar === defaultAvatar ? customAvatar : defaultAvatar;
+avatarImg.src = currentAvatar;
+showToast('头像已更换');
+}
+function editNickname() {
+const nicknameModal = document.getElementById('nicknameModal');
+const newNicknameInput = document.getElementById('newNickname');
+const currentNickname = document.getElementById('nickname').textContent;
+newNicknameInput.value = currentNickname;
+nicknameModal.style.display = 'flex';
+}
+function closeNicknameModal() {
+const nicknameModal = document.getElementById('nicknameModal');
+nicknameModal.style.display = 'none';
+}
+function saveNickname() {
+const newNickname = document.getElementById('newNickname').value.trim();
+if (newNickname) {
+document.getElementById('nickname').textContent = newNickname;
+closeNicknameModal();
+showToast('昵称修改成功');
+} else {
+showToast('昵称不能为空');
+}
+}
+const plantModal = document.getElementById('plantModal');
+let selectedCell = null;
+function plantCrop(cell) {
+selectedCell = cell;
+plantModal.style.display = 'flex';
+}
+function selectSeed(seedType) {
+if (selectedCell) {
+const seedIcon = document.createElement('i');
+seedIcon.className = 'ri-plant-line text-2xl text-green-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2';
+selectedCell.style.position = 'relative';
+selectedCell.innerHTML = '';
+selectedCell.appendChild(seedIcon);
+selectedCell.setAttribute('data-growth', '0');
+selectedCell.setAttribute('data-planted', 'true');
+selectedCell.setAttribute('data-crop-type', seedType);
+showToast(`种植了 ${seedType}`);
+}
+closePlantModal();
+}
+function startWatering() {
+if (isWatering) {
+isWatering = false;
+document.body.style.cursor = 'default';
+if (wateringInterval) {
+clearInterval(wateringInterval);
+wateringInterval = null;
+}
+return;
+}
+isWatering = true;
+document.body.style.cursor = 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="%234CAF50" d="M12 2c-5.33 4.55-8 8.48-8 11.8c0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zM7.83 14c.37 0 .67.26.74.62c.41 2.22 2.28 2.98 3.64 2.87c.43-.02.79.32.79.75c0 .4-.32.73-.72.75c-2.13.13-4.62-1.09-5.19-4.12c-0.08-.45.28-.87.74-.87z"/></svg>\') 16 16, auto';
+wateringInterval = setInterval(() => {
+const cells = document.querySelectorAll('.grid-cell[data-planted="true"]');
+cells.forEach(cell => {
+cell.addEventListener('click', waterPlant);
+});
+}, 100);
+}
+function waterPlant(event) {
+if (!isWatering) return;
+const waterDropsElement = document.getElementById('waterDrops');
+const currentWaterDrops = parseInt(waterDropsElement.textContent);
+if (currentWaterDrops <= 0) {
+showToast('水滴不足，无法浇水');
+return;
+}
+const cell = event.currentTarget;
+const growth = parseInt(cell.getAttribute('data-growth') || '0');
+if (growth < 100) {
+waterDropsElement.textContent = currentWaterDrops - 1;
+const newGrowth = Math.min(growth + 20, 100);
+cell.setAttribute('data-growth', newGrowth.toString());
+const plantIcon = cell.querySelector('i');
+if (plantIcon) {
+plantIcon.style.transform = `scale(${1 + newGrowth/100}) translate(-50%, -50%)`;
+plantIcon.style.color = `rgb(${Math.floor(34 + (newGrowth/100) * 221)}, ${Math.floor(197 - (newGrowth/100) * 162)}, ${Math.floor(94 - (newGrowth/100) * 60)})`;
+}
+if (newGrowth >= 100) {
+plantIcon.className = 'ri-plant-fill text-2xl text-yellow-500 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2';
+showToast('作物已成熟，可以收获啦！');
+cell.setAttribute('data-harvestable', 'true');
+}
+const waterEffect = document.createElement('div');
+waterEffect.className = 'absolute inset-0 bg-blue-400 opacity-20 rounded';
+cell.appendChild(waterEffect);
+setTimeout(() => waterEffect.remove(), 300);
+}
+}
+function closePlantModal() {
+plantModal.style.display = 'none';
+selectedCell = null;
+}
+function toggleOnline() {
+isOnline = !isOnline;
+const message = isOnline ? '已切换到联机模式' : '已切换到单机模式';
+showToast(message);
+}
+let inventory = [];
+function updateCoins(amount) {
+const coinsElement = document.querySelector('.ri-coin-line').nextElementSibling;
+const currentCoins = parseInt(coinsElement.textContent.replace(/,/g, ''));
+const newCoins = currentCoins + amount;
+coinsElement.textContent = newCoins.toLocaleString();
+}
+function showToast(message) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-lg text-sm';
+toast.textContent = message;
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+}
+function harvestCrops() {
+const harvestableCells = document.querySelectorAll('.grid-cell[data-harvestable="true"]');
+if(harvestableCells.length === 0) {
+showToast('没有可收获的作物');
+return;
+}
+harvestableCells.forEach(cell => {
+const cropType = cell.getAttribute('data-crop-type') || '作物';
+inventory.push(cropType);
+const coins = Math.floor(Math.random() * 50) + 50;
+updateCoins(coins);
+cell.innerHTML = '';
+cell.removeAttribute('data-harvestable');
+cell.removeAttribute('data-planted');
+cell.removeAttribute('data-growth');
+cell.removeAttribute('data-crop-type');
+showToast(`收获了 ${cropType}，获得 ${coins} 金币，已放入背包`);
+});
+}
+function openShop() {
+const shopModal = document.createElement('div');
+shopModal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+shopModal.innerHTML = `
+<div class="bg-white rounded-lg p-4 w-80">
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-lg font-medium">商店</h3>
+    <button onclick="this.closest('.fixed').remove()" class="text-gray-500">
+      <i class="ri-close-line text-xl"></i>
+    </button>
+  </div>
+  <div class="flex gap-2 mb-4">
+    <button class="flex-1 py-2 bg-primary text-white rounded-lg" onclick="switchShopTab('seeds', this)">种子</button>
+    <button class="flex-1 py-2 bg-gray-200 text-gray-700 rounded-lg" onclick="switchShopTab('animals', this)">动物</button>
+  </div>
+  <div id="seedsTab" class="grid grid-cols-2 gap-3">
+    <div class="border rounded-lg p-3 flex flex-col items-center">
+      <img src="https://public.readdy.ai/ai/img_res/c50978753f9ac23d0f241e0f4cf916b7.jpg" class="w-12 h-12 mb-2">
+      <span class="text-sm mb-1">胡萝卜种子</span>
+      <div class="flex items-center text-sm text-yellow-500 mb-2">
+        <i class="ri-coin-line mr-1"></i>50
+      </div>
+      <button class="w-full py-1 bg-primary text-white text-sm rounded-lg" onclick="buyItem('胡萝卜种子', 50)">购买</button>
+    </div>
+    <div class="border rounded-lg p-3 flex flex-col items-center">
+      <img src="https://public.readdy.ai/ai/img_res/998448d61881f9723b8fbfb6098c7883.jpg" class="w-12 h-12 mb-2">
+      <span class="text-sm mb-1">白菜种子</span>
+      <div class="flex items-center text-sm text-yellow-500 mb-2">
+        <i class="ri-coin-line mr-1"></i>40
+      </div>
+      <button class="w-full py-1 bg-primary text-white text-sm rounded-lg" onclick="buyItem('白菜种子', 40)">购买</button>
+    </div>
+    <div class="border rounded-lg p-3 flex flex-col items-center">
+      <img src="https://public.readdy.ai/ai/img_res/4391c88a3b29b61b7ac9f2235fc85fb6.jpg" class="w-12 h-12 mb-2">
+      <span class="text-sm mb-1">番茄种子</span>
+      <div class="flex items-center text-sm text-yellow-500 mb-2">
+        <i class="ri-coin-line mr-1"></i>60
+      </div>
+      <button class="w-full py-1 bg-primary text-white text-sm rounded-lg" onclick="buyItem('番茄种子', 60)">购买</button>
+    </div>
+  </div>
+  <div id="animalsTab" class="grid grid-cols-2 gap-3 hidden">
+    <div class="border rounded-lg p-3 flex flex-col items-center">
+      <img src="https://public.readdy.ai/ai/img_res/c8606daed2579dfca48f159653bb9114.jpg" class="w-12 h-12 mb-2">
+      <span class="text-sm mb-1">小鸡</span>
+      <div class="flex items-center text-sm text-yellow-500 mb-2">
+        <i class="ri-coin-line mr-1"></i>200
+      </div>
+      <button class="w-full py-1 bg-primary text-white text-sm rounded-lg" onclick="buyItem('小鸡', 200)">购买</button>
+    </div>
+    <div class="border rounded-lg p-3 flex flex-col items-center">
+      <img src="https://public.readdy.ai/ai/img_res/f62ddb4fa1089dc5ed3fdf5a54bb8c04.jpg" class="w-12 h-12 mb-2">
+      <span class="text-sm mb-1">绵羊</span>
+      <div class="flex items-center text-sm text-yellow-500 mb-2">
+        <i class="ri-coin-line mr-1"></i>500
+      </div>
+      <button class="w-full py-1 bg-primary text-white text-sm rounded-lg" onclick="buyItem('绵羊', 500)">购买</button>
+    </div>
+    <div class="border rounded-lg p-3 flex flex-col items-center">
+      <img src="https://public.readdy.ai/ai/img_res/090d691dec9a3e4df665d43a34b9effa.jpg" class="w-12 h-12 mb-2">
+      <span class="text-sm mb-1">小猪</span>
+      <div class="flex items-center text-sm text-yellow-500 mb-2">
+        <i class="ri-coin-line mr-1"></i>800
+      </div>
+      <button class="w-full py-1 bg-primary text-white text-sm rounded-lg" onclick="buyItem('小猪', 800)">购买</button>
+    </div>
+  </div>
+</div>
+`;
+document.body.appendChild(shopModal);
+}
+
+function switchShopTab(tab, button) {
+const seedsTab = document.getElementById('seedsTab');
+const animalsTab = document.getElementById('animalsTab');
+const buttons = button.parentElement.children;
+
+Array.from(buttons).forEach(btn => {
+btn.className = 'flex-1 py-2 bg-gray-200 text-gray-700 rounded-lg';
+});
+button.className = 'flex-1 py-2 bg-primary text-white rounded-lg';
+
+if (tab === 'seeds') {
+seedsTab.classList.remove('hidden');
+animalsTab.classList.add('hidden');
+} else {
+seedsTab.classList.add('hidden');
+animalsTab.classList.remove('hidden');
+}
+}
+
+function buyItem(itemName, price) {
+const coinsElement = document.querySelector('.ri-coin-line').nextElementSibling;
+const currentCoins = parseInt(coinsElement.textContent.replace(/,/g, ''));
+
+if (currentCoins < price) {
+showToast('金币不足');
+return;
+}
+
+updateCoins(-price);
+inventory.push(itemName);
+showToast(`购买 ${itemName} 成功`);
+}
+function openTasks() {
+showToast('任务系统加载中');
+}
+function openAdoption() {
+showToast('认养中心准备中');
+}
+function interactWithAnimal(type) {
+const animalNames = {
+chicken: '小鸡',
+duck: '鸭子',
+sheep: '绵羊',
+pig: '小猪',
+cow: '奶牛',
+horse: '骏马',
+dog: '牧羊犬'
+};
+const products = {
+chicken: '鸡蛋',
+duck: '鸭蛋',
+sheep: '羊毛',
+pig: '猪肉',
+cow: '牛奶',
+horse: '骑乘服务',
+dog: '守卫服务'
+};
+const randomProduct = Math.random() > 0.5;
+if(randomProduct) {
+const coins = Math.floor(Math.random() * 30) + 20;
+updateCoins(coins);
+showToast(`获得了 ${products[type]}，奖励 ${coins} 金币`);
+} else {
+showToast(`${animalNames[type]}需要休息`);
+}
+}
+</script>
+</body>
+</html>

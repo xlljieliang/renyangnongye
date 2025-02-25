@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0">
+<title>知识库</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.article-list::-webkit-scrollbar { display: none; }
+.image-grid::-webkit-scrollbar { display: none; }
+body { font-family: "SimSun", serif; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#4CAF50',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] h-[100vh] bg-white mx-auto relative overflow-hidden">
+<nav class="fixed top-0 left-0 right-0 h-12 bg-white z-50 flex items-center justify-between px-4 border-b">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+<h1 class="text-base font-medium">知识库</h1>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-more-line text-xl"></i>
+</button>
+</nav>
+<main class="mt-12 pb-16 flex flex-col h-[calc(100vh-3rem)] overflow-hidden">
+<div class="article-list space-y-4 px-4 py-4 flex-1 overflow-y-auto">
+<article class="flex gap-3 items-start">
+<div class="flex-1">
+<h3 class="text-sm leading-5 mb-2">从"认养"到"共生"：探索认养农业的可持续发展之路</h3>
+<div class="flex items-center text-xs text-gray-500">
+<span>田缘新闻</span>
+<span class="mx-2">2024/11/30</span>
+<span>98 收藏</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/a87b53b63ec6ef4834eda54f56fe5bca.jpg" class="w-full h-full object-cover" alt="">
+</div>
+</article>
+<article class="flex gap-3 items-start">
+<div class="flex-1">
+<h3 class="text-sm leading-5 mb-2">互联网+认养农业：一场从指尖到心间的绿色革命</h3>
+<div class="flex items-center text-xs text-gray-500">
+<span>田缘新闻</span>
+<span class="mx-2">2024/9/25</span>
+<span>206 收藏</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/407391f94cc81b615acfe21fc68fd56f.jpg" class="w-full h-full object-cover" alt="">
+</div>
+</article>
+<article class="flex gap-3 items-start">
+<div class="flex-1">
+<h3 class="text-sm leading-5 mb-2">"我在乡村有片田"：认养农业，连接城乡的绿色纽带</h3>
+<div class="flex items-center text-xs text-gray-500">
+<span>田缘新闻</span>
+<span class="mx-2">2024/3/25</span>
+<span>78 收藏</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/cdd12df87611ca14f55b5fb5511e262c.jpg" class="w-full h-full object-cover" alt="">
+</div>
+</article>
+<article class="flex gap-3 items-start">
+<div class="flex-1">
+<h3 class="text-sm leading-5 mb-2">数字农业时代：智慧农场管理系统的创新应用</h3>
+<div class="flex items-center text-xs text-gray-500">
+<span>田缘新闻</span>
+<span class="mx-2">2024/2/15</span>
+<span>156 收藏</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/d785289834765011fb6442ccd9378ef8.jpg" class="w-full h-full object-cover" alt="">
+</div>
+</article>
+<article class="flex gap-3 items-start">
+<div class="flex-1">
+<h3 class="text-sm leading-5 mb-2">有机农业认证：从田间到餐桌的品质保障</h3>
+<div class="flex items-center text-xs text-gray-500">
+<span>田缘新闻</span>
+<span class="mx-2">2024/1/20</span>
+<span>167 收藏</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/93d17d3fb611a5b95f8c293abfdf83b1.jpg" class="w-full h-full object-cover" alt="">
+</div>
+</article>
+<article class="flex gap-3 items-start">
+<div class="flex-1">
+<h3 class="text-sm leading-5 mb-2">农业科技创新：物联网在现代农业中的应用</h3>
+<div class="flex items-center text-xs text-gray-500">
+<span>田缘新闻</span>
+<span class="mx-2">2024/1/5</span>
+<span>189 收藏</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/2dfec4e6a68dcc955bb4e37963ef94d1.jpg" class="w-full h-full object-cover" alt="">
+</div>
+</article>
+</div>
+<div class="image-grid grid grid-cols-3 gap-4 px-4 py-4 h-[300px] overflow-y-auto border-t">
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/7a4e2337792464909963eba926b6acde.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/091553b6a3b10848aa2d090bec8b9cc5.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/914bab1c78cba83879dea218df7f7389.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/f1c472ee9e4d834b3743e8dd39cb752e.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/b80bf5ed44e4a9764d8098e542415fdd.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/acfac11ef5b3f09f222aad5342b170a3.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/5913d7d6a933bc222a7d4ccbbffd5b80.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/876b33a0908186d2a7c8e9eb3246cac1.jpg" class="w-full h-full object-cover" alt="">
+</div>
+<div class="aspect-square rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/fb369ccec174a3b978f8dc565174c8a2.jpg" class="w-full h-full object-cover" alt="">
+</div>
+</div>
+</main>
+<script>
+const articles = document.querySelectorAll('article');
+articles.forEach(article => {
+article.addEventListener('click', () => {
+const title = article.querySelector('h3').textContent;
+console.log(`Clicked article: ${title}`);
+});
+});
+</script>
+</body>
+</html>

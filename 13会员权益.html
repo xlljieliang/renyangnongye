@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0">
+<title>会员权益</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>:where([class^="ri-"])::before { content: "\f3c2"; }</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] min-h-[762px] bg-[#E8F5E9] font-['SimSun']">
+<nav class="fixed top-0 w-full bg-white h-12 flex items-center justify-between px-4 z-50 border-b">
+<div class="w-8 h-8 flex items-center justify-center">
+<button class="w-8 h-8 flex items-center justify-center" onclick="history.back()">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+</div>
+<span class="text-base font-medium font-['SimSun']">会员权益</span>
+<div class="w-8 h-8"></div>
+</nav>
+<main class="pt-12 pb-16">
+<div class="p-4">
+<div class="bg-gradient-to-br from-[#2E5E3F] to-[#E8F5E9] rounded-lg p-4 relative overflow-hidden">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-white overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/6959452452e1772f41b7e0af4c6575f7.jpg" class="w-full h-full object-cover" alt="avatar">
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2">
+<span class="text-white font-['SimSun']">云农001</span>
+<div class="flex items-center gap-1">
+<span class="bg-white/20 text-white text-xs px-1 rounded">V1</span>
+<i class="ri-vip-crown-2-fill text-yellow-300"></i>
+</div>
+</div>
+<div class="text-white/80 text-xs mt-1">开通自动续费 ></div>
+</div>
+<div class="w-8 h-8 flex items-center justify-center bg-white/10 rounded-full">
+<i class="ri-t-shirt-line text-white"></i>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<span class="text-white/80 text-sm">黄金过期3天 ></span>
+<button class="bg-white/20 text-white text-sm px-4 py-1 rounded-full">开通会员</button>
+</div>
+</div>
+</div>
+<div class="px-4">
+<div class="flex items-center justify-between mb-4">
+<span class="text-base font-medium">续费即可享受7项特权</span>
+</div>
+<div class="overflow-x-auto pb-2">
+<div class="flex gap-4 min-w-max">
+<div class="flex flex-col items-center gap-2 w-14">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<i class="ri-notification-4-line text-primary"></i>
+</div>
+<span class="text-xs whitespace-nowrap">上新抢先看</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-14">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<i class="ri-price-tag-3-line text-primary"></i>
+</div>
+<span class="text-xs whitespace-nowrap">认养优惠</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-14">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<i class="ri-truck-line text-primary"></i>
+</div>
+<span class="text-xs whitespace-nowrap">快递免邮费</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-14">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<i class="ri-file-certificate-line text-primary"></i>
+</div>
+<span class="text-xs whitespace-nowrap">认养证书</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-14">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<i class="ri-palette-line text-primary"></i>
+</div>
+<span class="text-xs whitespace-nowrap">定制页面皮肤</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-14">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<i class="ri-volume-up-line text-primary"></i>
+</div>
+<span class="text-xs whitespace-nowrap">音频模式</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-14">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<i class="ri-customer-service-2-line text-primary"></i>
+</div>
+<span class="text-xs whitespace-nowrap">专属客服</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 px-4">
+<button class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg font-medium">
+开通会员
+</button>
+</div>
+<div class="mt-8 px-4">
+<h3 class="text-base font-medium mb-4">待激活的资产</h3>
+<div class="grid grid-cols-4 gap-4">
+<div class="text-center">
+<div class="text-xl font-medium text-primary">0</div>
+<div class="text-xs text-gray-500 mt-1">VIP红包</div>
+</div>
+<div class="text-center">
+<div class="text-xl font-medium text-primary">60</div>
+<div class="text-xs text-gray-500 mt-1">积分</div>
+</div>
+<div class="text-center">
+<div class="text-xl font-medium text-primary">0</div>
+<div class="text-xs text-gray-500 mt-1">福利券</div>
+</div>
+<div class="text-center">
+<div class="text-xl font-medium text-primary">0</div>
+<div class="text-xs text-gray-500 mt-1">联名会员</div>
+</div>
+</div>
+</div>
+<div class="mt-8 px-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-base font-medium">待激活的会员等级</h3>
+<span class="text-sm text-gray-500">查看V1特权 ></span>
+</div>
+<div class="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-sm">
+<div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+<span>当前成长值72点</span>
+<span>每天+6点</span>
+</div>
+<div class="relative h-2 bg-gray-200 rounded-full">
+<div class="absolute left-0 top-0 h-full w-1/3 bg-primary rounded-full"></div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-sm">V1</span>
+<span class="text-sm">V2</span>
+</div>
+</div>
+</div>
+<div class="mt-8 px-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-base font-medium">升级任务</h3>
+<span class="text-sm text-gray-500">更多任务 ></span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<i class="ri-calendar-check-line text-primary"></i>
+</div>
+<div>
+<div class="font-medium">会员签到</div>
+<div class="text-xs text-gray-500 mt-1">累计签到可得VIP天数</div>
+</div>
+</div>
+<button class="px-4 py-1 border border-primary text-primary rounded-full text-sm">去签到</button>
+</div>
+<div class="flex items-center justify-between bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<i class="ri-vip-crown-2-line text-primary"></i>
+</div>
+<div>
+<div class="font-medium">续费VIP会员</div>
+<div class="text-xs text-gray-500 mt-1">完成可获得1天VIP</div>
+</div>
+</div>
+<button class="px-4 py-1 bg-primary text-white rounded-full text-sm">去续费</button>
+</div>
+</div>
+</div>
+<div class="mt-8 px-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-base font-medium">积分中心</h3>
+<span class="text-sm text-gray-500">去看看 ></span>
+</div>
+<div class="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<div class="text-sm text-gray-500">会员积分</div>
+<div class="text-2xl font-medium text-primary mt-1">60</div>
+</div>
+<div>
+<div class="text-sm text-gray-500">积分系数</div>
+<div class="text-2xl font-medium text-primary mt-1">100%</div>
+</div>
+</div>
+<div class="mt-4 text-xs text-gray-500 bg-primary/5 p-2 rounded">
+您的会员将在31天后清零，5日内续费可保留
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

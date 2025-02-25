@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品分类</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.search-input::-webkit-input-placeholder {
+color: #999;
+font-size: 14px;
+}
+.search-input:focus {
+outline: none;
+}
+.category-grid {
+padding: 16px;
+}
+.category-grid::-webkit-scrollbar {
+width: 4px;
+}
+.category-grid::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 2px;
+}
+.category-grid::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 2px;
+}
+.category-grid::-webkit-scrollbar-thumb:hover {
+background: #555;
+}
+.dropdown {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+width: 100%;
+background: white;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+z-index: 10;
+max-height: 300px;
+overflow-y: auto;
+}
+.dropdown.active {
+display: block;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#4CAF50',
+secondary: '#8BC34A'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50 h-screen">
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+<div class="flex items-center justify-between px-4 h-12">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+<h1 class="text-base font-medium">商品分类</h1>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-more-line text-xl"></i>
+</button>
+</div>
+</header>
+<main class="pt-16 pb-16">
+<div class="px-4 mb-4">
+<div class="relative">
+<input type="text" class="search-input w-full h-10 bg-gray-100 rounded-full px-12 text-sm font-['SimSun']" placeholder="请输入搜索内容">
+<i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+</div>
+<div class="px-4 mb-4 relative">
+<button id="filterBtn" class="w-full bg-white rounded-lg px-4 py-3 text-left text-sm flex items-center justify-between shadow-sm">
+<span>筛选条件</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div id="dropdown" class="dropdown">
+<div class="p-4">
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="all" checked>
+<span>全部分类</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="vegetables">
+<span>蔬菜类</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="fruits">
+<span>水果类</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="grains">
+<span>粮食类</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="poultry">
+<span>家禽</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="tea">
+<span>茶叶类</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="aquatic">
+<span>水产类</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="bee">
+<span>蜜蜂类</span>
+</label>
+</div>
+<div class="mb-2">
+<label class="flex items-center">
+<input type="radio" name="filter" class="mr-2" value="herbs">
+<span>中药材类</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="category-grid overflow-y-auto h-[calc(100vh-180px)]">
+<div class="grid grid-cols-4 gap-4">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/24b05447160b5f621a7ecb10efdfeb48.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">菠菜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/4c6995aced7ab5160c9e19b2da94a99d.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">生菜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/6f53489b1882768956d2b6434ae88882.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">油菜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://readdy.ai/api/search-image?query=icon, Realistic Chinese cabbage, photorealistic green vegetable, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">白菜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/d5383ee73446f4ab7e6651c3624d0c1a.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">芹菜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/6b1a6878a7a0cb218e3f0027318374a9.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">胡萝卜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/48f456dc6c3692df4da9fff301e389ab.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">白萝卜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/1bfa9419d0ef818e4b6e9b17299f3a41.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">土豆</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/d75afee4bb7c062dec0223f42245c71e.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">红薯</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/0ecbce6fa7c88cb9d24d9291d7d73b8e.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">洋葱</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/3531edb78cdbf14f82012358a2af08c1.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">黄瓜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/8db4ab1eee96980b389abbba06936194.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">西红柿</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/f6b7ab6bd3dd515179f861c4d1ec5031.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">茄子</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/f76baeb461b6c5da224bc18b291fade3.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">辣椒</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/5b914b6ddede0428fef44ed003be1aff.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">南瓜</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/d9e2b30863b690c036a1de8c0c4db917.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">豌豆</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/e7c5f12625d1fe3abf9a87b07085c6ab.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">蚕豆</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/a087df091b23c47ed50a994c852b71b4.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">扁豆</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/69ae13b75582f2fbcb7f5eb10561a1ee.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">毛豆</span>
+</div>
+<!-- 更多蔬菜类 -->
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/57857bce8435ebf395183b03da383e3d.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">草莓</span>
+</div>
+<!-- 更多水果类 -->
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/4e9c88ee8cb7131c83ce95407f2faf30.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">水稻</span>
+</div>
+<!-- 更多粮食类 -->
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/2b73b74ef5c54fdaf11d7983a46968c5.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">蛋鸡</span>
+</div>
+<!-- 更多家禽类 -->
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/f1915352d7016e5af15f2d781ebbcc63.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">绿茶</span>
+</div>
+<!-- 更多茶叶类 -->
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/3b80fbb3bebe4ef792caeeea9f8e7d42.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">鲤鱼</span>
+</div>
+<!-- 更多水产类 -->
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/b00a66baa0e75cd22e226693fb32e2fa.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">槐花蜜</span>
+</div>
+<!-- 更多蜜蜂类 -->
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+<img src="https://public.readdy.ai/ai/img_res/5884fa507e28f03ac251ee0ba1bd27cb.jpg" class="w-12 h-12 object-contain">
+</div>
+<span class="text-xs">人参</span>
+</div>
+<!-- 更多中药材类 -->
+</div>
+</div>
+</main>
+<script>
+const filterBtn = document.getElementById('filterBtn');
+const dropdown = document.getElementById('dropdown');
+const categoryGrid = document.querySelector('.category-grid .grid');
+const categories = {
+all: Array.from(categoryGrid.children),
+vegetables: Array.from(categoryGrid.children).slice(0, 19),
+fruits: ['草莓', '蓝莓', '黑莓', '树莓', '苹果', '梨', '桃', '李子', '杏', '橙子', '柚子', '柠檬', '柑橘', '香蕉', '芒果', '菠萝', '荔枝'].map(fruit => {
+  const div = document.createElement('div');
+  div.className = 'flex flex-col items-center';
+  div.innerHTML = `
+    <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+      <img src="https://readdy.ai/api/search-image?query=icon, Realistic ${fruit}, photorealistic fruit, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+    </div>
+    <span class="text-xs">${fruit}</span>
+  `;
+  return div;
+}),
+grains: ['水稻', '小麦', '玉米', '大麦', '燕麦', '大豆', '绿豆', '红豆', '黑豆', '马铃薯', '甘薯', '山药'].map(grain => {
+  const div = document.createElement('div');
+  div.className = 'flex flex-col items-center';
+  div.innerHTML = `
+    <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+      <img src="https://readdy.ai/api/search-image?query=icon, Realistic ${grain}, photorealistic grain, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+    </div>
+    <span class="text-xs">${grain}</span>
+  `;
+  return div;
+}),
+poultry: ['蛋鸡', '肉鸡', '土鸡', '蛋鸭', '肉鸭', '肉鹅', '蛋鹅', '火鸡', '鹌鹑'].map(poultry => {
+  const div = document.createElement('div');
+  div.className = 'flex flex-col items-center';
+  div.innerHTML = `
+    <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+      <img src="https://readdy.ai/api/search-image?query=icon, Realistic ${poultry}, photorealistic poultry, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+    </div>
+    <span class="text-xs">${poultry}</span>
+  `;
+  return div;
+}),
+tea: ['绿茶', '红茶', '乌龙茶', '黑茶', '白茶'].map(tea => {
+  const div = document.createElement('div');
+  div.className = 'flex flex-col items-center';
+  div.innerHTML = `
+    <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+      <img src="https://readdy.ai/api/search-image?query=icon, Realistic ${tea}, photorealistic tea leaves, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+    </div>
+    <span class="text-xs">${tea}</span>
+  `;
+  return div;
+}),
+aquatic: ['鲤鱼', '草鱼', '鲫鱼', '鲈鱼', '对虾', '小龙虾', '基围虾', '大闸蟹', '梭子蟹', '蛤蜊', '扇贝', '牡蛎'].map(aquatic => {
+  const div = document.createElement('div');
+  div.className = 'flex flex-col items-center';
+  div.innerHTML = `
+    <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+      <img src="https://readdy.ai/api/search-image?query=icon, Realistic ${aquatic}, photorealistic aquatic product, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+    </div>
+    <span class="text-xs">${aquatic}</span>
+  `;
+  return div;
+}),
+bee: ['槐花蜜', '枣花蜜', '百花蜜', '蜂王浆', '蜂胶', '蜂蜡'].map(bee => {
+  const div = document.createElement('div');
+  div.className = 'flex flex-col items-center';
+  div.innerHTML = `
+    <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+      <img src="https://readdy.ai/api/search-image?query=icon, Realistic ${bee}, photorealistic bee product, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+    </div>
+    <span class="text-xs">${bee}</span>
+  `;
+  return div;
+}),
+herbs: ['人参', '黄芪', '当归', '党参', '枸杞', '五味子', '山楂', '金银花', '菊花', '玫瑰花', '薄荷', '桑叶', '银杏叶', '灵芝', '茯苓'].map(herb => {
+  const div = document.createElement('div');
+  div.className = 'flex flex-col items-center';
+  div.innerHTML = `
+    <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-2">
+      <img src="https://readdy.ai/api/search-image?query=icon, Realistic ${herb}, photorealistic medicinal herb, high-detail 3D rendering, prominent main subject, clear and sharp, the icon should take up 70 of the frame, isolated on white background, centered composition, soft lighting, subtle shadows, product photography style&width=64&height=64&orientation=squarish" class="w-12 h-12 object-contain">
+    </div>
+    <span class="text-xs">${herb}</span>
+  `;
+  return div;
+})
+};
+filterBtn.addEventListener('click', () => {
+dropdown.classList.toggle('active');
+});
+document.addEventListener('click', (e) => {
+if (!filterBtn.contains(e.target) && !dropdown.contains(e.target)) {
+dropdown.classList.remove('active');
+}
+});
+document.querySelectorAll('input[name="filter"]').forEach(radio => {
+radio.addEventListener('change', (e) => {
+const selectedCategory = e.target.value;
+// 清空网格
+while (categoryGrid.firstChild) {
+  categoryGrid.removeChild(categoryGrid.firstChild);
+}
+// 添加选中分类的项目
+if (selectedCategory === 'all') {
+  Object.values(categories).forEach(items => {
+    if (Array.isArray(items)) {
+      items.forEach(item => {
+        categoryGrid.appendChild(item.cloneNode(true));
+      });
+    }
+  });
+} else {
+  categories[selectedCategory].forEach(item => {
+    categoryGrid.appendChild(item.cloneNode(true));
+  });
+}
+// 更新筛选按钮文本
+const filterText = e.target.nextElementSibling.textContent;
+filterBtn.querySelector('span').textContent = filterText;
+// 关闭下拉框
+dropdown.classList.remove('active');
+});
+});
+
+// 初始化显示所有分类
+document.querySelector('input[value="all"]').dispatchEvent(new Event('change'));
+</script>
+</body>
+</html>

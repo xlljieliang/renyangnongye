@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>账户余额</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { background: #f5f5f5; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] h-[762px] mx-auto bg-white">
+<nav class="fixed top-0 left-0 right-0 w-full h-[56px] bg-white shadow-sm z-50">
+<div class="flex items-center justify-between px-4 h-full">
+<button class="w-8 h-8 flex items-center justify-center">
+    <i class="ri-arrow-left-s-line text-gray-700 text-2xl" onclick="history.back()"></i>
+</button>
+<span class="text-gray-700 text-lg font-medium">账户余额</span>
+    <div class="w-8 h-8 flex items-center justify-center">
+        <i class="ri-more-line text-gray-700 text-2xl"></i>
+    </div>
+</div>
+</nav>
+<main class="pt-[72px] pb-[90px] px-4">
+<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+<div class="flex items-center text-primary mb-4">
+<i class="ri-shield-check-line mr-2"></i>
+<span class="text-sm">资金安全有保障</span>
+</div>
+<div class="relative mb-8">
+<div class="text-gray-600 mb-2">可用余额 (元)</div>
+<div class="text-4xl font-medium">0.00</div>
+<div class="absolute top-0 right-0 bg-[#FFF3E0] text-[#FF9800] text-xs px-3 py-1 rounded-full">
+可升级
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button onclick="showWithdrawModal()" class="!rounded-button bg-gray-100 text-gray-600 py-3 font-medium">提现</button>
+<div id="withdrawModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+<div class="bg-white w-[320px] rounded-lg">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<h3 class="text-lg font-medium">选择提现方式</h3>
+<button onclick="hideWithdrawModal()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-gray-400"></i>
+</button>
+</div>
+<div class="p-4">
+<div class="space-y-4">
+<button onclick="handleWithdraw('bank')" class="w-full flex items-center p-3 border rounded-lg hover:bg-gray-50">
+<div class="w-8 h-8 flex items-center justify-center mr-3">
+<i class="ri-bank-card-fill text-blue-500 text-2xl"></i>
+</div>
+<span class="flex-1 text-left">银行卡</span>
+<i class="ri-arrow-right-s-line text-gray-400"></i>
+</button>
+<button onclick="handleWithdraw('wechat')" class="w-full flex items-center p-3 border rounded-lg hover:bg-gray-50">
+<div class="w-8 h-8 flex items-center justify-center mr-3">
+<i class="ri-wechat-pay-fill text-green-500 text-2xl"></i>
+</div>
+<span class="flex-1 text-left">微信</span>
+<i class="ri-arrow-right-s-line text-gray-400"></i>
+</button>
+<button onclick="handleWithdraw('alipay')" class="w-full flex items-center p-3 border rounded-lg hover:bg-gray-50">
+<div class="w-8 h-8 flex items-center justify-center mr-3">
+<i class="ri-alipay-fill text-blue-400 text-2xl"></i>
+</div>
+<span class="flex-1 text-left">支付宝</span>
+<i class="ri-arrow-right-s-line text-gray-400"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<button onclick="showRechargeModal()" class="!rounded-button bg-primary text-white py-3 font-medium">充值</button>
+<div id="rechargeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+<div class="bg-white w-[320px] rounded-lg">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<h3 class="text-lg font-medium">选择充值方式</h3>
+<button onclick="hideRechargeModal()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-gray-400"></i>
+</button>
+</div>
+<div class="p-4">
+<div class="space-y-4">
+<button onclick="handleRecharge('bank')" class="w-full flex items-center p-3 border rounded-lg hover:bg-gray-50">
+<div class="w-8 h-8 flex items-center justify-center mr-3">
+<i class="ri-bank-card-fill text-blue-500 text-2xl"></i>
+</div>
+<span class="flex-1 text-left">银行卡</span>
+<i class="ri-arrow-right-s-line text-gray-400"></i>
+</button>
+<button onclick="handleRecharge('wechat')" class="w-full flex items-center p-3 border rounded-lg hover:bg-gray-50">
+<div class="w-8 h-8 flex items-center justify-center mr-3">
+<i class="ri-wechat-pay-fill text-green-500 text-2xl"></i>
+</div>
+<span class="flex-1 text-left">微信支付</span>
+<i class="ri-arrow-right-s-line text-gray-400"></i>
+</button>
+<button onclick="handleRecharge('alipay')" class="w-full flex items-center p-3 border rounded-lg hover:bg-gray-50">
+<div class="w-8 h-8 flex items-center justify-center mr-3">
+<i class="ri-alipay-fill text-blue-400 text-2xl"></i>
+</div>
+<span class="flex-1 text-left">支付宝</span>
+<i class="ri-arrow-right-s-line text-gray-400"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+function showRechargeModal() {
+document.getElementById('rechargeModal').classList.remove('hidden');
+}
+function hideRechargeModal() {
+document.getElementById('rechargeModal').classList.add('hidden');
+}
+function handleRecharge(type) {
+const amountInput = document.createElement('div');
+amountInput.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center';
+amountInput.innerHTML = `
+<div class="bg-white w-[320px] rounded-lg">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<h3 class="text-lg font-medium">输入充值金额</h3>
+<button onclick="this.parentElement.parentElement.parentElement.remove()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-gray-400"></i>
+</button>
+</div>
+<div class="p-4">
+<div class="relative mb-4">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">¥</span>
+<input type="text" class="w-full pl-8 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="请输入充值金额">
+</div>
+<button onclick="confirmRecharge('${type}', this)" class="w-full !rounded-button bg-primary text-white py-3 font-medium">确认充值</button>
+</div>
+</div>
+`;
+document.body.appendChild(amountInput);
+hideRechargeModal();
+}
+function showWithdrawModal() {
+document.getElementById('withdrawModal').classList.remove('hidden');
+}
+function hideWithdrawModal() {
+document.getElementById('withdrawModal').classList.add('hidden');
+}
+function handleWithdraw(type) {
+const amountInput = document.createElement('div');
+amountInput.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center';
+amountInput.innerHTML = `
+<div class="bg-white w-[320px] rounded-lg">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<h3 class="text-lg font-medium">输入提现金额</h3>
+<button onclick="this.parentElement.parentElement.parentElement.remove()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-gray-400"></i>
+</button>
+</div>
+<div class="p-4">
+<div class="relative mb-4">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">¥</span>
+<input type="text" class="w-full pl-8 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="请输入提现金额">
+</div>
+<button onclick="confirmWithdraw('${type}', this)" class="w-full !rounded-button bg-primary text-white py-3 font-medium">确认提现</button>
+</div>
+</div>
+`;
+document.body.appendChild(amountInput);
+hideWithdrawModal();
+}
+function confirmWithdraw(type, btn) {
+const amount = btn.parentElement.querySelector('input').value;
+if (!amount || isNaN(amount) || amount <= 0) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '请输入正确的提现金额';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+return;
+}
+const withdrawTypes = {
+bank: '银行卡',
+wechat: '微信',
+alipay: '支付宝'
+};
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = `正在提现${amount}元到${withdrawTypes[type]}`;
+document.body.appendChild(toast);
+setTimeout(() => {
+toast.remove();
+btn.parentElement.parentElement.parentElement.remove();
+}, 2000);
+}
+function confirmRecharge(type, btn) {
+const amount = btn.parentElement.querySelector('input').value;
+if (!amount || isNaN(amount) || amount <= 0) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '请输入正确的充值金额';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+return;
+}
+const paymentTypes = {
+bank: '银行卡',
+wechat: '微信支付',
+alipay: '支付宝'
+};
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = `正在使用${paymentTypes[type]}充值${amount}元`;
+document.body.appendChild(toast);
+setTimeout(() => {
+toast.remove();
+btn.parentElement.parentElement.parentElement.remove();
+}, 2000);
+}
+</script>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 mb-6">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-2">
+<i class="ri-plant-line text-primary"></i>
+</div>
+<span class="text-xs text-gray-600">我的农场</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer" onclick="showBankCardModal()">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-2">
+<i class="ri-bank-card-line text-primary"></i>
+</div>
+<span class="text-xs text-gray-600">银行卡</span>
+</div>
+
+<div id="bankCardModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+<div class="bg-white w-[320px] rounded-lg">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<h3 class="text-lg font-medium">银行卡</h3>
+<button onclick="hideBankCardModal()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-gray-400"></i>
+</button>
+</div>
+<div id="bankCardContent" class="p-4">
+</div>
+</div>
+</div>
+
+<script>
+let boundBankCard = null;
+
+function showBankCardModal() {
+  document.getElementById('bankCardModal').classList.remove('hidden');
+  const content = document.getElementById('bankCardContent');
+  
+  if (!boundBankCard) {
+    content.innerHTML = `
+      <div class="space-y-4">
+        <div class="relative mb-4">
+          <input type="text" id="cardholderName" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="持卡人姓名">
+        </div>
+        <div class="relative mb-4">
+          <input type="text" id="bankCardNumber" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="银行卡号">
+        </div>
+        <div class="relative mb-4">
+          <input type="text" id="bankName" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="开户银行">
+        </div>
+        <div class="relative mb-4">
+          <input type="text" id="phoneNumber" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="预留手机号">
+        </div>
+        <button onclick="bindBankCard()" class="w-full !rounded-button bg-primary text-white py-3 font-medium">绑定银行卡</button>
+      </div>
+    `;
+  } else {
+    content.innerHTML = `
+      <div class="p-4 bg-secondary rounded-lg mb-4">
+        <div class="flex items-center mb-3">
+          <i class="ri-bank-fill text-primary text-xl mr-2"></i>
+          <span class="text-lg font-medium">${boundBankCard.bankName}</span>
+        </div>
+        <div class="text-gray-600 mb-1">持卡人：${boundBankCard.cardholderName}</div>
+        <div class="text-gray-600">卡号：**** **** **** ${boundBankCard.cardNumber.slice(-4)}</div>
+      </div>
+      <button onclick="unbindBankCard()" class="w-full !rounded-button border border-red-500 text-red-500 py-3 font-medium">解绑银行卡</button>
+    `;
+  }
+}
+
+function hideBankCardModal() {
+  document.getElementById('bankCardModal').classList.add('hidden');
+}
+
+function bindBankCard() {
+  const cardholderName = document.getElementById('cardholderName').value;
+  const bankCardNumber = document.getElementById('bankCardNumber').value;
+  const bankName = document.getElementById('bankName').value;
+  const phoneNumber = document.getElementById('phoneNumber').value;
+
+  if (!cardholderName || !bankCardNumber || !bankName || !phoneNumber) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+    toast.textContent = '请填写完整信息';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2000);
+    return;
+  }
+
+  boundBankCard = {
+    cardholderName,
+    cardNumber: bankCardNumber,
+    bankName,
+    phoneNumber
+  };
+
+  const toast = document.createElement('div');
+  toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+  toast.textContent = '银行卡绑定成功';
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+    hideBankCardModal();
+  }, 2000);
+}
+
+function unbindBankCard() {
+  boundBankCard = null;
+  const toast = document.createElement('div');
+  toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+  toast.textContent = '银行卡解绑成功';
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+    hideBankCardModal();
+  }, 2000);
+}
+</script>
+</div>
+<div class="bg-white rounded-lg shadow-md p-4">
+<div class="flex items-center justify-between">
+<div class="flex-1">
+<div class="text-base font-medium mb-1">进行实名认证</div>
+<div class="text-sm text-gray-500">完成认证 提升额度</div>
+</div>
+<button onclick="showVerifyModal()" class="!rounded-button bg-primary/10 text-primary px-4 py-1 text-sm">
+去认证
+</button>
+</div>
+</div>
+<div id="verifyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+<div class="bg-white w-[320px] rounded-lg">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<h3 class="text-lg font-medium">实名认证</h3>
+<button onclick="hideVerifyModal()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-gray-400"></i>
+</button>
+</div>
+<div class="p-4">
+<div class="space-y-4">
+<div class="relative mb-4">
+<input type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="请输入姓名">
+</div>
+<div class="relative mb-4">
+<input type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="请输入身份证号">
+</div>
+<button onclick="startFaceVerify()" class="w-full !rounded-button bg-primary text-white py-3 font-medium flex items-center justify-center">
+<i class="ri-camera-line mr-2"></i>
+开始人脸认证
+</button>
+</div>
+</div>
+</div>
+</div>
+<div id="faceVerifyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+<div class="bg-white w-[320px] rounded-lg">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<h3 class="text-lg font-medium">人脸认证</h3>
+<button onclick="hideFaceVerifyModal()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-gray-400"></i>
+</button>
+</div>
+<div class="p-4 text-center">
+<div class="w-48 h-48 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+<i class="ri-user-smile-line text-6xl text-gray-400"></i>
+</div>
+<p class="text-gray-600 mb-4">请将脸部置于框内，保持光线充足</p>
+<button onclick="completeFaceVerify()" class="w-full !rounded-button bg-primary text-white py-3 font-medium">开始扫描</button>
+</div>
+</div>
+</div>
+<script>
+function showVerifyModal() {
+document.getElementById('verifyModal').classList.remove('hidden');
+}
+function hideVerifyModal() {
+document.getElementById('verifyModal').classList.add('hidden');
+}
+function showFaceVerifyModal() {
+document.getElementById('faceVerifyModal').classList.remove('hidden');
+document.getElementById('verifyModal').classList.add('hidden');
+}
+function hideFaceVerifyModal() {
+document.getElementById('faceVerifyModal').classList.add('hidden');
+}
+function startFaceVerify() {
+const name = document.querySelector('input[placeholder="请输入姓名"]').value;
+const idCard = document.querySelector('input[placeholder="请输入身份证号"]').value;
+if (!name || !idCard) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+toast.textContent = '请填写完整信息';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+return;
+}
+showFaceVerifyModal();
+}
+function completeFaceVerify() {
+const verifyingToast = document.createElement('div');
+verifyingToast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+verifyingToast.textContent = '正在进行人脸识别...';
+document.body.appendChild(verifyingToast);
+setTimeout(() => {
+verifyingToast.remove();
+hideFaceVerifyModal();
+const successToast = document.createElement('div');
+successToast.className = 'fixed top-16 left-1/2 -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg';
+successToast.textContent = '实名认证成功！';
+document.body.appendChild(successToast);
+setTimeout(() => successToast.remove(), 2000);
+}, 3000);
+}
+</script>
+</main>
+</body>
+</html>

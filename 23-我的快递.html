@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的快递</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { background-color: #f7f7f7; }
+.search-input::-webkit-input-placeholder { color: #999; }
+.status-bar { scrollbar-width: none; }
+.status-bar::-webkit-scrollbar { display: none; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] min-h-screen mx-auto bg-white">
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+<div class="flex items-center justify-between px-4 h-12">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-s-line text-xl" onclick="history.back()"></i>
+</button>
+<div class="flex-1 mx-3">
+<div class="relative">
+<input type="text" placeholder="搜索订单" class="w-full h-8 pl-8 pr-3 text-sm bg-gray-100 rounded-full outline-none search-input">
+<i class="ri-search-line absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+</div>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-filter-3-line text-xl"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-more-line text-xl"></i>
+</div>
+</div>
+<div class="flex px-2 overflow-x-auto status-bar">
+<div class="flex-none px-4 py-2">
+<button class="text-primary text-sm">待付款</button>
+</div>
+<div class="flex-none px-4 py-2">
+<button class="text-gray-600 text-sm">待发货</button>
+</div>
+<div class="flex-none px-4 py-2">
+<button class="text-gray-600 text-sm">待收货</button>
+</div>
+<div class="flex-none px-4 py-2">
+<button class="text-gray-600 text-sm">退款/售后</button>
+</div>
+<div class="flex-none px-4 py-2">
+<button class="text-gray-600 text-sm">待评价</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-4 px-4 h-[calc(100vh-96px)] overflow-hidden">
+<div class="bg-white rounded-lg shadow-sm mb-4 overflow-hidden">
+<div class="p-3 flex items-center justify-between border-b">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/72131802c26e1f26a4834f3f572e53df.jpg" class="w-6 h-6 rounded-full" alt="店铺logo">
+<span class="ml-2 text-sm">有机农场认养基地</span>
+</div>
+<span class="text-primary text-sm">卖家已发货</span>
+</div>
+<div class="p-3 flex">
+<img src="https://public.readdy.ai/ai/img_res/9055ce2a4ad63de9df1ede2ab99ec1fb.jpg" class="w-20 h-20 rounded object-cover" alt="商品图片">
+<div class="flex-1 ml-3">
+<h3 class="text-sm line-clamp-2">有机蔬菜认养套餐 30天 含8种当季蔬菜</h3>
+<p class="text-xs text-gray-500 mt-1">规格：标准套餐</p>
+<p class="text-xs text-gray-500 mt-1">x1</p>
+</div>
+</div>
+<div class="px-3 py-2 bg-gray-50">
+<p class="text-sm text-gray-600">您的包裹已由【江苏南京转运中心】发出</p>
+</div>
+<div class="p-3 flex items-center justify-between border-t">
+<div class="text-sm">
+实付款：<span class="text-primary font-medium">¥298.00</span>
+</div>
+<div class="flex space-x-2">
+<button onclick="showLogistics()" class="px-3 py-1 text-sm border border-gray-300 text-gray-600 rounded-button">查看物流</button>
+<button onclick="confirmReceipt(this)" class="px-3 py-1 text-sm bg-primary text-white rounded-button">确认收货</button>
+</div>
+</div>
+</div>
+<div class="mt-6 overflow-y-auto h-[calc(100vh-400px)]">
+<div class="sticky top-0 bg-white z-10">
+<h2 class="text-lg font-medium mb-4">为您推荐</h2>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-white rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/3258b6603a7968f096c41bb52249cb6c.jpg" class="w-full h-40 object-cover" alt="果树认养">
+<div class="p-2">
+<h3 class="text-sm line-clamp-2">果树认养计划 - 水蜜桃</h3>
+<p class="text-primary text-sm mt-1">¥399.00</p>
+<p class="text-xs text-gray-500 mt-1">已认养 128</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/f221ed1256fb3edf2bf4be608ef45266.jpg" class="w-full h-40 object-cover" alt="水稻认养">
+<div class="p-2">
+<h3 class="text-sm line-clamp-2">水稻田认养 - 东北大米</h3>
+<p class="text-primary text-sm mt-1">¥299.00</p>
+<p class="text-xs text-gray-500 mt-1">已认养 256</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/4635b9454520532b2d170323b8d3bb20.jpg" class="w-full h-40 object-cover" alt="蜂蜜认养">
+<div class="p-2">
+<h3 class="text-sm line-clamp-2">天然蜂蜜认养计划</h3>
+<p class="text-primary text-sm mt-1">¥199.00</p>
+<p class="text-xs text-gray-500 mt-1">已认养 89</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/47daac252580f38c06e8e74df1cb523c.jpg" class="w-full h-40 object-cover" alt="散养鸡">
+<div class="p-2">
+<h3 class="text-sm line-clamp-2">散养土鸡认养套餐</h3>
+<p class="text-primary text-sm mt-1">¥499.00</p>
+<p class="text-xs text-gray-500 mt-1">已认养 167</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/2e132ac4b285f481cb2d47620a881d6f.jpg" class="w-full h-40 object-cover" alt="茶园认养">
+<div class="p-2">
+<h3 class="text-sm line-clamp-2">高山茶园认养计划</h3>
+<p class="text-primary text-sm mt-1">¥599.00</p>
+<p class="text-xs text-gray-500 mt-1">已认养 78</p>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/fdc0af1636bfcbb057733df8d3ea2fb3.jpg" class="w-full h-40 object-cover" alt="菌菇认养">
+<div class="p-2">
+<h3 class="text-sm line-clamp-2">有机菌菇培育基地认养</h3>
+<p class="text-primary text-sm mt-1">¥259.00</p>
+<p class="text-xs text-gray-500 mt-1">已认养 145</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const statusButtons = document.querySelectorAll('.status-bar button');
+statusButtons.forEach(button => {
+button.addEventListener('click', function() {
+statusButtons.forEach(btn => {
+btn.classList.remove('text-primary');
+btn.classList.add('text-gray-600');
+});
+this.classList.remove('text-gray-600');
+this.classList.add('text-primary');
+});
+});
+});
+function confirmReceipt(button) {
+const confirmModal = document.createElement('div');
+confirmModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+confirmModal.innerHTML = `
+<div class="bg-white w-[300px] rounded-lg">
+<div class="p-4 text-center">
+<p class="text-lg">确认收货吗？</p>
+<p class="text-sm text-gray-500 mt-2">确认收货后无法撤销</p>
+</div>
+<div class="flex border-t">
+<button onclick="this.closest('.fixed').remove()" class="flex-1 p-3 text-gray-600 border-r">取消</button>
+<button onclick="handleConfirmReceipt(this)" class="flex-1 p-3 text-primary">确认</button>
+</div>
+</div>
+`;
+document.body.appendChild(confirmModal);
+}
+function handleConfirmReceipt(confirmButton) {
+const orderCard = document.querySelector('.bg-white.rounded-lg.shadow-sm');
+const statusText = orderCard.querySelector('.text-primary.text-sm');
+const confirmReceiptBtn = orderCard.querySelector('button.bg-primary');
+const logisticsBtn = orderCard.querySelector('button.border-gray-300');
+statusText.textContent = '交易完成';
+confirmReceiptBtn.remove();
+logisticsBtn.insertAdjacentHTML('afterend', '<button onclick="showReview()" class="px-3 py-1 text-sm bg-primary text-white rounded-button">评价</button>');
+confirmButton.closest('.fixed').remove();
+const toast = document.createElement('div');
+toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded';
+toast.textContent = '收货成功';
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+}
+function showReview() {
+const reviewModal = document.createElement('div');
+reviewModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+reviewModal.innerHTML = `
+<div class="bg-white w-[340px] rounded-lg">
+<div class="p-4 border-b flex items-center justify-between">
+<h3 class="text-lg font-medium">评价商品</h3>
+<button onclick="this.closest('.fixed').remove()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="p-4">
+<div class="flex items-center mb-4">
+<img src="https://readdy.ai/api/search-image?query=organic vegetables package, fresh produce, eco-friendly packaging&width=80&height=80&orientation=squarish" class="w-16 h-16 rounded object-cover" alt="商品图片">
+<div class="ml-3">
+<h4 class="text-sm">有机蔬菜认养套餐 30天 含8种当季蔬菜</h4>
+<p class="text-xs text-gray-500 mt-1">规格：标准套餐</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex items-center mb-2">
+<span class="text-sm mr-2">商品评分</span>
+<div class="flex" id="starRating">
+<i class="ri-star-fill text-xl text-yellow-400 cursor-pointer" data-rating="1"></i>
+<i class="ri-star-fill text-xl text-yellow-400 cursor-pointer" data-rating="2"></i>
+<i class="ri-star-fill text-xl text-yellow-400 cursor-pointer" data-rating="3"></i>
+<i class="ri-star-fill text-xl text-yellow-400 cursor-pointer" data-rating="4"></i>
+<i class="ri-star-fill text-xl text-yellow-400 cursor-pointer" data-rating="5"></i>
+</div>
+</div>
+</div>
+<div class="mb-4">
+<textarea placeholder="请输入您的评价内容..." class="w-full h-24 p-2 text-sm border rounded resize-none focus:outline-none focus:border-primary"></textarea>
+</div>
+<div class="flex space-x-2 mb-4">
+<input type="file" id="imageInput" accept="image/*" multiple class="hidden" onchange="handleImageSelect(event)">
+<div class="flex flex-wrap gap-2" id="imagePreviewContainer">
+<button onclick="document.getElementById('imageInput').click()" class="flex items-center justify-center w-16 h-16 border border-dashed rounded">
+<i class="ri-add-line text-2xl text-gray-400"></i>
+</button>
+</div>
+</div>
+<button onclick="submitReview(this)" class="w-full py-2 bg-primary text-white rounded-button">提交评价</button>
+</div>
+</div>
+`;
+document.body.appendChild(reviewModal);
+const stars = reviewModal.querySelectorAll('#starRating i');
+stars.forEach((star, index) => {
+star.addEventListener('click', () => {
+stars.forEach((s, i) => {
+if (i <= index) {
+s.style.color = '#FBBF24';
+} else {
+s.style.color = '#D1D5DB';
+}
+});
+});
+});
+}
+function handleImageSelect(event) {
+  const container = document.getElementById('imagePreviewContainer');
+  const addButton = container.querySelector('button');
+  const files = event.target.files;
+  
+  for (let file of files) {
+    if (container.children.length >= 9) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded';
+      toast.textContent = '最多只能上传9张图片';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2000);
+      break;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const imageWrapper = document.createElement('div');
+      imageWrapper.className = 'relative w-16 h-16';
+      
+      const image = document.createElement('img');
+      image.src = e.target.result;
+      image.className = 'w-full h-full object-cover rounded';
+      
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'absolute -top-2 -right-2 w-5 h-5 bg-black bg-opacity-50 rounded-full flex items-center justify-center';
+      deleteButton.innerHTML = '<i class="ri-close-line text-white text-xs"></i>';
+      deleteButton.onclick = function() {
+        imageWrapper.remove();
+      };
+      
+      imageWrapper.appendChild(image);
+      imageWrapper.appendChild(deleteButton);
+      container.insertBefore(imageWrapper, addButton);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function submitReview(button) {
+  const modal = button.closest('.fixed');
+  const toast = document.createElement('div');
+  toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded';
+  toast.textContent = '评价提交成功';
+  modal.remove();
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+  const reviewButton = document.querySelector('button.bg-primary');
+  if (reviewButton) {
+    reviewButton.textContent = '已评价';
+    reviewButton.disabled = true;
+    reviewButton.classList.add('bg-gray-400');
+    reviewButton.classList.remove('bg-primary');
+  }
+}
+function showLogistics() {
+const logisticsModal = document.createElement('div');
+logisticsModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+logisticsModal.innerHTML = `
+<div class="bg-white w-[340px] rounded-lg">
+<div class="p-4 border-b flex items-center justify-between">
+<h3 class="text-lg font-medium">物流详情</h3>
+<button onclick="this.closest('.fixed').remove()" class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="p-4 max-h-[60vh] overflow-y-auto">
+<div class="relative">
+<div class="absolute left-[9px] top-0 bottom-0 w-[2px] bg-gray-200"></div>
+<div class="space-y-6">
+<div class="flex">
+<div class="relative z-10 w-5 h-5 rounded-full bg-primary flex-shrink-0"></div>
+<div class="ml-4">
+<p class="text-sm text-primary">【江苏南京转运中心】已发出</p>
+<p class="text-xs text-gray-400 mt-1">2025-02-24 13:45:28</p>
+</div>
+</div>
+<div class="flex">
+<div class="relative z-10 w-5 h-5 rounded-full bg-gray-200 flex-shrink-0"></div>
+<div class="ml-4">
+<p class="text-sm">【江苏南京转运中心】已到达</p>
+<p class="text-xs text-gray-400 mt-1">2025-02-24 11:30:15</p>
+</div>
+</div>
+<div class="flex">
+<div class="relative z-10 w-5 h-5 rounded-full bg-gray-200 flex-shrink-0"></div>
+<div class="ml-4">
+<p class="text-sm">【浙江杭州仓】已发出</p>
+<p class="text-xs text-gray-400 mt-1">2025-02-24 08:15:42</p>
+</div>
+</div>
+<div class="flex">
+<div class="relative z-10 w-5 h-5 rounded-full bg-gray-200 flex-shrink-0"></div>
+<div class="ml-4">
+<p class="text-sm">【浙江杭州仓】已打包</p>
+<p class="text-xs text-gray-400 mt-1">2025-02-24 07:30:18</p>
+</div>
+</div>
+<div class="flex">
+<div class="relative z-10 w-5 h-5 rounded-full bg-gray-200 flex-shrink-0"></div>
+<div class="ml-4">
+<p class="text-sm">订单已创建</p>
+<p class="text-xs text-gray-400 mt-1">2025-02-24 06:45:33</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+`;
+document.body.appendChild(logisticsModal);
+}
+</script>
+</body>
+</html>

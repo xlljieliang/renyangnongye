@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>支付订单</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.payment-radio {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+right: 1rem;
+height: 24px;
+width: 24px;
+border: 2px solid #ddd;
+border-radius: 50%;
+}
+.payment-radio:checked ~ .checkmark {
+background-color: #2E5E3F;
+border-color: #2E5E3F;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.payment-radio:checked ~ .checkmark:after {
+display: block;
+left: 8px;
+top: 4px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div class="max-w-[375px] mx-auto min-h-screen pb-20">
+<div class="fixed top-0 w-full max-w-[375px] bg-white z-50">
+<div class="flex items-center justify-between px-4 h-12 border-b">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</div>
+<div class="text-base font-medium">确认订单</div>
+<div class="w-8"></div>
+</div>
+</div>
+<div class="mt-12 px-4">
+<div class="bg-white rounded-lg p-4 mb-4">
+<div class="flex items-center mb-4 pb-4 border-b">
+<input type="checkbox" checked class="w-4 h-4 accent-primary">
+<div class="w-20 h-20 mx-4 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/910f2172d69f30f90d82744dae8985cc.jpg" class="w-full h-full object-cover">
+</div>
+<div class="flex-1">
+<div class="text-sm mb-2">有机蔬菜认养 3 个月</div>
+<div class="text-primary">¥ 250</div>
+<div class="flex items-center mt-2">
+<button class="w-6 h-6 border rounded-full flex items-center justify-center" onclick="updateQuantity(0, -1)">-</button>
+<input type="number" value="1" class="w-12 text-center mx-2 border-none" id="quantity0" readonly>
+<button class="w-6 h-6 border rounded-full flex items-center justify-center" onclick="updateQuantity(0, 1)">+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center">
+<input type="checkbox" checked class="w-4 h-4 accent-primary">
+<div class="w-20 h-20 mx-4 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/805388bea393019333c8e5ccfe1e90c2.jpg" class="w-full h-full object-cover">
+</div>
+<div class="flex-1">
+<div class="text-sm mb-2">水果认养 1 个月</div>
+<div class="text-primary">¥ 149</div>
+<div class="flex items-center mt-2">
+<button class="w-6 h-6 border rounded-full flex items-center justify-center" onclick="updateQuantity(1, -1)">-</button>
+<input type="number" value="1" class="w-12 text-center mx-2 border-none" id="quantity1" readonly>
+<button class="w-6 h-6 border rounded-full flex items-center justify-center" onclick="updateQuantity(1, 1)">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg p-4 mb-4">
+<div class="flex justify-between items-center mb-4">
+<span class="text-gray-600">商品总额</span>
+<span class="text-lg font-medium">¥ 399.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-gray-600">优惠金额</span>
+<span class="text-primary">- ¥ 50.00</span>
+</div>
+</div>
+<div class="bg-white rounded-lg mb-4">
+<div class="p-4 border-b">
+<div class="text-base mb-4">支付方式</div>
+<label class="flex items-center relative py-3 cursor-pointer">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-wechat-pay-fill text-2xl text-[#07C160]"></i>
+</div>
+<span class="ml-3">微信支付</span>
+<input type="radio" name="payment" class="payment-radio" value="wechat">
+<span class="checkmark"></span>
+</label>
+<label class="flex items-center relative py-3 cursor-pointer">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-alipay-fill text-2xl text-[#1677FF]"></i>
+</div>
+<span class="ml-3">支付宝支付</span>
+<input type="radio" name="payment" class="payment-radio" value="alipay">
+<span class="checkmark"></span>
+</label>
+<label class="flex items-center relative py-3 cursor-pointer">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-bank-card-fill text-2xl text-[#FFB800]"></i>
+</div>
+<span class="ml-3">银行卡支付</span>
+<input type="radio" name="payment" class="payment-radio" value="bank" checked>
+<span class="checkmark"></span>
+</label>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 w-full max-w-[375px] bg-white border-t p-4">
+<div class="flex justify-between items-center mb-4">
+<span class="text-gray-600">实付金额</span>
+<span class="text-xl font-medium text-primary">¥ 349.00</span>
+</div>
+<button class="w-full h-12 bg-primary text-white rounded-button font-medium" onclick="showPaymentSuccess()">
+立即支付
+</button>
+</div>
+<div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div class="bg-white rounded-lg p-6 w-[280px] text-center">
+<div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center">
+<i class="ri-check-line text-4xl text-primary"></i>
+</div>
+<h3 class="text-lg font-medium mb-2">支付成功</h3>
+<p class="text-gray-600 text-sm mb-6">订单支付成功，感谢您的认养</p>
+<button class="w-full h-10 bg-primary text-white rounded-button" onclick="hidePaymentSuccess()">
+完成
+</button>
+</div>
+</div>
+</div>
+<script>
+function updateQuantity(index, delta) {
+const input = document.getElementById(`quantity${index}`);
+const newValue = Math.max(1, parseInt(input.value) + delta);
+input.value = newValue;
+}
+function showPaymentSuccess() {
+document.getElementById('successModal').style.display = 'flex';
+}
+function hidePaymentSuccess() {
+document.getElementById('successModal').style.display = 'none';
+}
+</script>
+</body>
+</html>

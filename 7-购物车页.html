@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>购物车</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-white w-[375px] min-h-screen mx-auto relative pb-[120px]">
+<nav class="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
+<div class="w-[375px] h-14 mx-auto flex items-center justify-between px-4">
+<div class="flex items-center">
+<button class="w-8 h-8 flex items-center justify-center text-gray-600 mr-2" onclick="history.back()">
+<i class="ri-arrow-left-line text-xl"></i>
+</button>
+<h1 class="text-gray-800 text-lg font-medium">购物车</h1>
+</div>
+<button class="text-primary" onclick="toggleManage()">管理</button>
+</div>
+</nav>
+<div id="manageButtons" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50 hidden">
+<div class="w-[375px] h-[88px] mx-auto flex items-center justify-between px-4">
+<div class="flex items-center">
+<input type="checkbox" class="w-5 h-5 rounded-full border-2 border-primary checked:bg-primary" id="selectAllManage">
+<label for="selectAllManage" class="ml-2 text-gray-600">全选</label>
+</div>
+<div class="flex space-x-3">
+<button class="px-6 py-2.5 border border-primary text-primary rounded-button" onclick="moveToFavorite()">
+移入收藏
+</button>
+<button class="px-6 py-2.5 bg-primary text-white rounded-button" onclick="showDeleteConfirm()">
+删除
+</button>
+</div>
+</div>
+</div>
+<div class="mt-16 px-4">
+<div id="cartItems" class="space-y-3 mt-2">
+<div class="flex items-center bg-white rounded-lg p-3 shadow-sm">
+<input type="checkbox" class="w-5 h-5 rounded-full border-2 border-primary checked:bg-primary">
+<div class="w-20 h-20 mx-3 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/0ec177ad4f2645651717aee1da387dff.jpg" class="w-full h-full object-cover">
+</div>
+<div class="flex-1">
+<h3 class="text-gray-800 font-medium">有机青菜套餐</h3>
+<p class="text-gray-500 text-xs mt-1">产地：浙江杭州</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-medium">¥ 39.9</span>
+<div class="flex items-center border border-gray-200 rounded-full">
+<button class="w-7 h-7 flex items-center justify-center text-gray-500" onclick="updateQuantity(this, -1)">-</button>
+<input type="number" value="1" class="w-10 text-center border-none" min="1">
+<button class="w-7 h-7 flex items-center justify-center text-primary" onclick="updateQuantity(this, 1)">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center bg-white rounded-lg p-3 shadow-sm">
+<input type="checkbox" class="w-5 h-5 rounded-full border-2 border-primary checked:bg-primary">
+<div class="w-20 h-20 mx-3 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/963b785143f6538c45af17e637de4381.jpg" class="w-full h-full object-cover">
+</div>
+<div class="flex-1">
+<h3 class="text-gray-800 font-medium">阿克苏苹果 5kg</h3>
+<p class="text-gray-500 text-xs mt-1">产地：新疆阿克苏</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-medium">¥ 89.9</span>
+<div class="flex items-center border border-gray-200 rounded-full">
+<button class="w-7 h-7 flex items-center justify-center text-gray-500" onclick="updateQuantity(this, -1)">-</button>
+<input type="number" value="1" class="w-10 text-center border-none" min="1">
+<button class="w-7 h-7 flex items-center justify-center text-primary" onclick="updateQuantity(this, 1)">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center bg-white rounded-lg p-3 shadow-sm">
+<input type="checkbox" class="w-5 h-5 rounded-full border-2 border-primary checked:bg-primary">
+<div class="w-20 h-20 mx-3 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/4a928c67ada91ad0c3e1e2847b0236c1.jpg" class="w-full h-full object-cover">
+</div>
+<div class="flex-1">
+<h3 class="text-gray-800 font-medium">鲜榨橙汁 1L</h3>
+<p class="text-gray-500 text-xs mt-1">产地：四川眉山</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-medium">¥ 29.9</span>
+<div class="flex items-center border border-gray-200 rounded-full">
+<button class="w-7 h-7 flex items-center justify-center text-gray-500" onclick="updateQuantity(this, -1)">-</button>
+<input type="number" value="1" class="w-10 text-center border-none" min="1">
+<button class="w-7 h-7 flex items-center justify-center text-primary" onclick="updateQuantity(this, 1)">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center bg-white rounded-lg p-3 shadow-sm">
+<input type="checkbox" class="w-5 h-5 rounded-full border-2 border-primary checked:bg-primary">
+<div class="w-20 h-20 mx-3 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/6bb3584578317c5d4f33d9210c2c5971.jpg" class="w-full h-full object-cover">
+</div>
+<div class="flex-1">
+<h3 class="text-gray-800 font-medium">五常大米 5kg</h3>
+<p class="text-gray-500 text-xs mt-1">产地：黑龙江五常</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-medium">¥ 99.9</span>
+<div class="flex items-center border border-gray-200 rounded-full">
+<button class="w-7 h-7 flex items-center justify-center text-gray-500" onclick="updateQuantity(this, -1)">-</button>
+<input type="number" value="1" class="w-10 text-center border-none" min="1">
+<button class="w-7 h-7 flex items-center justify-center text-primary" onclick="updateQuantity(this, 1)">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center bg-white rounded-lg p-3 shadow-sm">
+<input type="checkbox" class="w-5 h-5 rounded-full border-2 border-primary checked:bg-primary">
+<div class="w-20 h-20 mx-3 rounded-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/4e77ad3fc63ce8c67eea3b27abe64587.jpg" class="w-full h-full object-cover">
+</div>
+<div class="flex-1">
+<h3 class="text-gray-800 font-medium">三文鱼刺身 300g</h3>
+<p class="text-gray-500 text-xs mt-1">产地：挪威</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-medium">¥ 128.0</span>
+<div class="flex items-center border border-gray-200 rounded-full">
+<button class="w-7 h-7 flex items-center justify-center text-gray-500" onclick="updateQuantity(this, -1)">-</button>
+<input type="number" value="1" class="w-10 text-center border-none" min="1">
+<button class="w-7 h-7 flex items-center justify-center text-primary" onclick="updateQuantity(this, 1)">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="emptyCart" class="hidden flex flex-col items-center justify-center mt-20">
+<img src="https://public.readdy.ai/ai/img_res/3ceebf4f445bb85f31c60ac57f98eb85.jpg" class="w-40 h-40 object-contain">
+<p class="text-gray-500 mt-4">购物车还是空的</p>
+<button class="mt-4 px-8 py-2 bg-primary text-white rounded-button">去逛逛</button>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50">
+<div class="w-[375px] h-[88px] mx-auto flex items-center justify-between px-4">
+<div class="flex items-center">
+<input type="checkbox" class="w-5 h-5 rounded-full border-2 border-primary checked:bg-primary" id="selectAll">
+<label for="selectAll" class="ml-2 text-gray-600">全选</label>
+<div class="ml-4">
+<p class="text-xs text-gray-500">合计：<span class="text-primary text-lg font-medium">¥ 387.6</span></p>
+<p class="text-xs text-gray-400 mt-1">已优惠：¥10</p>
+</div>
+</div>
+<button class="px-8 py-3 bg-gradient-to-r from-primary to-primary/80 text-white rounded-button">
+结算 (5)
+</button>
+</div>
+</div>
+<div id="deleteConfirm" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+<div class="bg-white rounded-lg w-[280px] p-6">
+<h3 class="text-center text-lg font-medium">确认删除</h3>
+<p class="text-center text-gray-500 mt-2">是否确认删除选中的商品？</p>
+<div class="flex justify-center space-x-4 mt-6">
+<button class="px-6 py-2 border border-gray-200 rounded-button" onclick="closeDeleteConfirm()">取消</button>
+<button class="px-6 py-2 bg-primary text-white rounded-button" onclick="confirmDelete()">确认</button>
+</div>
+</div>
+</div>
+<script>
+let isManageMode = false;
+function toggleManage() {
+isManageMode = !isManageMode;
+document.querySelector('nav button').textContent = isManageMode ? '完成' : '管理';
+const normalBottom = document.querySelector('.fixed.bottom-0:not(#manageButtons)');
+const manageButtons = document.getElementById('manageButtons');
+if (isManageMode) {
+normalBottom.classList.add('hidden');
+manageButtons.classList.remove('hidden');
+} else {
+normalBottom.classList.remove('hidden');
+manageButtons.classList.add('hidden');
+}
+}
+function moveToFavorite() {
+const checkedItems = document.querySelectorAll('#cartItems input[type="checkbox"]:checked');
+if (checkedItems.length === 0) {
+showToast('请选择要移入收藏的商品');
+return;
+}
+showToast('已成功移入收藏');
+checkedItems.forEach(checkbox => {
+checkbox.closest('.flex.items-center').remove();
+});
+checkEmptyCart();
+}
+function showToast(message) {
+const toast = document.createElement('div');
+toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 text-white px-4 py-2 rounded-lg z-50';
+toast.textContent = message;
+document.body.appendChild(toast);
+setTimeout(() => toast.remove(), 2000);
+}
+function checkEmptyCart() {
+const cartItems = document.querySelectorAll('#cartItems > div');
+if (cartItems.length === 0) {
+document.getElementById('cartItems').style.display = 'none';
+document.getElementById('emptyCart').style.display = 'flex';
+}
+}
+document.getElementById('selectAllManage').addEventListener('change', function(e) {
+document.querySelectorAll('#cartItems input[type="checkbox"]')
+.forEach(checkbox => checkbox.checked = e.target.checked);
+});
+function updateQuantity(btn, delta) {
+const input = btn.parentElement.querySelector('input');
+let value = parseInt(input.value) + delta;
+if (value < 1) value = 1;
+input.value = value;
+}
+function showDeleteConfirm() {
+document.getElementById('deleteConfirm').style.display = 'flex';
+}
+function closeDeleteConfirm() {
+document.getElementById('deleteConfirm').style.display = 'none';
+}
+function confirmDelete() {
+closeDeleteConfirm();
+document.getElementById('cartItems').style.display = 'none';
+document.getElementById('emptyCart').style.display = 'flex';
+}
+document.getElementById('selectAll').addEventListener('change', function(e) {
+document.querySelectorAll('#cartItems input[type="checkbox"]')
+.forEach(checkbox => checkbox.checked = e.target.checked);
+});
+</script>
+</body>
+</html>

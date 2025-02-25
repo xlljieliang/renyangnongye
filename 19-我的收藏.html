@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的收藏</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { background-color: #F8FAF5; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="w-[375px] min-h-screen mx-auto bg-white">
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+<div class="flex items-center justify-between px-4 h-12">
+<div class="flex items-center">
+<button class="w-8 h-8 flex items-center justify-center" onclick="history.back()">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</button>
+<span class="ml-2 text-base font-medium">我的收藏 (125)</span>
+</div>
+<div class="flex items-center space-x-4">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-search-line text-xl"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-more-line text-xl"></i>
+</button>
+</div>
+</div>
+<div class="px-4 pb-2">
+<div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-2">
+<button class="px-3 py-1 bg-secondary text-primary text-sm rounded-full whitespace-nowrap">认养项目</button>
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full whitespace-nowrap">特惠</button>
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full whitespace-nowrap">新品上市</button>
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full whitespace-nowrap">农场直供</button>
+<div class="flex items-center space-x-2 ml-auto">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-equalizer-line text-xl"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-filter-3-line text-xl"></i>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-4 px-4 space-y-4">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="flex p-3 space-x-3">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img src="https://public.readdy.ai/ai/img_res/196d077c4b8cba9a231090ecf0facd80.jpg" class="w-full h-full object-cover" alt="有机蔬菜">
+</div>
+<div class="flex-1">
+<div class="flex items-start justify-between">
+<div>
+<span class="inline-block px-1.5 py-0.5 text-xs text-primary bg-secondary rounded mr-1">认养</span>
+<h3 class="text-sm font-medium">阳光农场有机蔬菜认养计划</h3>
+</div>
+</div>
+<div class="mt-1 text-xs text-gray-500">阳光有机农场</div>
+<div class="mt-2 flex items-center justify-between">
+<div class="text-primary font-medium">¥268<span class="text-xs text-gray-400 ml-1">/季度</span></div>
+<div class="text-xs text-gray-400">1280人认养</div>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">降价提醒</button>
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">找相似</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="flex p-3 space-x-3">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img src="https://public.readdy.ai/ai/img_res/e4a15af3cb10119b37f3f02404e3a7e0.jpg" class="w-full h-full object-cover" alt="散养鸡">
+</div>
+<div class="flex-1">
+<div class="flex items-start justify-between">
+<div>
+<span class="inline-block px-1.5 py-0.5 text-xs text-primary bg-secondary rounded mr-1">认养</span>
+<h3 class="text-sm font-medium">山林散养土鸡认养项目</h3>
+</div>
+</div>
+<div class="mt-1 text-xs text-gray-500">绿色山林农场</div>
+<div class="mt-2 flex items-center justify-between">
+<div class="text-primary font-medium">¥399<span class="text-xs text-gray-400 ml-1">/只</span></div>
+<div class="text-xs text-gray-400">826人认养</div>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">降价提醒</button>
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">找相似</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="flex p-3 space-x-3">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img src="https://public.readdy.ai/ai/img_res/fc95095f84b1b3138fc4013ac46d7efb.jpg" class="w-full h-full object-cover" alt="果树认养">
+</div>
+<div class="flex-1">
+<div class="flex items-start justify-between">
+<div>
+<span class="inline-block px-1.5 py-0.5 text-xs text-primary bg-secondary rounded mr-1">认养</span>
+<h3 class="text-sm font-medium">高山果园苹果树认养</h3>
+</div>
+</div>
+<div class="mt-1 text-xs text-gray-500">山顶果园</div>
+<div class="mt-2 flex items-center justify-between">
+<div class="text-primary font-medium">¥588<span class="text-xs text-gray-400 ml-1">/年</span></div>
+<div class="text-xs text-gray-400">1560人认养</div>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">降价提醒</button>
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">找相似</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="flex p-3 space-x-3">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img src="https://public.readdy.ai/ai/img_res/d7b9899a1f0ede4335aa6483584baab6.jpg" class="w-full h-full object-cover" alt="水稻田">
+</div>
+<div class="flex-1">
+<div class="flex items-start justify-between">
+<div>
+<span class="inline-block px-1.5 py-0.5 text-xs text-primary bg-secondary rounded mr-1">认养</span>
+<h3 class="text-sm font-medium">稻田认养计划</h3>
+</div>
+</div>
+<div class="mt-1 text-xs text-gray-500">稻香农场</div>
+<div class="mt-2 flex items-center justify-between">
+<div class="text-primary font-medium">¥999<span class="text-xs text-gray-400 ml-1">/亩</span></div>
+<div class="text-xs text-gray-400">680人认养</div>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">降价提醒</button>
+<button class="px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded-full">找相似</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

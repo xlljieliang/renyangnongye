@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, user-scalable=no">
+<title>选择兴趣</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: SimSun, "宋体", serif;
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+}
+.interest-card {
+transition: all 0.3s ease;
+}
+.interest-card.selected {
+background-color: #2E5E3F;
+color: white;
+}
+.interest-card.selected i {
+color: white;
+}
+</style>
+</head>
+<body class="bg-white w-[375px] min-h-[762px] mx-auto overflow-y-auto">
+<div class="fixed top-0 left-0 w-full bg-white z-10 px-5 pt-12 pb-4">
+<h1 class="text-2xl font-bold mb-2">选择感兴趣的内容</h1>
+<p class="text-gray-400 text-sm">根据兴趣，为您推送个性化的内容</p>
+</div>
+<div class="px-5 pt-32 pb-24">
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/4bfb443f3f5a5b4756a17dc56376cbd8.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">蔬菜</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/c360d236eda671371d43e2c2d9d34bac.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">葡萄</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/725422d07caf88876075e1517d1c4466.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">家禽</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/36cc72add1f3c0f10ac278eeaabeb455.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">牲畜</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/6763b8eb8776d1d525494e80d9d5d675.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">花卉</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/70d678508335612dd0bd41d99be8e256.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">水产</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/219596b627063d8568ceb250a15c55b0.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">果树</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/625e97eae68edad07f724b0b3ca7148d.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">水稻</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/5dbf2598f6b5f22723cc3eb9bd4f495a.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">小麦</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/a704bdaab00b9fe662032444f90fe8c9.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">茶园</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/bef84f9d0ee5356cf941ec987f39e3c8.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">蜜蜂</p>
+</div>
+<div class="interest-card bg-secondary rounded-lg p-4 cursor-pointer" onclick="toggleSelect(this)">
+<div class="w-full aspect-square mb-3">
+<img src="https://public.readdy.ai/ai/img_res/e045dfaac45daed5055b24ab48fb05f6.jpg" class="w-full h-full object-cover rounded-lg">
+</div>
+<p class="text-center text-sm">中药材</p>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 w-full bg-white p-4 flex gap-4">
+<button class="flex-1 py-3 bg-primary text-white !rounded-button" onclick="showToast('已选择兴趣')">下一步</button>
+<button class="flex-1 py-3 border border-primary text-primary !rounded-button" onclick="showToast('已跳过选择')">跳过</button>
+</div>
+<div id="toast" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg hidden"></div>
+<script>
+function toggleSelect(element) {
+element.classList.toggle('selected');
+}
+function showToast(message) {
+const toast = document.getElementById('toast');
+toast.textContent = message;
+toast.classList.remove('hidden');
+setTimeout(() => {
+toast.classList.add('hidden');
+}, 2000);
+window.location.href = '4.1首页.html'
+}
+</script>
+</body>
+</html>

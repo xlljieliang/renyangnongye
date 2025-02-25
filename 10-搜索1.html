@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>搜索</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+font-family: SimSun, serif;
+}
+.rank-list {
+max-height: 200px;
+overflow-y: auto;
+scrollbar-width: none;
+}
+.rank-list::-webkit-scrollbar {
+display: none;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.search-history::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body class="bg-white w-[375px] min-h-[762px] mx-auto relative overflow-hidden">
+<div class="fixed top-0 left-0 right-0 bg-white z-50 px-4 pt-3 pb-2">
+<div class="relative">
+    <input type="text" onclick="redirectToPage()" placeholder="请输入搜索内容" class="w-full h-11 bg-gray-100 rounded-full pl-4 pr-12 text-sm focus:outline-none">
+<div class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
+<i class="ri-filter-3-line text-gray-400"></i>
+</div>
+</div>
+</div>
+<div class="mt-[72px] px-4 mb-20">
+<div class="flex items-center justify-between mb-3">
+<div class="text-sm text-gray-600">历史搜索</div>
+<div class="w-6 h-6 flex items-center justify-center cursor-pointer" id="clearHistory">
+<i class="ri-delete-bin-line text-gray-400"></i>
+</div>
+</div>
+<div class="search-history flex gap-2 overflow-x-auto pb-2">
+<button class="shrink-0 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm">水果</button>
+<button class="shrink-0 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm">蔬菜</button>
+<button class="shrink-0 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm">家禽</button>
+<button class="shrink-0 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm">水产</button>
+<button class="shrink-0 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm">粮食</button>
+</div>
+<div class="mt-6">
+<div class="text-base font-medium mb-3">本月认养热度排行榜</div>
+<div class="space-y-2 rank-list">
+<div class="bg-secondary rounded-lg p-3 flex items-center">
+<div class="text-xl font-medium text-[#FF9800] mr-3">1</div>
+<div class="flex-1">
+<div class="text-sm">浙江：认养一棵桃树</div>
+<div class="text-xs text-gray-500 mt-1">热度 50.3万</div>
+</div>
+<div class="shrink-0 bg-[#FF9800]/10 text-[#FF9800] text-xs px-1.5 py-0.5 rounded">热</div>
+</div>
+<div class="bg-secondary rounded-lg p-3 flex items-center">
+<div class="text-xl font-medium text-[#FF9800] mr-3">2</div>
+<div class="flex-1">
+<div class="text-sm">福建：认养一亩茶园</div>
+<div class="text-xs text-gray-500 mt-1">热度 49.8万</div>
+</div>
+<div class="shrink-0 bg-[#FF9800]/10 text-[#FF9800] text-xs px-1.5 py-0.5 rounded">热</div>
+</div>
+<div class="bg-secondary rounded-lg p-3 flex items-center">
+<div class="text-xl font-medium text-[#FF9800] mr-3">3</div>
+<div class="flex-1">
+<div class="text-sm">四川：认养一株猕猴桃</div>
+<div class="text-xs text-gray-500 mt-1">热度 34.2万</div>
+</div>
+<div class="shrink-0 bg-[#FF9800]/10 text-[#FF9800] text-xs px-1.5 py-0.5 rounded">热</div>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<div class="text-base font-medium mb-3">当季推荐认养排行榜</div>
+<div class="space-y-2 rank-list">
+<div class="bg-secondary rounded-lg p-3 flex items-center">
+<div class="text-xl font-medium text-[#FF9800] mr-3">1</div>
+<div class="flex-1">
+<div class="text-sm">云南：认养一株咖啡树</div>
+<div class="text-xs text-gray-500 mt-1">热度 45.6万</div>
+</div>
+<div class="shrink-0 bg-[#FF9800]/10 text-[#FF9800] text-xs px-1.5 py-0.5 rounded">热</div>
+</div>
+<div class="bg-secondary rounded-lg p-3 flex items-center">
+<div class="text-xl font-medium text-[#FF9800] mr-3">2</div>
+<div class="flex-1">
+<div class="text-sm">海南：认养一株椰子树</div>
+<div class="text-xs text-gray-500 mt-1">热度 42.3万</div>
+</div>
+<div class="shrink-0 bg-[#FF9800]/10 text-[#FF9800] text-xs px-1.5 py-0.5 rounded">热</div>
+</div>
+<div class="bg-secondary rounded-lg p-3 flex items-center">
+<div class="text-xl font-medium text-[#FF9800] mr-3">3</div>
+<div class="flex-1">
+<div class="text-sm">广东：认养一亩荔枝园</div>
+<div class="text-xs text-gray-500 mt-1">热度 38.9万</div>
+</div>
+<div class="shrink-0 bg-[#FF9800]/10 text-[#FF9800] text-xs px-1.5 py-0.5 rounded">热</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+<div class="grid grid-cols-5 h-[56px]">
+<a class="flex flex-col items-center justify-center">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-5-line text-gray-400"></i>
+</div>
+<div class="text-xs text-gray-400 mt-0.5">首页</div>
+</a>
+<a class="flex flex-col items-center justify-center">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-book-2-line text-gray-400"></i>
+</div>
+<div class="text-xs text-gray-400 mt-0.5">知识库</div>
+</a>
+<a class="flex flex-col items-center justify-center">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-search-line text-primary"></i>
+</div>
+<div class="text-xs text-primary mt-0.5">搜索</div>
+</a>
+<a class="flex flex-col items-center justify-center">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-team-line text-gray-400"></i>
+</div>
+<div class="text-xs text-gray-400 mt-0.5">社区</div>
+</a>
+<a class="flex flex-col items-center justify-center">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-user-3-line text-gray-400"></i>
+</div>
+<div class="text-xs text-gray-400 mt-0.5">我的</div>
+</a>
+</div>
+</div>
+<script>
+const searchInput = document.querySelector('input');
+const historyButtons = document.querySelectorAll('.search-history button');
+const rankLists = document.querySelectorAll('.rank-list');
+const clearHistoryBtn = document.getElementById('clearHistory');
+const searchHistory = document.querySelector('.search-history');
+clearHistoryBtn.addEventListener('click', () => {
+while(searchHistory.firstChild) {
+searchHistory.removeChild(searchHistory.firstChild);
+}
+const emptyText = document.createElement('div');
+emptyText.className = 'text-sm text-gray-400 py-2';
+emptyText.textContent = '暂无搜索历史';
+searchHistory.appendChild(emptyText);
+});
+searchInput.addEventListener('focus', () => {
+searchInput.classList.add('ring-2', 'ring-primary/20');
+});
+searchInput.addEventListener('blur', () => {
+searchInput.classList.remove('ring-2', 'ring-primary/20');
+});
+historyButtons.forEach(button => {
+button.addEventListener('click', () => {
+searchInput.value = button.textContent;
+});
+});
+rankLists.forEach(list => {
+let startY;
+let scrollTop;
+let isDragging = false;
+list.addEventListener('touchstart', (e) => {
+startY = e.touches[0].pageY;
+scrollTop = list.scrollTop;
+isDragging = true;
+});
+list.addEventListener('touchmove', (e) => {
+if (!isDragging) return;
+e.preventDefault();
+const y = e.touches[0].pageY;
+const walk = (startY - y);
+list.scrollTop = scrollTop + walk;
+});
+list.addEventListener('touchend', () => {
+isDragging = false;
+});
+});
+function redirectToPage() {
+    window.location.href = "11-搜索2.html";
+}
+</script>
+</body>
+</html>

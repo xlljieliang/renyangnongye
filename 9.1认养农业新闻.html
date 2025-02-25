@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>认养农业</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.banner-slide {
+transition: transform 0.3s ease-in-out;
+}
+.comment-input:focus {
+outline: none;
+}
+</style>
+</head>
+<body class="bg-white">
+<nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 px-4 py-3 flex justify-between items-center border-b border-gray-100">
+<button class="w-8 h-8 flex items-center justify-center" onclick="history.back()">
+<i class="ri-arrow-left-line text-primary text-xl"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-menu-line text-primary text-xl"></i>
+</button>
+</nav>
+<div class="mt-14 relative h-64 overflow-hidden">
+<div class="banner-slide flex transition-transform duration-300">
+<img src="https://public.readdy.ai/ai/img_res/b6b0f9d793fed7b3fb856171607763c6.jpg" class="w-full h-64 object-cover" alt="Farm">
+</div>
+</div>
+<div class="px-4 py-6">
+<h1 class="text-2xl font-semibold text-gray-900 leading-tight">探索未来农业：智慧认养，共创绿色生活</h1>
+<div class="flex items-center mt-3 text-sm text-gray-500">
+<span>2025-02-22</span>
+<span class="mx-2">·</span>
+<span>阅读 2,358</span>
+</div>
+<div class="mt-6 space-y-4 text-gray-700 leading-relaxed">
+<p>在现代农业发展的浪潮中，认养农业正成为连接城市与乡村的新纽带。通过智能化管理和可持续发展理念，我们为都市人群提供"云上农场"的独特体验。</p>
+<div class="grid grid-cols-2 gap-4 my-6">
+<div class="bg-secondary p-4 rounded-lg text-center">
+<div class="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
+<i class="ri-plant-line text-primary text-2xl"></i>
+</div>
+<p class="text-sm font-medium text-gray-900">有机认证</p>
+<p class="text-xs text-gray-600 mt-1">100% 绿色种植</p>
+</div>
+<div class="bg-secondary p-4 rounded-lg text-center">
+<div class="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
+<i class="ri-shield-check-line text-primary text-2xl"></i>
+</div>
+<p class="text-sm font-medium text-gray-900">品质保障</p>
+<p class="text-xs text-gray-600 mt-1">全程可追溯</p>
+</div>
+</div>
+<p>每一块认养土地都配备智能监测系统，实时掌握作物生长状况。认养人可以通过手机随时查看农作物生长情况，参与种植决策，收获专属于自己的绿色食材。</p>
+</div>
+<div class="flex items-center justify-between mt-6 py-4 border-t border-gray-100">
+<button class="flex items-center space-x-1 text-gray-600">
+<i class="ri-thumb-up-line"></i>
+<span class="text-sm">赞 (238)</span>
+</button>
+<button class="flex items-center space-x-1 text-gray-600">
+<i class="ri-share-line"></i>
+<span class="text-sm">分享</span>
+</button>
+</div>
+<div class="mt-8">
+<h3 class="text-lg font-medium text-gray-900 mb-4">相关推荐</h3>
+<div class="space-y-4">
+<div class="flex space-x-3 p-3 bg-secondary rounded-lg">
+<img src="https://public.readdy.ai/ai/img_res/5a6f7bc521c5a93ea2038c55d118f53f.jpg" class="w-20 h-20 rounded-lg object-cover" alt="相关推荐">
+<div class="flex-1">
+<h4 class="text-sm font-medium text-gray-900">春季有机蔬菜认养计划开启</h4>
+<p class="text-xs text-gray-600 mt-1">限量100份，含20种时令蔬菜</p>
+</div>
+</div>
+<div class="flex space-x-3 p-3 bg-secondary rounded-lg">
+<img src="https://public.readdy.ai/ai/img_res/4ced01a69ec3df4ee44640bf25e453b0.jpg" class="w-20 h-20 rounded-lg object-cover" alt="相关推荐">
+<div class="flex-1">
+<h4 class="text-sm font-medium text-gray-900">智慧农业示范基地参观日</h4>
+<p class="text-xs text-gray-600 mt-1">带你探索现代化种植技术</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const likeButton = document.querySelector('.ri-thumb-up-line').parentElement;
+let isLiked = false;
+likeButton.addEventListener('click', function() {
+const likeCount = this.querySelector('span');
+const icon = this.querySelector('i');
+if (!isLiked) {
+icon.classList.remove('ri-thumb-up-line');
+icon.classList.add('ri-thumb-up-fill');
+icon.classList.add('text-primary');
+likeCount.textContent = '赞 (239)';
+isLiked = true;
+} else {
+icon.classList.add('ri-thumb-up-line');
+icon.classList.remove('ri-thumb-up-fill');
+icon.classList.remove('text-primary');
+likeCount.textContent = '赞 (238)';
+isLiked = false;
+}
+});
+const shareButton = document.querySelector('.ri-share-line').parentElement;
+shareButton.addEventListener('click', function() {
+const shareDialog = document.createElement('div');
+shareDialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+shareDialog.innerHTML = `
+<div class="bg-white rounded-lg w-[300px] p-6">
+<h3 class="text-lg font-medium text-center mb-4">分享到</h3>
+<div class="grid grid-cols-4 gap-4 mb-6">
+<button class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-1">
+<i class="ri-wechat-fill text-[#07C160] text-2xl"></i>
+</div>
+<span class="text-xs">微信</span>
+</button>
+<button class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-1">
+<i class="ri-weibo-fill text-[#E6162D] text-2xl"></i>
+</div>
+<span class="text-xs">微博</span>
+</button>
+<button class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-1">
+<i class="ri-qq-fill text-[#1DA1F2] text-2xl"></i>
+</div>
+<span class="text-xs">QQ</span>
+</button>
+<button class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-1">
+<i class="ri-link text-gray-600 text-2xl"></i>
+</div>
+<span class="text-xs">复制链接</span>
+</button>
+</div>
+<button class="w-full py-2 text-center text-gray-600 border-t" onclick="this.parentElement.parentElement.remove()">取消</button>
+</div>
+`;
+document.body.appendChild(shareDialog);
+});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0">
+<title>我的足迹</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { width: 375px; margin: 0 auto; min-height: 100vh; background: #F5F5F5; }
+.tab-active { background: #2E5E3F !important; color: white !important; border-color: #2E5E3F !important; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50">
+<header class="fixed top-0 left-0 right-0 bg-white z-50">
+<div class="flex items-center justify-between px-4 h-12">
+<div class="flex items-center">
+<button class="p-2" onclick="history.back()">
+<i class="ri-arrow-left-s-line text-xl text-primary"></i>
+</button>
+<span class="text-lg font-['SimSun']">浏览记录 (44)</span>
+</div>
+<div class="flex items-center space-x-4">
+<button class="p-2">
+<i class="ri-search-line text-xl text-primary"></i>
+</button>
+</div>
+</div>
+<div class="flex justify-between p-3 text-sm bg-gray-50">
+<div class="flex space-x-2">
+<button class="px-4 py-1.5 bg-white rounded-full" onclick="switchTab('today')">今天</button>
+<button class="px-4 py-1.5 bg-primary text-white rounded-full" onclick="switchTab('week')">本周</button>
+<button class="px-4 py-1.5 bg-white rounded-full" onclick="switchTab('month')">本月</button>
+</div>
+<div class="flex space-x-2">
+<button class="px-4 py-1.5 bg-primary text-white rounded-full">浏览</button>
+</div>
+</div>
+</header>
+<main class="mt-28 px-4 pb-16 bg-[#E8F5E9]">
+<div class="text-sm text-gray-400 mb-4 font-['SimSun']">2月22日</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/09d5d3c5a31ed6588200623f0302efd7.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">有机蔬菜礼盒装</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">精选新鲜时令蔬菜</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:19 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>23</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>12</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/31e80f97e1cf08ba85640eb614383a3d.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">有机巨峰葡萄</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">新鲜采摘 现货直发</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:20 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>45</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>18</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/88ca41adaf8a8bf88fb1f00ba83b3b35.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">丹东99草莓</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">现摘现发 甜度爆表</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:21 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>67</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>29</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/13bfe91b70c978f78f8497026cfafdbb.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">蓝莓鲜果</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">空运直达 新鲜采摘</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:21 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>34</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>15</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/0d514f1e095f29a5fae5bb4795c85281.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">荷斯坦奶牛</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">优质乳牛 品质保证</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:22 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>89</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>41</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/70ff42871fca3a588646c316c2da2116.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">黑猪土猪</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">散养黑猪 品质保证</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:22 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>56</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>23</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/b54682b190b59e15df6d07bfc4470d72.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">散养土鸡蛋</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">散养蛋鸡 营养丰富</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:23 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>78</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>32</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="https://public.readdy.ai/ai/img_res/c354e45edd8e04f2fb15adc11fbb6c15.jpg" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">有机青菜</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">新鲜采摘 绿色种植</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>08:24 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>43</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>19</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+const mockData = {
+weekData: [
+{
+date: '2月19日',
+items: [
+{
+image: 'https://public.readdy.ai/ai/img_res/6b3016da750e93d987c1d0a4059287ce.jpg',
+title: '农用拖拉机',
+desc: '大马力农机设备',
+time: '15:30',
+likes: 156,
+comments: 45
+},
+{
+image: 'https://public.readdy.ai/ai/img_res/f2b025780dd1c408f60218613e1d02e3.jpg',
+title: '智能温室大棚',
+desc: '智能控温系统',
+time: '14:20',
+likes: 89,
+comments: 23
+}
+]
+},
+{
+date: '2月18日',
+items: [
+{
+image: 'https://public.readdy.ai/ai/img_res/37d85d11492ac9b9f49cfbc3562cddf4.jpg',
+title: '有机肥料',
+desc: '纯天然有机肥',
+time: '10:15',
+likes: 67,
+comments: 31
+}
+]
+}
+],
+monthData: [
+{
+date: '2月1日',
+items: [
+{
+image: 'https://public.readdy.ai/ai/img_res/7583b9794f67e59e63482d0a02429cad.jpg',
+title: '纯天然蜂蜜',
+desc: '农家自产土蜂蜜',
+time: '09:30',
+likes: 234,
+comments: 89
+},
+{
+image: 'https://public.readdy.ai/ai/img_res/7d0c284eeb395e8df10c782c564f603d.jpg',
+title: '有机稻田',
+desc: '生态种植基地',
+time: '10:45',
+likes: 178,
+comments: 56
+}
+]
+},
+{
+date: '2月3日',
+items: [
+{
+image: 'https://public.readdy.ai/ai/img_res/548658caea308b4b09c841eeee2da49e.jpg',
+title: '野生菌菇',
+desc: '深山采摘鲜菇',
+time: '14:20',
+likes: 145,
+comments: 42
+},
+{
+image: 'https://public.readdy.ai/ai/img_res/cc6f4026af362a6d47f4544d6a926084.jpg',
+title: '有机茶园',
+desc: '高山云雾茶',
+time: '16:15',
+likes: 198,
+comments: 67
+}
+]
+}
+]
+};
+function switchTab(period) {
+const buttons = document.querySelectorAll('.flex.space-x-2:first-child button');
+buttons.forEach(btn => {
+btn.classList.remove('bg-primary', 'text-white');
+btn.classList.add('bg-white');
+});
+const clickedButton = document.querySelector(`button[onclick="switchTab('${period}')"]`);
+clickedButton.classList.remove('bg-white');
+clickedButton.classList.add('bg-primary', 'text-white');
+
+const mainContent = document.querySelector('main');
+let newContent = '';
+const data = period === 'week' ? mockData.weekData : period === 'month' ? mockData.monthData : [];
+
+data.forEach(day => {
+newContent += `
+<div class="text-sm text-gray-400 mb-4 font-['SimSun']">${day.date}</div>
+<div class="grid grid-cols-2 gap-4">
+${day.items.map(item => `
+<div class="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="relative pt-[56.25%]">
+<img src="${item.image}" class="absolute inset-0 w-full h-full object-cover" alt="">
+</div>
+<div class="p-3">
+<div class="text-base font-['SimSun'] mb-1 line-clamp-2">${item.title}</div>
+<div class="text-sm text-gray-600 mb-2 line-clamp-1">${item.desc}</div>
+<div class="flex items-center justify-between text-xs text-gray-500">
+<span>${item.time} 浏览</span>
+<div class="flex items-center space-x-2">
+<span class="flex items-center"><i class="ri-heart-line mr-1"></i>${item.likes}</span>
+<span class="flex items-center"><i class="ri-message-2-line mr-1"></i>${item.comments}</span>
+</div>
+</div>
+</div>
+</div>
+`).join('')}
+</div>
+`;
+});
+mainContent.innerHTML = newContent;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0">
+<title>社区</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+width: 375px;
+margin: 0 auto;
+min-height: 100vh;
+background: #F5F5F5;
+font-family: SimSun, "宋体", serif;
+}
+.tab-active { color: #2E5E3F; border-bottom: 2px solid #2E5E3F; }
+.like-btn.active { color: #2E5E3F; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2E5E3F',
+secondary: '#E8F5E9'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-[#F5F5F5]">
+<header class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-100 shadow-sm">
+<div class="h-12 flex items-center justify-between px-4">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-arrow-left-s-line text-xl"></i>
+</div>
+<h1 class="text-base font-medium">社区</h1>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-more-line text-xl"></i>
+</div>
+</div>
+<div class="flex text-sm">
+    <button class="flex-1 h-10 tab-active">认养日志</button>
+    <button onclick="window.location.href='14-社区2.html'" class="flex-1 h-10 text-gray-500">我的部落</button>
+</div>
+</header>
+<main class="pt-24 pb-4 px-4">
+<div class="space-y-6" id="feed-container">
+<!-- 动态内容通过JavaScript动态生成 -->
+</div>
+</main>
+<script>
+const mockData = [
+{
+id: 1,
+avatar: "https://public.readdy.ai/ai/img_res/63916c6cc5be5173612220a762822524.jpg",
+nickname: "云认养001",
+content: "大家早上好，又是元气满满的一天！",
+images: [
+"https://public.readdy.ai/ai/img_res/9dcec978182c2de8c64ed29f72b9a99c.jpg",
+"https://public.readdy.ai/ai/img_res/316576943d8751e6be5431d021c9ff2e.jpg",
+"https://public.readdy.ai/ai/img_res/95a28f54f4132081dbe1ec5879c331d5.jpg"
+],
+time: "1小时前",
+likes: 101
+},
+{
+id: 2,
+avatar: "https://public.readdy.ai/ai/img_res/86ed934a1c0b6df04bce0a4c3d46d994.jpg",
+nickname: "云认养002",
+content: "来果园啦～",
+images: [
+"https://public.readdy.ai/ai/img_res/bdbe9080b031816e84118ecd90d4b968.jpg",
+"https://public.readdy.ai/ai/img_res/675e6beb3e129505fd52e9e37987dadb.jpg",
+"https://public.readdy.ai/ai/img_res/68d876e8de240e39bbd7fa11019f0773.jpg"
+],
+time: "2小时前",
+likes: 89
+},
+{
+id: 3,
+avatar: "https://public.readdy.ai/ai/img_res/ffa4e9759828d0b294f4901904f2ff6f.jpg",
+nickname: "田园生活家",
+content: "今天的蔬菜长势喜人，特别是这些有机西红柿，色泽红润，非常诱人！期待收获的那一天～",
+images: [
+"https://public.readdy.ai/ai/img_res/10b5ca8d230dae778cbbbe2785202456.jpg",
+"https://public.readdy.ai/ai/img_res/db519077671b94d1bd2723e94a3bd356.jpg",
+"https://public.readdy.ai/ai/img_res/c26f982c9fdab1ac168ae222d6870a5f.jpg"
+],
+time: "3小时前",
+likes: 156
+},
+{
+id: 4,
+avatar: "https://public.readdy.ai/ai/img_res/041d0f02cc627391387a7ea535b3d6a2.jpg",
+nickname: "农场达人",
+content: "分享一下我们农场的新成员们，这些小羊羔真是太可爱了！大家觉得它们萌不萌？",
+images: [
+"https://public.readdy.ai/ai/img_res/edc7b398ae9a9c726b221b182321986d.jpg",
+"https://public.readdy.ai/ai/img_res/ce093f7617eab18d9037d9022efd6e2c.jpg",
+"https://public.readdy.ai/ai/img_res/c05d1ae9675e18f6f92702e80d400f54.jpg"
+],
+time: "4小时前",
+likes: 234
+},
+{
+id: 5,
+avatar: "https://public.readdy.ai/ai/img_res/9b6b6c9ad37e42680a74c043774bfecc.jpg",
+nickname: "果园小精灵",
+content: "春天到了，果树开花了！空气中都是甜甜的花香，今年一定会有个好收成",
+images: [
+"https://public.readdy.ai/ai/img_res/3b45ed578c5c3e0d3f044b30159f930a.jpg",
+"https://public.readdy.ai/ai/img_res/871521b4cbad6bc3c324e19fdcc55efa.jpg",
+"https://public.readdy.ai/ai/img_res/0e74a508accd95107c35111332b41761.jpg"
+],
+time: "5小时前",
+likes: 178
+}
+];
+function createFeedItem(item) {
+const feedHtml = `
+<article class="flex gap-3 bg-white p-4 rounded-lg shadow-sm">
+<img src="${item.avatar}" class="w-10 h-10 rounded-full" alt="avatar">
+<div class="flex-1">
+<h3 class="text-[#2E5E3F] font-medium text-sm">${item.nickname}</h3>
+<p class="mt-1 text-sm text-gray-900">${item.content}</p>
+<div class="mt-2 grid grid-cols-3 gap-2">
+${item.images.map(img => `
+<div class="aspect-square rounded-lg overflow-hidden cursor-pointer" onclick="showFullImage('${img}')">
+<img src="${img}" class="w-full h-full object-cover" alt="">
+</div>
+`).join('')}
+</div>
+<div class="mt-2 flex items-center justify-between text-xs text-gray-500">
+<span>${item.time}</span>
+<button class="like-btn flex items-center gap-1" onclick="toggleLike(this)">
+<i class="ri-heart-line"></i>
+<span>${item.likes}</span>
+</button>
+</div>
+</div>
+</article>
+`;
+return feedHtml;
+}
+function renderFeed() {
+const container = document.getElementById('feed-container');
+mockData.forEach(item => {
+container.innerHTML += createFeedItem(item);
+});
+}
+function toggleLike(btn) {
+btn.classList.toggle('active');
+const icon = btn.querySelector('i');
+if (btn.classList.contains('active')) {
+icon.classList.replace('ri-heart-line', 'ri-heart-fill');
+} else {
+icon.classList.replace('ri-heart-fill', 'ri-heart-line');
+}
+}
+
+function showFullImage(imgSrc) {
+const modal = document.createElement('div');
+modal.className = 'fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center';
+modal.onclick = () => modal.remove();
+
+const img = document.createElement('img');
+img.src = imgSrc;
+img.className = 'max-w-[90%] max-h-[90vh] object-contain';
+img.onclick = e => e.stopPropagation();
+
+modal.appendChild(img);
+document.body.appendChild(modal);
+}
+
+renderFeed();
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>田缘</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#654321',
+secondary: '#90EE90'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<style>
+.splash-text {
+font-family: 'ZCOOL XiaoWei', serif;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+animation: fadeIn 1.5s ease-out forwards;
+}
+.logo-animation {
+animation: fadeIn 2s ease-out forwards;
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeOut 1s ease-in-out forwards;
+    z-index: 9999; /* 确保在最上层 */
+  }
+</style>
+</head>
+<body class="w-[375px] h-[762px] bg-white flex flex-col items-center justify-center mx-auto">
+<div class="logo-animation flex flex-col items-center">
+<div class="w-32 h-32 relative mb-6">
+<img src="https://static.readdy.ai/image/7322974857bc51e534b865276e72c961/664868ee4b960b8a17724aad3738b0ce.png" alt="田缘 Logo" class="w-full h-full object-contain">
+</div>
+<h1 class="text-4xl font-bold text-primary splash-text mb-4">田缘</h1>
+</div>
+<div class="fade-in mt-auto mb-20">
+<p class="text-lg text-primary splash-text tracking-widest">田缘逸趣，缘起绿野</p>
+</div>
+
+<div class="loader"></div>
+  <script>
+    // 监听动画结束事件
+    document.querySelector('.loader').addEventListener('animationend', () => {
+      // 短暂延迟确保动画完成
+      setTimeout(() => {
+        sessionStorage.setItem('isRedirected', 'true'); // 标记跳转来源
+        window.location.href = '2-登录页.html';          // 跳转到登录页
+      }, 300);
+    })
+    setTimeout(() => {
+      window.location.href = '2-登录页.html';
+    }, 5000);
+  </script>
+</body>
+</html>
